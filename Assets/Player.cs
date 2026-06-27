@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private SpriteRenderer spriteRenderer;
+    public DialogueManager dialoguePanel;
     
     void Start()
     {
