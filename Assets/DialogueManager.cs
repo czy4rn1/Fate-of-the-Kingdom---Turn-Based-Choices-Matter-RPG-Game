@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour, INotificationReceiver
 {

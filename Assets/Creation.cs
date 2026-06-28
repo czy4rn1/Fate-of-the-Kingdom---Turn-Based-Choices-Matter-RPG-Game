@@ -28,9 +28,11 @@ public class Creation : MonoBehaviour
     private const float cursorYStart = 1.25f;
     private const float confirmCursorYJump = 0.4f;
     private const float confirmCursorYStart = -0.5f;
-    public string nextScene;
+
+    public OpeningCutsceneTimeline oct;
     void Start()
     {
+        oct = FindAnyObjectByType<OpeningCutsceneTimeline>();
         confirmCursor.SetActive(false);
         confirmPanel.SetActive(false);
         for(int i=0; i<categories.Length; i++)
@@ -61,16 +63,21 @@ public class Creation : MonoBehaviour
             }
             else
             {
-                confirmCursorPos = 0;
-                confirmCursor.transform.localPosition = new Vector3(confirmCursor.transform.localPosition.x, 
-                confirmCursorYStart - confirmCursorPos * confirmCursorYJump);
-                confirmCursor.SetActive(false);
-                confirmPanel.SetActive(false);
-                cursor.SetActive(true);
-                confirmCursorActive = false;
-                if(confirmCursorPos == 0)
+                if (confirmCursorPos == 1) {
+                    confirmCursorPos = 0;
+                    confirmCursor.transform.localPosition = new Vector3(confirmCursor.transform.localPosition.x, 
+                    confirmCursorYStart - confirmCursorPos * confirmCursorYJump);
+                    confirmCursor.SetActive(false);
+                    confirmPanel.SetActive(false);
+                    cursor.SetActive(true);
+                    confirmCursorActive = false;
+                }
+                else if (confirmCursorPos == 0)
                 {
-                    SceneManager.LoadScene(nextScene);
+                    if (oct != null) {
+                        Debug.Log("Cofam scene");
+                        oct.UnloadNextScene("CreatorScene");
+                    }
                 }
             }
         }

@@ -4,8 +4,22 @@ using UnityEngine.SceneManagement;
 
 public class OpeningCutsceneTimeline : MonoBehaviour
 {
-    public void OnEnable(string sceneName)
+    public PlayableDirector director;
+    public string mainScene;
+
+    public void Start()
     {
-        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        mainScene = SceneManager.GetActiveScene().name;
+    }
+    public void LoadNextScene(string sceneName)
+    {
+        if (director != null) director.Pause();
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+    }
+    public void UnloadNextScene(string sceneName)
+    {
+        SceneManager.UnloadSceneAsync(sceneName);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(mainScene));
+        director.Play();
     }
 }
