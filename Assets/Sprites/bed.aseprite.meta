@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 812a04605fd44c741b4641da7e0beb48
+guid: 83005af92a0680d44b420036f47978e5
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -36,7 +36,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 16
+    spritePixelsToUnits: 32
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -72,7 +72,7 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
-    fileImportMode: 1
+    fileImportMode: 2
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
@@ -87,7 +87,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   asepriteImporterSettings:
-    fileImportMode: 1
+    fileImportMode: 2
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639182711694903205
+  platformSettingsDirtyTick: 639182693517511937
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,9 +127,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: interactIcon
+  - name: bed
     originalName: 
-    pivot: {x: 0.5, y: -0.15384616}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 4
-      height: 13
-    spriteID: 2fd31bcfab7ce3440a65dd5d28a1f05e
+      width: 64
+      height: 19
+    spriteID: 52cf3b057f85c2b4fbc542dfb9983917
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -149,29 +149,50 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData: []
-  tileSetImportData: []
+  tileSetImportData:
+  - name: Layer 1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 64
+      height: 32
+    spriteID: cbd7e2ec47e5b8843b320ce580fb1f3b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 1922945885
+      value0: 4287466680
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: interactIcon
-    layerFlags: 0
+    name: Layer 1
+    layerFlags: 3
     layerType: 0
     blendMode: 0
     cells:
-    - name: interactIcon
+    - name: Layer 1
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 6
-        y: 2
-        width: 4
-        height: 13
-      spriteId: 2fd31bcfab7ce3440a65dd5d28a1f05e
+        x: 0
+        y: 0
+        width: 64
+        height: 32
+      spriteId: cbd7e2ec47e5b8843b320ce580fb1f3b
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -217,5 +238,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 16, y: 16}
-  previousTextureSize: {x: 16, y: 32}
+  canvasSize: {x: 64, y: 32}
+  previousTextureSize: {x: 128, y: 64}

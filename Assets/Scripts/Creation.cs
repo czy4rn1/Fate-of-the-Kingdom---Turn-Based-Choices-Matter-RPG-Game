@@ -76,6 +76,13 @@ public class Creation : MonoBehaviour
                 {
                     if (oct != null) {
                         Debug.Log("Cofam scene");
+                        PlayerData.Instance.playerName = "Zorax";
+                        PlayerData.Instance.strength = attributes[0];
+                        PlayerData.Instance.intelligence = attributes[1];
+                        PlayerData.Instance.persuasion = attributes[2];
+                        PlayerData.Instance.dexterity = attributes[3];
+                        PlayerData.Instance.vitality = attributes[4];
+                        PlayerData.Instance.defense = attributes[5];
                         oct.UnloadNextScene("CreatorScene");
                     }
                 }
