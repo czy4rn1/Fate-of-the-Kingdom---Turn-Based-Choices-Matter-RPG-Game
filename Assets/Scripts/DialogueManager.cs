@@ -1,12 +1,9 @@
 using System;
 using System.Collections;
 using System.Linq;
-using System.Text.RegularExpressions;
-using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour, INotificationReceiver
 {
@@ -15,7 +12,6 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
     private bool fastForward = false;
     public PlayableDirector timelineDirector;
     private bool isWaitingForPlayer = false;
-    private float currentAlpha = 0;
     public GameObject cursor;
     private byte cursorPos = 0;
     private byte commandPos = 0;
@@ -27,6 +23,8 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
     private const float cursorYJump = 4.5f;
     private Action<int> currentCommandCallback;
     public bool cutscenePlaying = false;
+    public bool dialogueActive = false;
+    private bool hideIfLast = false;
     void Start()
     {
         HideShowPanel("hide");
@@ -38,47 +36,56 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
         {
             string text = marker.text;
             cutscenePlaying = marker.cutscene;
-            if (marker.text.Contains("!<NAME>!"))
-            {
-                text = marker.text.Replace("!<NAME>!", PlayerData.Instance.playerName);
-            }
-            ShowDialogue(text, true, 0);
+            ShowDialogue(text, true, 0, false);
         }
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && currentAlpha == 1) {
+        if (Input.GetKeyDown(KeyCode.F) && dialogueActive) {
             if (!isWaitingForPlayer && !fastForward) fastForward = true;
             else if(isWaitingForPlayer)
             {
                 isWaitingForPlayer = false;
                 fastForward = false;
-                if(commandsOpen)
+                bool hideNow = hideIfLast;
+                hideIfLast = false;
+                if (currentCommandCallback != null)
+                {
+                    if(cursor!=null) cursor.SetActive(false);
+                    Action<int> callbackToExecute = currentCommandCallback;
+                    callbackToExecute.Invoke(commandPos);
+                }
+                else if (commandsOpen)
                 {
                     commandsOpen = false;
-                    if(cursor != null) cursor.SetActive(false);
-                    if (currentCommandCallback != null)
-                    {
-                        currentCommandCallback.Invoke(commandPos);
-                        currentCommandCallback = null;
-                    }
+                    if(cursor!=null) cursor.SetActive(false);
                 }
                 else
                 {
-                    if(timelineDirector != null && cutscenePlaying) {
+                    if(timelineDirector != null && cutscenePlaying)
+                    {
                         timelineDirector.Play();
                         cutscenePlaying = false;
                     }
+                }
+                if(hideNow)
+                {
+                    HideShowPanel("hide");
                 }
             }
         }
         if ((cursor != null || !cursor.activeInHierarchy) && upKeys.Any(key => Input.GetKeyDown(key))) UpdateCursor(true);
         else if ((cursor != null || !cursor.activeInHierarchy) && downKeys.Any(key => Input.GetKeyDown(key))) UpdateCursor(false);
     }
-    public void ShowDialogue(string text, bool isItDialogue, byte numOfCommands, Action<int> onCommandSelected = null)
+    public void ShowDialogue(string text, bool isItDialogue, byte numOfCommands, bool isItLast, Action<int> onCommandSelected = null)
     {
-        if(timelineDirector!=null) timelineDirector.Pause(); 
+        if(timelineDirector!=null) timelineDirector.Pause();
+        if (text.Contains("!<NAME>!"))
+            {
+                text = text.Replace("!<NAME>!", PlayerData.Instance.playerName);
+            } 
         this.numOfCommands = numOfCommands;  
+        hideIfLast = isItLast;
         currentCommandCallback = onCommandSelected; 
         HideShowPanel("show");
         StopAllCoroutines();
@@ -108,9 +115,14 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
     {
         if (dialoguePanel.TryGetComponent<CanvasGroup>(out CanvasGroup group))
         {
-            if (command == "show") group.alpha = 1;
-            else if (command == "hide") group.alpha = 0;
-            currentAlpha = group.alpha;
+            if (command == "show") {
+                group.alpha = 1;
+                dialogueActive = true;
+            }
+            else if (command == "hide") {
+                group.alpha = 0;
+                dialogueActive = false;
+            }
         }   
     }
     public void setFastForward(bool x)
@@ -122,18 +134,18 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
     {
         if (moveUp)
         {
-            if (cursorPos > 0) {
-                cursorPos--;
-                commandPos--;
-            }
+            if (cursorPos > 0) cursorPos--;
+            if (commandPos > 0) commandPos--;
         }
         else if (!moveUp)
         {
 
             if (cursorPos < 2) {
                 cursorPos++;
-                if (cursorPos > numOfCommands) cursorPos = 1;
-                if(commandPos < numOfCommands) commandPos++;
+                if (numOfCommands < 3) {
+                    cursorPos = 1;
+                }
+                if(commandPos < numOfCommands - 1) commandPos++;
             }
 
         }

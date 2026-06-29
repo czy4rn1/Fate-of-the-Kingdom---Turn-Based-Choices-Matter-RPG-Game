@@ -4,69 +4,53 @@ using UnityEngine.SceneManagement;
 
 public class StrengthCheck : MonoBehaviour
 {
-    public GameObject interactIcon;
-    private bool isPlayerNearby;
     public GameObject barrel;
     public Player player;
-    private bool dialogueActive = false;
     public DialogueManager dialogueManager;
+    public PlayerDetection playerDetection;
+    public byte req_lvl;
 
-    void Start()
-    {
-        if(interactIcon != null) interactIcon.SetActive(false);
-    }
+    
     void Update()
     {
         if (barrel == null || !barrel.activeInHierarchy)
         {
-            if (isPlayerNearby && Input.GetKeyDown(KeyCode.F) && player.isControllable && !dialogueActive)
+            playerDetection.allowIcon = true;
+            if (playerDetection != null && playerDetection.isPlayerNearby && Input.GetKeyDown(KeyCode.F) && player.isControllable && !dialogueManager.dialogueActive)
             {
-                dialogueActive = true;
                 player.isControllable = false;
-                dialogueManager.ShowDialogue($"This part of the floor seems to be damaged!\n1. [{PlayerData.Instance.strength}/15] Smash the floor and escape from jail.\n2. Ignore", false, 2, OnCommandSelected);
+                dialogueManager.ShowDialogue(
+                    $"This part of the floor seems to be damaged!\n1. [{PlayerData.Instance.strength}/{req_lvl}] Smash the floor and escape from jail.\n2. Ignore", 
+                    false, 
+                    2, 
+                    false, 
+                    OnCommandSelected);
             }
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player")) {
-            isPlayerNearby = true;
-            if (interactIcon != null)
-            {
-                interactIcon.SetActive(true);
-            }
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player")) {
-            isPlayerNearby = false;
-            if (interactIcon != null)
-            {
-                interactIcon.SetActive(false);
-            }
-        }
-    }
-
     public void OnCommandSelected(int chosenCommand)
     {
         if (chosenCommand == 0)
         {
-            if (PlayerData.Instance.strength >= 15)
+            if (PlayerData.Instance.strength >= req_lvl)
             {
                 SceneManager.LoadScene("DungeonEscape");
                 gameObject.SetActive(false);
             }
             else 
             {
-            dialogueManager.HideShowPanel("hide");
+                dialogueManager.ShowDialogue("ACTION FAILED", true, 0, true, CloseFailedDialogue);
             }
         }
         else if (chosenCommand == 1)
         {
             dialogueManager.HideShowPanel("hide");
+            player.isControllable = true;
         }
+    }
+
+    public void CloseFailedDialogue(int nothing)
+    {
         player.isControllable = true;
-        dialogueActive = false;
     }
 }

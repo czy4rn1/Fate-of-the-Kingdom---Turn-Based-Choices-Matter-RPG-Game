@@ -5,35 +5,26 @@ using UnityEngine.Tilemaps;
 public class Barrel : MonoBehaviour
 {
     private bool isMoved = false;
-    private bool isPlayerNearby = false;
-    private SpriteRenderer spriteRenderer;
-    public GameObject interactIcon;
     public Tilemap decorationsTilemap;
     public Vector3Int currentBarrelPos;
     public Player player;
-
-    void Start()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (interactIcon != null)
-        {
-            interactIcon.SetActive(false);
-        }
-    }
-
+    public PlayerDetection playerDetection;
     void Update()
     {
-        if (isPlayerNearby && !isMoved && Input.GetKeyDown(KeyCode.F) && player.isControllable)
-        {
-            MoveBarrel();
+        if (playerDetection != null) {
+            playerDetection.allowIcon = PlayerData.Instance.strength > 10;
+            if (playerDetection.isPlayerNearby && !isMoved && Input.GetKeyDown(KeyCode.F) && player.isControllable)
+            {
+                if (PlayerData.Instance.strength > 10) MoveBarrel();
+            }
         }
     }
     void MoveBarrel()
     {
         isMoved = true;
-        if (interactIcon != null)
+        if (playerDetection.interactIcon != null)
         {
-            interactIcon.SetActive(false);
+            playerDetection.interactIcon.SetActive(false);
             TileBase barrelTile = decorationsTilemap.GetTile(currentBarrelPos);
             if(barrelTile != null)
             {
@@ -50,26 +41,5 @@ public class Barrel : MonoBehaviour
 
         }
         Debug.Log("Player moved the barrel");
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (isMoved) return;
-        if (collision.CompareTag("Player")) {
-            isPlayerNearby = true;
-            if (interactIcon != null)
-            {
-                interactIcon.SetActive(true);
-            }
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player")) {
-            isPlayerNearby = false;
-            if (interactIcon != null)
-            {
-                interactIcon.SetActive(false);
-            }
-        }
     }
 }

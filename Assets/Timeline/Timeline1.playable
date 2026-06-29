@@ -830,6 +830,22 @@ MonoBehaviour:
   m_Time: 7.533333333333333
   text: 'GUARD: You''ll rot in hell for your crimes, you scum!'
   cutscene: 1
+--- !u!114 &-2833424277214805037
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalEmitter
+  m_Time: 0
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: 0075fe89172ce254880953be1e76bf45, type: 2}
 --- !u!114 &-2304410215184041937
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -889,12 +905,29 @@ MonoBehaviour:
   - {fileID: 5513352167218481036}
   - {fileID: 5925178625058993743}
   - {fileID: -6096515519123321428}
+  - {fileID: 1313571949897685662}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
     m_ScenePreview: 1
   m_DurationMode: 0
   m_MarkerTrack: {fileID: 0}
+--- !u!114 &688138443119391761
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalEmitter
+  m_Time: 8.1
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: ff7fd2f01904c0648a35bb0cb6873efd, type: 2}
 --- !u!114 &1032947416443445813
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -926,6 +959,31 @@ MonoBehaviour:
   m_Time: 5.533333333333333
   text: 'GUARD: Who are you, anyway? How''d you end up here?'
   cutscene: 1
+--- !u!114 &1313571949897685662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b46e36075dd1c124a8422c228e75e1fb, type: 3}
+  m_Name: Signal Track (4)
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalTrack
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips: []
+  m_Markers:
+    m_Objects:
+    - {fileID: 688138443119391761}
+    - {fileID: -2833424277214805037}
 --- !u!114 &1316896936151899056
 MonoBehaviour:
   m_ObjectHideFlags: 1
