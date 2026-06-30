@@ -1647,7 +1647,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 2.5
 --- !u!222 &505471097
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7997,7 +7997,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileSpriteIndex: 0
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -8053,7 +8053,7 @@ Tilemap:
       - {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       - {fileID: -8620789011913242613, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       m_AnimationSpeed: 2
-      m_AnimationTimeOffset: 79.36754
+      m_AnimationTimeOffset: 87.02768
       m_Flags: 0
   - first: {x: -3, y: 2, z: 0}
     second:
@@ -8064,7 +8064,7 @@ Tilemap:
       - {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       - {fileID: -8620789011913242613, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       m_AnimationSpeed: 2
-      m_AnimationTimeOffset: 70.21146
+      m_AnimationTimeOffset: 35.608597
       m_Flags: 0
   - first: {x: 3, y: 2, z: 0}
     second:
@@ -8075,7 +8075,7 @@ Tilemap:
       - {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       - {fileID: -8620789011913242613, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       m_AnimationSpeed: 2
-      m_AnimationTimeOffset: 23.533451
+      m_AnimationTimeOffset: 39.070217
       m_Flags: 0
   m_TileAssetArray:
   - serializedVersion: 2
@@ -8095,10 +8095,10 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: ced0d59ccab9bef458b799414038fb1a, type: 2}
   m_TileSpriteArray:
   - serializedVersion: 2
-    m_RefCount: 0
+    m_RefCount: 1
     m_Data: {fileID: -3945480283909424540, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
   - serializedVersion: 2
-    m_RefCount: 3
+    m_RefCount: 2
     m_Data: {fileID: 8404629032946359487, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
   - serializedVersion: 2
     m_RefCount: 1

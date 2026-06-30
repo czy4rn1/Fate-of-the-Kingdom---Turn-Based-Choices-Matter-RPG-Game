@@ -1,12 +1,7 @@
 using System.Linq;
-using Mono.Cecil.Cil;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
-using UnityEngine.Rendering.LookDev;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+
 
 public class Creation : MonoBehaviour
 {

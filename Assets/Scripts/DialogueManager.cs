@@ -53,7 +53,8 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
                 {
                     if(cursor!=null) cursor.SetActive(false);
                     Action<int> callbackToExecute = currentCommandCallback;
-                    callbackToExecute.Invoke(commandPos);
+                    currentCommandCallback = null;
+                    callbackToExecute.Invoke(commandPos);                    
                 }
                 else if (commandsOpen)
                 {
@@ -74,8 +75,11 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
                 }
             }
         }
-        if ((cursor != null || !cursor.activeInHierarchy) && upKeys.Any(key => Input.GetKeyDown(key))) UpdateCursor(true);
-        else if ((cursor != null || !cursor.activeInHierarchy) && downKeys.Any(key => Input.GetKeyDown(key))) UpdateCursor(false);
+        if (commandsOpen && isWaitingForPlayer)
+            {
+                if (cursor != null && cursor.activeInHierarchy && upKeys.Any(key => Input.GetKeyDown(key))) UpdateCursor(true);
+                else if (cursor != null && cursor.activeInHierarchy && downKeys.Any(key => Input.GetKeyDown(key))) UpdateCursor(false);
+            }
     }
     public void ShowDialogue(string text, bool isItDialogue, byte numOfCommands, bool isItLast, Action<int> onCommandSelected = null)
     {
@@ -87,6 +91,7 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
         this.numOfCommands = numOfCommands;  
         hideIfLast = isItLast;
         currentCommandCallback = onCommandSelected; 
+        if(!isItDialogue) fastForward = true;
         HideShowPanel("show");
         StopAllCoroutines();
         if (isItDialogue) dialoguePanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, 20f);
@@ -144,6 +149,10 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
                 cursorPos++;
                 if (numOfCommands < 3) {
                     cursorPos = 1;
+                }
+                else if (numOfCommands < 2)
+                {
+                    cursorPos = 0;
                 }
                 if(commandPos < numOfCommands - 1) commandPos++;
             }

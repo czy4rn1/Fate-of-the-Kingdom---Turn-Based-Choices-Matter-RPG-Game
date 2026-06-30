@@ -9,15 +9,17 @@ public class ThiefCheck : MonoBehaviour
     public PlayerDetection playerDetection;
     private bool checkEnded = false;
     public byte req_lvl;
+    private bool interactionActive = false;
 
     
     void Update()
     {
         if(character.wait) {
-            if (playerDetection != null && playerDetection.isPlayerNearby && Input.GetKeyDown(KeyCode.F) && player.isControllable && !dialogueManager.dialogueActive)
+            if (!interactionActive && playerDetection != null && playerDetection.isPlayerNearby && Input.GetKeyDown(KeyCode.F) && player.isControllable && !dialogueManager.dialogueActive)
             {
                 character.activateAI(false);
                 player.isControllable = false;
+                interactionActive = true;
                 if (!checkEnded) {
                 dialogueManager.ShowDialogue(
                     $"\n1. [{PlayerData.Instance.dexterity}/{req_lvl}] Steal the key to your cell.\n2. Ignore", 
@@ -45,26 +47,26 @@ public class ThiefCheck : MonoBehaviour
             if (PlayerData.Instance.dexterity >= req_lvl)
             {
                 dialogueManager.ShowDialogue("Obtained Key To The Cell", true, 0, true, CloseDialogue);
-                checkEnded = true;
             }
             else 
             {
                 dialogueManager.ShowDialogue("GUARD: Try this manouver again, and I'll cut off your hands!", true, 0, true, CloseDialogue);
-                checkEnded = true;
             }
+            checkEnded = true;
         }
         else if (chosenCommand == 1 || (chosenCommand == 0 && checkEnded))
         {
-            dialogueManager.HideShowPanel("hide");
-            player.isControllable = true;
-            character.activateAI(true);
+            CloseDialogue(0);
         }
     }
 
     public void CloseDialogue(int nothing)
     {
+        dialogueManager.HideShowPanel("hide");
         player.isControllable = true;
         character.activateAI(true);
+        interactionActive = false;
+        character.wait = false;
     }
 }
 
