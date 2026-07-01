@@ -1,3 +1,4 @@
+using Unity.Multiplayer.Center.Common.Analytics;
 using UnityEngine;
 
 public class PlayerDetection : MonoBehaviour
@@ -9,6 +10,12 @@ public class PlayerDetection : MonoBehaviour
     {
         if(interactIcon != null) interactIcon.SetActive(false);
     }
+
+    void Update()
+    {
+        if(!allowIcon && interactIcon != null) interactIcon.SetActive(false);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player")) {

@@ -14,15 +14,21 @@ public class ThiefCheck : MonoBehaviour
     
     void Update()
     {
+        if(interactionActive) return;
         if(character.wait) {
-            if (!interactionActive && playerDetection != null && playerDetection.isPlayerNearby && Input.GetKeyDown(KeyCode.F) && player.isControllable && !dialogueManager.dialogueActive)
+            if (!interactionActive && 
+            playerDetection != null && 
+            playerDetection.isPlayerNearby && 
+            Input.GetKeyDown(KeyCode.F) && 
+            player.isControllable && 
+            !dialogueManager.dialogueActive)
             {
+                interactionActive = true;
                 character.activateAI(false);
                 player.isControllable = false;
-                interactionActive = true;
                 if (!checkEnded) {
                 dialogueManager.ShowDialogue(
-                    $"\n1. [{PlayerData.Instance.dexterity}/{req_lvl}] Steal the key to your cell.\n2. Ignore", 
+                    $"\n1. [DEX {PlayerData.Instance.dexterity}/{req_lvl}] Steal the key to your cell.\n2. Ignore", 
                     false, 
                     2, 
                     false, 
@@ -38,6 +44,10 @@ public class ThiefCheck : MonoBehaviour
                     OnCommandSelected); 
                 }
             }
+        }
+        else
+        {
+            playerDetection.allowIcon = false;
         }
     }
     public void OnCommandSelected(int chosenCommand)
@@ -62,7 +72,6 @@ public class ThiefCheck : MonoBehaviour
 
     public void CloseDialogue(int nothing)
     {
-        dialogueManager.HideShowPanel("hide");
         player.isControllable = true;
         character.activateAI(true);
         interactionActive = false;

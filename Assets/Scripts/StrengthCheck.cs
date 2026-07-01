@@ -16,11 +16,15 @@ public class StrengthCheck : MonoBehaviour
         if (barrel == null || !barrel.activeInHierarchy)
         {
             playerDetection.allowIcon = true;
-            if (playerDetection != null && playerDetection.isPlayerNearby && Input.GetKeyDown(KeyCode.F) && player.isControllable && !dialogueManager.dialogueActive)
+            if (playerDetection != null && 
+            playerDetection.isPlayerNearby && 
+            Input.GetKeyDown(KeyCode.F) && 
+            player.isControllable && 
+            !dialogueManager.dialogueActive)
             {
                 player.isControllable = false;
                 dialogueManager.ShowDialogue(
-                    $"This part of the floor seems to be damaged!\n1. [{PlayerData.Instance.strength}/{req_lvl}] Smash the floor and escape from jail.\n2. Ignore", 
+                    $"This part of the floor seems to be damaged!\n1. [STR {PlayerData.Instance.strength}/{req_lvl}] Smash the floor and jump.\n2. Ignore", 
                     false, 
                     2, 
                     false, 
@@ -44,7 +48,8 @@ public class StrengthCheck : MonoBehaviour
         }
         else if (chosenCommand == 1)
         {
-            dialogueManager.HideShowPanel("hide");
+            StopAllCoroutines();
+            StartCoroutine(dialogueManager.HideShowPanel("hide"));
             player.isControllable = true;
         }
     }

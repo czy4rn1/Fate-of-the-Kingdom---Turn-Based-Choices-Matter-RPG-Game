@@ -5,6 +5,6 @@ using UnityEngine.Timeline;
 public class DialogueMarker : Marker, INotification
 {
     public string text;
-    public bool cutscene;
+    public bool isItLast;
     public PropertyName id => new PropertyName("DialogueMarker");
 }

@@ -9,36 +9,56 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
 {
     public RectTransform dialoguePanel;
     public TextMeshProUGUI dialogueText;
+    private float currentPanelScale = 0f;
+    public float scaleFactor;
+    
     private bool fastForward = false;
-    public PlayableDirector timelineDirector;
     private bool isWaitingForPlayer = false;
+
+    public PlayableDirector timelineDirector;
+
     public GameObject cursor;
     private byte cursorPos = 0;
-    private byte commandPos = 0;
-    private byte numOfCommands = 0;
-    bool commandsOpen = false;
-    private KeyCode[] upKeys = {KeyCode.W, KeyCode.UpArrow};
-    private KeyCode[] downKeys = {KeyCode.S, KeyCode.DownArrow};
     private const float cursorYStart = 12.8f;
     private const float cursorYJump = 4.5f;
+    
+    private byte commandPos = 0;
+    private byte numOfCommands = 0;
+    private bool commandsOpen = false;
+    private KeyCode[] upKeys = {KeyCode.W, KeyCode.UpArrow};
+    private KeyCode[] downKeys = {KeyCode.S, KeyCode.DownArrow};
+    
     private Action<int> currentCommandCallback;
-    public bool cutscenePlaying = false;
+    
     public bool dialogueActive = false;
+    
     private bool hideIfLast = false;
+    
     void Start()
     {
-        HideShowPanel("hide");
+        StopAllCoroutines();
+        StartCoroutine(HideShowPanel("hide"));
         cursor.SetActive(false);
     }
+    
     public void OnNotify(Playable origin, INotification notification, object context)
     {
         if (notification is DialogueMarker marker)
         {
             string text = marker.text;
-            cutscenePlaying = marker.cutscene;
-            ShowDialogue(text, true, 0, false);
+            hideIfLast = marker.isItLast;
+            if (text.Contains("!<STOP_CUTSCENE>!"))
+            {
+                timelineDirector.Stop();
+                timelineDirector.gameObject.SetActive(false);
+                timelineDirector = null;
+            }
+            else {
+                ShowDialogue(text, true, 0, hideIfLast, null);
+            }
         }
     }
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F) && dialogueActive) {
@@ -49,6 +69,11 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
                 fastForward = false;
                 bool hideNow = hideIfLast;
                 hideIfLast = false;
+                if(hideNow)
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(HideShowPanel("hide"));
+                }
                 if (currentCommandCallback != null)
                 {
                     if(cursor!=null) cursor.SetActive(false);
@@ -63,24 +88,20 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
                 }
                 else
                 {
-                    if(timelineDirector != null && cutscenePlaying)
+                    if(timelineDirector != null)
                     {
                         timelineDirector.Play();
-                        cutscenePlaying = false;
                     }
-                }
-                if(hideNow)
-                {
-                    HideShowPanel("hide");
                 }
             }
         }
         if (commandsOpen && isWaitingForPlayer)
-            {
-                if (cursor != null && cursor.activeInHierarchy && upKeys.Any(key => Input.GetKeyDown(key))) UpdateCursor(true);
-                else if (cursor != null && cursor.activeInHierarchy && downKeys.Any(key => Input.GetKeyDown(key))) UpdateCursor(false);
-            }
+        {
+            if (cursor != null && cursor.activeInHierarchy && upKeys.Any(key => Input.GetKeyDown(key))) UpdateCursor(true);
+            else if (cursor != null && cursor.activeInHierarchy && downKeys.Any(key => Input.GetKeyDown(key))) UpdateCursor(false);
+        }
     }
+    
     public void ShowDialogue(string text, bool isItDialogue, byte numOfCommands, bool isItLast, Action<int> onCommandSelected = null)
     {
         if(timelineDirector!=null) timelineDirector.Pause();
@@ -92,12 +113,15 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
         hideIfLast = isItLast;
         currentCommandCallback = onCommandSelected; 
         if(!isItDialogue) fastForward = true;
-        HideShowPanel("show");
-        StopAllCoroutines();
+
         if (isItDialogue) dialoguePanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, 20f);
         else dialoguePanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, 30f);
-        commandsOpen = !isItDialogue;
+        
+        StopAllCoroutines();
+        StartCoroutine(HideShowPanel("show"));               
         StartCoroutine(TypeText(text));
+        commandsOpen = !isItDialogue;
+        
         cursorPos = 0;
         commandPos = 0;
         if(!isItDialogue && cursor != null) cursor.SetActive(true);
@@ -116,16 +140,32 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
         fastForward = false;
         isWaitingForPlayer = true;
     }
-    public void HideShowPanel(string command)
+    
+    public IEnumerator HideShowPanel(string command)
     {
         if (dialoguePanel.TryGetComponent<CanvasGroup>(out CanvasGroup group))
         {
             if (command == "show") {
                 group.alpha = 1;
+                while(currentPanelScale < 1f)
+                {
+                    currentPanelScale += scaleFactor * Time.deltaTime;
+                    if (currentPanelScale > 1f) currentPanelScale = 1f;
+                    dialoguePanel.localScale = new Vector3(currentPanelScale, currentPanelScale, 1f);
+                    yield return null;
+                }
                 dialogueActive = true;
             }
             else if (command == "hide") {
+                while (currentPanelScale > 0f)
+                {
+                    currentPanelScale -= scaleFactor * Time.deltaTime;
+                    if (currentPanelScale < 0f) currentPanelScale = 0f;
+                    dialoguePanel.localScale = new Vector3(currentPanelScale, currentPanelScale, 1f);
+                    yield return null;
+                }
                 group.alpha = 0;
+                fastForward = false;
                 dialogueActive = false;
             }
         }   
@@ -133,8 +173,8 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
     public void setFastForward(bool x)
     {
         fastForward = x;
-        HideShowPanel("hide");
     }
+    
     void UpdateCursor(bool moveUp)
     {
         if (moveUp)
@@ -150,7 +190,7 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
                 if (numOfCommands < 3) {
                     cursorPos = 1;
                 }
-                else if (numOfCommands < 2)
+                if (numOfCommands < 2)
                 {
                     cursorPos = 0;
                 }
