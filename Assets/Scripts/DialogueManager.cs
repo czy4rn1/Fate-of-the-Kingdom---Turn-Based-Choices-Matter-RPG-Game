@@ -8,6 +8,7 @@ using UnityEngine.Playables;
 public class DialogueManager : MonoBehaviour, INotificationReceiver
 {
     public RectTransform dialoguePanel;
+    public RectTransform backgroundPanel;
     public TextMeshProUGUI dialogueText;
     private float currentPanelScale = 0f;
     public float scaleFactor;
@@ -114,8 +115,16 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
         currentCommandCallback = onCommandSelected; 
         if(!isItDialogue) fastForward = true;
 
-        if (isItDialogue) dialoguePanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, 20f);
-        else dialoguePanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, 30f);
+        if (isItDialogue) {
+            dialoguePanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, 20f);
+            backgroundPanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, 20f);
+            backgroundPanel.transform.localPosition = new Vector3(0f, 10f);
+        }
+        else {
+            dialoguePanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, 30f);
+            backgroundPanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, 30f);
+            backgroundPanel.transform.localPosition = new Vector3(0f, 15f);
+        }
         
         StopAllCoroutines();
         StartCoroutine(HideShowPanel("show"));               
@@ -165,7 +174,6 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
                     yield return null;
                 }
                 group.alpha = 0;
-                fastForward = false;
                 dialogueActive = false;
             }
         }   

@@ -33,6 +33,7 @@ MonoBehaviour:
     - {fileID: 7757662376081726465}
     - {fileID: -8728076485990064000}
     - {fileID: -7550249987355846650}
+    - {fileID: 3091814851508590723}
 --- !u!114 &-8728076485990064000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Time: 7.599999999999999
   text: 'GUARD: I''ll prepare a special chamber just for you. You will deeply regret
     what you said of Lord Magnus!'
-  cutscene: 1
+  isItLast: 0
 --- !u!114 &-8219249057264389962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -323,7 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
   m_Time: 7.633333333333334
   text: 'GUARD: You might want to start getting used to hell.'
-  cutscene: 1
+  isItLast: 1
 --- !u!114 &-7272215455109892551
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -338,7 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
   m_Time: 5.4
   text: 'GUARD: Prisoner! You''re hungry, ain''t ya?'
-  cutscene: 1
+  isItLast: 0
 --- !u!114 &-6096515519123321428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -394,7 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
   m_Time: 5.433333333333334
   text: 'GUARD: To be frank, I don''t really even care. Take this and don''t complain.'
-  cutscene: 1
+  isItLast: 0
 --- !u!114 &-5027406534710087762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -410,7 +411,7 @@ MonoBehaviour:
   m_Time: 7.5
   text: 'GUARD: Ahh, so you are !<NAME>!! The filthy denier of the One and True Lord
     Magnus! '
-  cutscene: 1
+  isItLast: 0
 --- !u!74 &-4447052181869850396
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -829,7 +830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
   m_Time: 7.533333333333333
   text: 'GUARD: You''ll rot in hell for your crimes, you scum!'
-  cutscene: 1
+  isItLast: 0
 --- !u!114 &-2833424277214805037
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -860,7 +861,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
   m_Time: 5.5
   text: 'GUARD: It seems, that I''m missing some information about you...'
-  cutscene: 1
+  isItLast: 0
 --- !u!114 &-1809516766799959645
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -924,7 +925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
   m_Name: Signal Emitter
   m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalEmitter
-  m_Time: 8.1
+  m_Time: 7.716666666666667
   m_Retroactive: 0
   m_EmitOnce: 0
   m_Asset: {fileID: 11400000, guid: ff7fd2f01904c0648a35bb0cb6873efd, type: 2}
@@ -958,7 +959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
   m_Time: 5.533333333333333
   text: 'GUARD: Who are you, anyway? How''d you end up here?'
-  cutscene: 1
+  isItLast: 1
 --- !u!114 &1313571949897685662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1037,7 +1038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
   m_Name: Signal Emitter
   m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalEmitter
-  m_Time: 7.983333333333333
+  m_Time: 7.716666666666667
   m_Retroactive: 0
   m_EmitOnce: 0
   m_Asset: {fileID: 11400000, guid: ff7fd2f01904c0648a35bb0cb6873efd, type: 2}
@@ -1053,10 +1054,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
   m_Name: Signal Emitter
   m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalEmitter
-  m_Time: 6.016666666666667
+  m_Time: 7.466666666666667
   m_Retroactive: 0
   m_EmitOnce: 0
   m_Asset: {fileID: 11400000, guid: 0075fe89172ce254880953be1e76bf45, type: 2}
+--- !u!114 &3091814851508590723
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b2763d0391d4e44a826631e4a4b294d, type: 3}
+  m_Name: Dialogue Marker
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
+  m_Time: 7.716666666666667
+  text: '!<STOP_CUTSCENE>!'
+  isItLast: 0
 --- !u!114 &3196662384196722451
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1088,7 +1104,7 @@ MonoBehaviour:
   m_Time: 5.466666666666667
   text: 'GUARD: How do you like it in the Verdon Palace Jail? Feeling comfy yet?
     Haha!'
-  cutscene: 1
+  isItLast: 0
 --- !u!114 &5135761835485027529
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1169,4 +1185,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
   m_Time: 7.566666666666666
   text: 'GUARD: The last thing you can expect is to somehow leave this place.'
-  cutscene: 1
+  isItLast: 0

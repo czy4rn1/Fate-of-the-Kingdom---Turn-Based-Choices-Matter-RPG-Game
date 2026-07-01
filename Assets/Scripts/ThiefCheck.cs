@@ -66,6 +66,8 @@ public class ThiefCheck : MonoBehaviour
         }
         else if (chosenCommand == 1 || (chosenCommand == 0 && checkEnded))
         {
+            StopAllCoroutines();
+            StartCoroutine(dialogueManager.HideShowPanel("hide"));
             CloseDialogue(0);
         }
     }

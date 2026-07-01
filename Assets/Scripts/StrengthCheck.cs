@@ -16,12 +16,13 @@ public class StrengthCheck : MonoBehaviour
         if (barrel == null || !barrel.activeInHierarchy)
         {
             playerDetection.allowIcon = true;
-            if (playerDetection != null && 
-            playerDetection.isPlayerNearby && 
+            Debug.Log($"{playerDetection.isPlayerNearby}, {player.isControllable}, {dialogueManager.dialogueActive}");
+            if (playerDetection.isPlayerNearby && 
             Input.GetKeyDown(KeyCode.F) && 
             player.isControllable && 
             !dialogueManager.dialogueActive)
             {
+                Debug.Log("wszedłem");
                 player.isControllable = false;
                 dialogueManager.ShowDialogue(
                     $"This part of the floor seems to be damaged!\n1. [STR {PlayerData.Instance.strength}/{req_lvl}] Smash the floor and jump.\n2. Ignore", 
