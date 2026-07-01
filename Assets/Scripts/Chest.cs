@@ -10,6 +10,11 @@ public class Chest : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public Sprite openChestSprite;
 
+    public DialogueManager dialogueManager;
+
+    public string item;
+    public int amount;
+
     public GameObject interactIcon;
 
     void Start()
@@ -36,7 +41,9 @@ public class Chest : MonoBehaviour
         {
             interactIcon.SetActive(false);
         }
-        Debug.Log("Player opened a chest");
+        dialogueManager.ShowDialogue($"Found x{amount} of {item}!", true, 0, true);
+        PlayerData.Instance.AddItem(item, amount);
+        //Debug.Log("Player opened a chest");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public bool isControllable;
+    public bool isControllable = true;
 
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -24,19 +24,12 @@ public class Player : MonoBehaviour
 
             if (movement.x > 0) spriteRenderer.flipX = false;
             else if (movement.x < 0) spriteRenderer.flipX = true;
-
-            if (Input.GetKeyDown(KeyCode.F)) PerformInteraction();
         }
     }
 
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
-    }
-
-    void PerformInteraction()
-    {
-        Debug.Log("Player pressed F");
     }
 
     public void setIsControllable(bool x)

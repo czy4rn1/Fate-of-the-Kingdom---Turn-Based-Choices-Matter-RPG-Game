@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: feb0112ec451dac4ebd3da5829f5d0d1
+guid: 0e98ecdd38c4b5a40a54894feb2eb334
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -72,7 +72,7 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
-    fileImportMode: 0
+    fileImportMode: 2
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
@@ -87,7 +87,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   asepriteImporterSettings:
-    fileImportMode: 0
+    fileImportMode: 2
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639178333005202297
+  platformSettingsDirtyTick: 639185318198175842
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,7 +127,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: placeholder-character
+  - name: dirt_corners3
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 50
+      width: 32
       height: 32
-    spriteID: f74a0d3be061e444aabacf4605b022e4
+    spriteID: 1fe9254a1bc65e04398ff07de61383f2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -148,20 +148,21 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  spriteSheetImportData:
-  - name: placeholder-character_0
+  spriteSheetImportData: []
+  tileSetImportData:
+  - name: Layer 1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 21
+      width: 32
       height: 32
-    spriteID: 4552d2359c5311f4c87ea3b1293a6cf1
+    spriteID: e1efd8401b69ffa4489548a6ca93ee22
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -169,51 +170,29 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: placeholder-character_1
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 33
-      y: 4
-      width: 21
-      height: 32
-    spriteID: 4ed07a3a4b45b2441a46c4592d5ca9ac
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  tileSetImportData: []
+    uvTransform: {x: 4, y: 4}
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 3557795503
+      value0: 4287466680
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: placeholder-character
-    layerFlags: 0
+    name: Layer 1
+    layerFlags: 3
     layerType: 0
     blendMode: 0
     cells:
-    - name: placeholder-character
+    - name: Layer 1
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 7
+        x: 0
         y: 0
-        width: 50
+        width: 32
         height: 32
-      spriteId: f74a0d3be061e444aabacf4605b022e4
+      spriteId: e1efd8401b69ffa4489548a6ca93ee22
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -259,5 +238,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 64, y: 32}
+  canvasSize: {x: 32, y: 32}
   previousTextureSize: {x: 64, y: 64}

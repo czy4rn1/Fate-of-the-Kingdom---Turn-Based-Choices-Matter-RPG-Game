@@ -1,5 +1,6 @@
 using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class StrengthCheck : MonoBehaviour
@@ -9,6 +10,7 @@ public class StrengthCheck : MonoBehaviour
     public DialogueManager dialogueManager;
     public PlayerDetection playerDetection;
     public byte req_lvl;
+    public PlayableDirector director;
 
     
     void Update()
@@ -39,6 +41,7 @@ public class StrengthCheck : MonoBehaviour
         {
             if (PlayerData.Instance.strength >= req_lvl)
             {
+                WorldState.Instance.escapedThroughCave = true;
                 SceneManager.LoadScene("DungeonEscape");
                 gameObject.SetActive(false);
             }

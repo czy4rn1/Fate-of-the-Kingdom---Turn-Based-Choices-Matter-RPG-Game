@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerData : MonoBehaviour
@@ -11,16 +12,33 @@ public class PlayerData : MonoBehaviour
     public byte vitality;
     public byte defense;
 
+    public List<Item> playerItems;
+
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            playerItems = new List<Item>();
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+    public void AddItem(string itemName, int amount = 1)
+    {
+        Item existingItem = playerItems.Find(item => item.itemName == itemName);
+        if (existingItem != null)
+        {
+            existingItem.count += amount;
+        }
+        else
+        {
+            playerItems.Add(new Item(itemName, amount));
+            Item item = playerItems.Find(item => item.itemName == itemName);
+            Debug.Log($"{item.itemName}, {item.count}");
         }
     }
 }

@@ -26,6 +26,9 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/CreatorScene.unity
     m_guid: d42628deaae90a342b4c7e98a2928858
+  - m_enabled: 1
+    m_path: Assets/Scenes/DungeonEscape.unity
+    m_guid: c98346a1a7badf44da38cdaa298775cf
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

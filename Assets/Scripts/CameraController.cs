@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
     public BoxCollider2D topBorder;
     public BoxCollider2D bottomBorder;
     private float minX, maxX, minY, maxY;
+    public bool followPlayer = true;
 
     public Transform player;
     private Vector3 vel = Vector3.zero;
@@ -24,12 +25,18 @@ public class CameraController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Vector3 targetPosition = player.position + offset;
-        targetPosition.z = transform.position.z;
-        float clampedX = Mathf.Clamp(targetPosition.x, minX, maxX);
-        float clampedY = Mathf.Clamp(targetPosition.y, minY, maxY);
-        Vector3 clampedPosition = new Vector3(clampedX, clampedY, targetPosition.z);
-        transform.position = Vector3.SmoothDamp(transform.position, clampedPosition, ref vel, damping);
+        if (followPlayer) {
+            Vector3 targetPosition = player.position + offset;
+            targetPosition.z = transform.position.z;
+            float clampedX = Mathf.Clamp(targetPosition.x, minX, maxX);
+            float clampedY = Mathf.Clamp(targetPosition.y, minY, maxY);
+            Vector3 clampedPosition = new Vector3(clampedX, clampedY, targetPosition.z);
+            transform.position = Vector3.SmoothDamp(transform.position, clampedPosition, ref vel, damping);
+        }
+    }
+    public void ActivateFollowing(bool x)
+    {
+        followPlayer = x;
     }
 
 }

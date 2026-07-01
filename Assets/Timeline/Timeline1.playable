@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Name: Dialogue Marker
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
   m_Time: 7.633333333333334
-  text: 'GUARD: You might want to start getting used to hell.'
+  text: 'GUARD: You might want to start getting used to living in hell.'
   isItLast: 1
 --- !u!114 &-7272215455109892551
 MonoBehaviour:

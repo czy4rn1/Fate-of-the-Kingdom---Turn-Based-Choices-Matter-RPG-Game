@@ -57,6 +57,8 @@ public class ThiefCheck : MonoBehaviour
             if (PlayerData.Instance.dexterity >= req_lvl)
             {
                 dialogueManager.ShowDialogue("Obtained Key To The Cell", true, 0, true, CloseDialogue);
+                PlayerData.Instance.AddItem("Key To The Cell");
+                WorldState.Instance.keyStolen = true;
             }
             else 
             {
