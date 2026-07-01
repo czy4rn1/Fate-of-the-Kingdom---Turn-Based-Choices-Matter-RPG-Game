@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1ddbc301a80b50c41902cbdc45dbc035
+guid: 05b673c25567745449e192de5c07e0cc
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639185455521192387
+  platformSettingsDirtyTick: 639185457851378462
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,9 +127,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: stone
+  - name: walls
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: -0.0106382985}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 32
-      height: 32
-    spriteID: 96fd0d3c0142e1d4495e3064e70c8ed4
+      width: 94
+      height: 94
+    spriteID: bb093511c09a3854b920f9a42b20889a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -149,7 +149,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: stone_0
+  - name: walls_0
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -161,7 +161,7 @@ ScriptedImporter:
       y: 67
       width: 32
       height: 32
-    spriteID: f106a11855dbc2645aecc2dd57125a0d
+    spriteID: cc4679021acbb8648a95abb10419377a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -170,7 +170,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: stone_1
+  - name: walls_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -182,7 +182,7 @@ ScriptedImporter:
       y: 67
       width: 32
       height: 32
-    spriteID: b0e9e009bc3418b40ba14d9dccd16da7
+    spriteID: ce97d0a9290543c4b999d17207b05cde
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -191,7 +191,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: stone_2
+  - name: walls_2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -203,7 +203,7 @@ ScriptedImporter:
       y: 35
       width: 32
       height: 32
-    spriteID: 303b9ca0f88da50489c018bd17c5f701
+    spriteID: 4bf1b8d39a780c74f92e63294f351d45
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -212,7 +212,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: stone_3
+  - name: walls_3
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -224,7 +224,7 @@ ScriptedImporter:
       y: 3
       width: 32
       height: 32
-    spriteID: e7c3b53af2a4a1148bd55d59665da3f8
+    spriteID: fb4bb4e033167264eb5a83e57e2f43ec
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -233,7 +233,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: stone_4
+  - name: walls_4
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -245,7 +245,7 @@ ScriptedImporter:
       y: 3
       width: 32
       height: 32
-    spriteID: e3dd706a5b828f24cbc08ad8ec09d650
+    spriteID: e5142731fa7391545b748cefc6bd882f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -254,42 +254,21 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  tileSetImportData:
-  - name: Layer 1
-    originalName: 
-    pivot: {x: 0.5106383, y: 0.5106383}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 4
-      width: 94
-      height: 94
-    spriteID: 269441bb56619ff4699e4c88ca754b2f
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 4}
+  tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 4287466680
+      value0: 593473045
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: Layer 1
-    layerFlags: 3
+    name: walls
+    layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: stone
+    - name: walls
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -297,7 +276,7 @@ ScriptedImporter:
         y: 1
         width: 94
         height: 94
-      spriteId: 269441bb56619ff4699e4c88ca754b2f
+      spriteId: bb093511c09a3854b920f9a42b20889a
     linkedCells: []
     tileCells: []
     tileSetIndex: 0

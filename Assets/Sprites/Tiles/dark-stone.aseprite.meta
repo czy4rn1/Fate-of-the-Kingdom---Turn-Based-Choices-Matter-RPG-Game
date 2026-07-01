@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1ddbc301a80b50c41902cbdc45dbc035
+guid: 009af7a42360ebb48ab0b51b96f978a3
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639185455521192387
+  platformSettingsDirtyTick: 639185458748478307
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,9 +127,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: stone
+  - name: dark-stone
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: -0.0106382985}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 32
-      height: 32
-    spriteID: 96fd0d3c0142e1d4495e3064e70c8ed4
+      width: 94
+      height: 94
+    spriteID: 9ff9c65bcff77b9408342117c409e6a1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -149,7 +149,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: stone_0
+  - name: dark-stone_0
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -161,7 +161,7 @@ ScriptedImporter:
       y: 67
       width: 32
       height: 32
-    spriteID: f106a11855dbc2645aecc2dd57125a0d
+    spriteID: 614425336b54c8442a06ee88433b4dfe
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -170,7 +170,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: stone_1
+  - name: dark-stone_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -182,7 +182,7 @@ ScriptedImporter:
       y: 67
       width: 32
       height: 32
-    spriteID: b0e9e009bc3418b40ba14d9dccd16da7
+    spriteID: 8deadbe329cb8e34c90fee15eca7ee82
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -191,7 +191,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: stone_2
+  - name: dark-stone_2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -203,7 +203,7 @@ ScriptedImporter:
       y: 35
       width: 32
       height: 32
-    spriteID: 303b9ca0f88da50489c018bd17c5f701
+    spriteID: 66502ed7d6f42c74886dbd85215d0e22
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -212,7 +212,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: stone_3
+  - name: dark-stone_3
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -224,7 +224,7 @@ ScriptedImporter:
       y: 3
       width: 32
       height: 32
-    spriteID: e7c3b53af2a4a1148bd55d59665da3f8
+    spriteID: 6b3ad9d7c70b09341a4a1123a85bd03d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -233,7 +233,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: stone_4
+  - name: dark-stone_4
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -245,7 +245,7 @@ ScriptedImporter:
       y: 3
       width: 32
       height: 32
-    spriteID: e3dd706a5b828f24cbc08ad8ec09d650
+    spriteID: 5f0d30845cf5d474d9369edec8300913
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -254,42 +254,21 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  tileSetImportData:
-  - name: Layer 1
-    originalName: 
-    pivot: {x: 0.5106383, y: 0.5106383}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 4
-      width: 94
-      height: 94
-    spriteID: 269441bb56619ff4699e4c88ca754b2f
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 4}
+  tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 4287466680
+      value0: 3012177778
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: Layer 1
-    layerFlags: 3
+    name: dark-stone
+    layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: stone
+    - name: dark-stone
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -297,7 +276,7 @@ ScriptedImporter:
         y: 1
         width: 94
         height: 94
-      spriteId: 269441bb56619ff4699e4c88ca754b2f
+      spriteId: 9ff9c65bcff77b9408342117c409e6a1
     linkedCells: []
     tileCells: []
     tileSetIndex: 0

@@ -1,7 +1,4 @@
-using UnityEngine;
-using UnityEngine.Experimental.AI;
-
-public class Item : MonoBehaviour
+public class Item
 {
     public string itemName = "";
     public int count = 1;

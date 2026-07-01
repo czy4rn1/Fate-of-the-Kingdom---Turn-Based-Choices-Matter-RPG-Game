@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fd7032e9bf7fe3741baaf66cc01331e0
+guid: 4e2ba7f7f08e4e54f83c113f9bc67017
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639178497072959600
+  platformSettingsDirtyTick: 639185445772013544
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,7 +127,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: stone-walls
+  - name: darkerDarkTile
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -139,7 +139,7 @@ ScriptedImporter:
       y: 4
       width: 32
       height: 32
-    spriteID: 5879ea87b04d7754f9c406741b3348d1
+    spriteID: 7a7922881f565da46b8936a32e676b43
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -162,7 +162,7 @@ ScriptedImporter:
       y: 4
       width: 32
       height: 32
-    spriteID: d472754392a5f4842895e0540304b311
+    spriteID: 55ff1355212691041af9eed822a38d41
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -192,7 +192,7 @@ ScriptedImporter:
         y: 0
         width: 32
         height: 32
-      spriteId: d472754392a5f4842895e0540304b311
+      spriteId: 55ff1355212691041af9eed822a38d41
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
