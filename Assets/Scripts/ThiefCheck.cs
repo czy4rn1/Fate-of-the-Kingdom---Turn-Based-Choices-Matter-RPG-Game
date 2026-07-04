@@ -56,7 +56,6 @@ public class ThiefCheck : MonoBehaviour
         if(WorldState.Instance.keyStolen)
         {
             waitTime -= Time.deltaTime;
-            Debug.Log($"{waitTime}");
             if (waitTime <= 0)
             {
                 if (!dialogueExtinguished) {

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,12 @@ public class PlayerData : MonoBehaviour
     public byte dexterity;
     public byte vitality;
     public byte defense;
+
+    public int exp = 0;
+    public int allExp = 0;
+    public byte lvl = 1;
+    public byte lvl_wall = 200;
+    public int expToNextLvl = 200;
 
     public List<Item> playerItems;
 
@@ -47,6 +54,21 @@ public class PlayerData : MonoBehaviour
         if (existingItem != null) {
             existingItem.count -= amount;
             if (existingItem.count<=0) playerItems.Remove(existingItem);
+        }
+    }
+    public IEnumerator AddExperience(int experience)
+    {
+        while(experience > 0)
+        {
+            exp++;
+            allExp++;
+            experience--;
+            if (exp >= expToNextLvl) {
+                 lvl++;
+                 expToNextLvl = (int)(lvl * lvl_wall * 1.3f);
+                 exp = 0;
+            }
+            yield return null; 
         }
     }
 }
