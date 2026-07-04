@@ -1,5 +1,7 @@
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class ThiefCheck : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class ThiefCheck : MonoBehaviour
     private bool checkEnded = false;
     public byte req_lvl;
     private bool interactionActive = false;
+    private float waitTime = 12f;
+    private bool dialogueExtinguished = false;
 
     
     void Update()
@@ -49,6 +53,29 @@ public class ThiefCheck : MonoBehaviour
         {
             playerDetection.allowIcon = false;
         }
+        if(WorldState.Instance.keyStolen)
+        {
+            waitTime -= Time.deltaTime;
+            Debug.Log($"{waitTime}");
+            if (waitTime <= 0)
+            {
+                if (!dialogueExtinguished) {
+                    interactionActive = true;
+                    character.activateAI(false);
+                    player.isControllable = false;
+                    string[] dialogueLines = {"GUARD: Wait, where is my key?",
+                    "GUARD: It should be in my back pocket...",
+                    "GUARD: Oh Lord, it's not there!",
+                    "GUARD: Oh, I know... It must have been Ursus. This sneaky little bastard!",
+                    "GUARD: It better be him, otherwise I'm dead!"};
+                    StartCoroutine(PlayDialogue(dialogueLines));
+                    character.movement.x = 1f;
+                    character.moveSpeed = 10f;
+                    character.kill = true;
+                    dialogueExtinguished = true;
+                }
+            }  
+        }
     }
     public void OnCommandSelected(int chosenCommand)
     {
@@ -80,6 +107,19 @@ public class ThiefCheck : MonoBehaviour
         character.activateAI(true);
         interactionActive = false;
         character.wait = false;
+    }
+
+    private IEnumerator PlayDialogue(string[] dialogueLines)
+    {
+        for(int i=0; i<dialogueLines.Length; i++)
+            {
+                bool last = false;
+                if (i == dialogueLines.Length-1) last = true;
+                dialogueManager.ShowDialogue(dialogueLines[i], true, 0, last, last ? CloseDialogue : null);
+                yield return null;
+                while (!dialogueManager.isWaitingForPlayer) yield return null;
+                while(dialogueManager.isWaitingForPlayer) yield return null; 
+            }
     }
 }
 

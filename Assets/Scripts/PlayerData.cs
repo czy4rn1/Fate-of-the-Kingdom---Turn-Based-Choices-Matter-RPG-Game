@@ -41,4 +41,12 @@ public class PlayerData : MonoBehaviour
             Debug.Log($"{item.itemName}, {item.count}");
         }
     }
+    public void RemoveItem(string itemName, int amount = 1)
+    {
+        Item existingItem = playerItems.Find(item => item.itemName == itemName);
+        if (existingItem != null) {
+            existingItem.count -= amount;
+            if (existingItem.count<=0) playerItems.Remove(existingItem);
+        }
+    }
 }

@@ -5,7 +5,7 @@ public class Character : MonoBehaviour
     private SpriteRenderer sr;
     public Vector2 movement;
     private Rigidbody2D rb;
-    public const float moveSpeed = 3.5f;
+    public float moveSpeed = 3.5f;
     public DialogueManager dialoguePanel;
     private float leftX = -10.45f;
     private float rightX = 0.75f;
@@ -14,6 +14,7 @@ public class Character : MonoBehaviour
     private float waitTimer;
     private float waitingTime = 3f;
     public bool AI_active = false;
+    public bool kill = false;
     public PlayerDetection playerDetection;
     void Start()
     {
@@ -42,6 +43,11 @@ public class Character : MonoBehaviour
                     wait = true;
                     movement = Vector2.zero;
                     rb.linearVelocity = Vector2.zero;
+                    if (kill)
+                    {
+                        WorldState.Instance.guardRanAway = true;
+                        gameObject.SetActive(false);
+                    }
                 }      
             }
             else

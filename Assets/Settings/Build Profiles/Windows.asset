@@ -29,6 +29,9 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/DungeonEscape.unity
     m_guid: c98346a1a7badf44da38cdaa298775cf
+  - m_enabled: 1
+    m_path: Assets/Scenes/CastleMain.unity
+    m_guid: 2fa4dfd5559f70945b0f2fac984007a2
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

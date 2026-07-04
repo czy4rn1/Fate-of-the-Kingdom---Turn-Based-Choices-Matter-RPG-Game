@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   keyStolen: 0
+  guardRanAway: 0
   escapedThroughCave: 0
 --- !u!4 &33160929
 Transform:
@@ -7041,7 +7042,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 17
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -7057,7 +7058,7 @@ Tilemap:
       - {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       - {fileID: -8620789011913242613, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       m_AnimationSpeed: 2
-      m_AnimationTimeOffset: 87.91014
+      m_AnimationTimeOffset: 58.282192
       m_Flags: 0
   - first: {x: -2, y: 3, z: 0}
     second:
@@ -7068,7 +7069,7 @@ Tilemap:
       - {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       - {fileID: -8620789011913242613, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       m_AnimationSpeed: 2
-      m_AnimationTimeOffset: 8.19825
+      m_AnimationTimeOffset: 64.64766
       m_Flags: 0
   m_TileAssetArray:
   - serializedVersion: 2
@@ -7130,7 +7131,7 @@ Tilemap:
     m_RefCount: 2
     m_Data: {fileID: 3581663137755738145, guid: 17a5122a9b05dbf4bb4cb0e0c318d5b5, type: 3}
   - serializedVersion: 2
-    m_RefCount: 1
+    m_RefCount: 2
     m_Data: {fileID: 8404629032946359487, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
   - serializedVersion: 2
     m_RefCount: 0
@@ -7178,7 +7179,7 @@ Tilemap:
     m_RefCount: 0
     m_Data: {fileID: -872834533508963023, guid: d3e25ea3401dc184b8274a00f1becd8a, type: 3}
   - serializedVersion: 2
-    m_RefCount: 1
+    m_RefCount: 0
     m_Data: {fileID: -3945480283909424540, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 2
@@ -7570,7 +7571,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 3.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

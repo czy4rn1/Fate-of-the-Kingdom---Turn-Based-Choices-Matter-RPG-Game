@@ -14,16 +14,15 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
     public float scaleFactor;
     
     private bool fastForward = false;
-    private bool isWaitingForPlayer = false;
+    public bool isWaitingForPlayer = false;
 
     public PlayableDirector timelineDirector;
 
     public GameObject cursor;
     private byte cursorPos = 0;
-    private const float cursorYStart = 12.8f;
-    private const float cursorYJump = 4.5f;
+    private const float cursorYStart = -22f;
+    private const float cursorYJump = 4.8f;
     
-    private byte commandPos = 0;
     private byte numOfCommands = 0;
     private bool commandsOpen = false;
     private KeyCode[] upKeys = {KeyCode.W, KeyCode.UpArrow};
@@ -80,7 +79,7 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
                     if(cursor!=null) cursor.SetActive(false);
                     Action<int> callbackToExecute = currentCommandCallback;
                     currentCommandCallback = null;
-                    callbackToExecute.Invoke(commandPos);                    
+                    callbackToExecute.Invoke(cursorPos);                    
                 }
                 else if (commandsOpen)
                 {
@@ -116,14 +115,16 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
         if(!isItDialogue) fastForward = true;
 
         if (isItDialogue) {
-            dialoguePanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, 20f);
-            backgroundPanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, 20f);
-            backgroundPanel.transform.localPosition = new Vector3(0f, 10f);
-        }
-        else {
             dialoguePanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, 30f);
             backgroundPanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, 30f);
             backgroundPanel.transform.localPosition = new Vector3(0f, 15f);
+        }
+        else {
+            dialogueText.rectTransform.sizeDelta = new Vector2(dialogueText.rectTransform.sizeDelta.x, (numOfCommands+1)*10f);
+            
+            dialoguePanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, (numOfCommands+1)*10f);
+            backgroundPanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, (numOfCommands+1)*10f);
+            backgroundPanel.transform.localPosition = new Vector3(0f, (numOfCommands+1)*10f/2f);
         }
         
         StopAllCoroutines();
@@ -132,7 +133,6 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
         commandsOpen = !isItDialogue;
         
         cursorPos = 0;
-        commandPos = 0;
         if(!isItDialogue && cursor != null) cursor.SetActive(true);
         cursor.transform.localPosition = new Vector3(cursor.transform.localPosition.x, cursorYStart - cursorPos * cursorYJump);
     }
@@ -188,22 +188,11 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
         if (moveUp)
         {
             if (cursorPos > 0) cursorPos--;
-            if (commandPos > 0) commandPos--;
         }
         else if (!moveUp)
         {
 
-            if (cursorPos < 2) {
-                cursorPos++;
-                if (numOfCommands < 3) {
-                    cursorPos = 1;
-                }
-                if (numOfCommands < 2)
-                {
-                    cursorPos = 0;
-                }
-                if(commandPos < numOfCommands - 1) commandPos++;
-            }
+            if (cursorPos < numOfCommands - 1) cursorPos++;
 
         }
         cursor.transform.localPosition = new Vector3(cursor.transform.localPosition.x, cursorYStart - cursorPos * cursorYJump);
