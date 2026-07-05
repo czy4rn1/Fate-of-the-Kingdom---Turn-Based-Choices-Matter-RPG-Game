@@ -120,11 +120,22 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
             backgroundPanel.transform.localPosition = new Vector3(0f, 15f);
         }
         else {
-            dialogueText.rectTransform.sizeDelta = new Vector2(dialogueText.rectTransform.sizeDelta.x, (numOfCommands+1)*10f);
+            byte x = numOfCommands;
+            float panelsHeight = 20f;
+            float inc = 3f;
+            if (x > 1) {
+                for(int i=0; i<x; i++)
+                {
+                    panelsHeight += inc;
+                    inc += 1f;
+                }
+                panelsHeight -= numOfCommands - 1f;
+            }
+            dialogueText.rectTransform.sizeDelta = new Vector2(dialogueText.rectTransform.sizeDelta.x, panelsHeight);
             
-            dialoguePanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, (numOfCommands+1)*10f);
-            backgroundPanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, (numOfCommands+1)*10f);
-            backgroundPanel.transform.localPosition = new Vector3(0f, (numOfCommands+1)*10f/2f);
+            dialoguePanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, panelsHeight);
+            backgroundPanel.sizeDelta = new Vector2(dialoguePanel.sizeDelta.x, panelsHeight);
+            backgroundPanel.transform.localPosition = new Vector3(0f, panelsHeight/2);
         }
         
         StopAllCoroutines();
