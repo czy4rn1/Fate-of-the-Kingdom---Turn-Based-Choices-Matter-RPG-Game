@@ -20,6 +20,7 @@ public class PlayerData : MonoBehaviour
     public int expToNextLvl = 200;
 
     public List<Item> playerItems;
+    public List<Equipment> equipment;
 
     void Awake()
     {
@@ -28,6 +29,7 @@ public class PlayerData : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             playerItems = new List<Item>();
+            equipment = new List<Equipment>();
         }
         else
         {
@@ -70,5 +72,10 @@ public class PlayerData : MonoBehaviour
             }
             yield return null; 
         }
+    }
+
+    public void AddEquipment(string name, string type, byte[] stats)
+    {
+        equipment.Add(new Equipment(name, type, stats));
     }
 }
