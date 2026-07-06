@@ -1723,7 +1723,7 @@ MonoBehaviour:
   dialogueText: {fileID: 1794418140}
   scaleFactor: 5
   isWaitingForPlayer: 0
-  timelineDirector: {fileID: 1235518749}
+  timelineDirector: {fileID: 0}
   cursor: {fileID: 1283316244}
   dialogueActive: 1
 --- !u!225 &505471101
@@ -2008,7 +2008,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &548458769
 Animator:
   serializedVersion: 7
@@ -2077,7 +2077,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -179494401
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2549595046606831259, guid: 9d5534c8400898349b533f123023941d, type: 3}
@@ -2386,6 +2386,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1335724193}
   - {fileID: 1235518750}
   - {fileID: 1042631001}
   - {fileID: 260660929}
@@ -2736,6 +2737,8 @@ MonoBehaviour:
   keyStolen: 0
   guardRanAway: 0
   escapedThroughCave: 0
+  jewelBladeObtained: 0
+  castleFire: 0
 --- !u!4 &752007401
 Transform:
   m_ObjectHideFlags: 0
@@ -6850,6 +6853,8 @@ PlayableDirector:
     value: {fileID: 804776575}
   - key: {fileID: 5949167450485704543, guid: 38a753c1bb351bd4d801b72abd5730b8, type: 2}
     value: {fileID: 1091672924}
+  - key: {fileID: -7134520925461933175, guid: 38a753c1bb351bd4d801b72abd5730b8, type: 2}
+    value: {fileID: 1895352927}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1235518750
@@ -7094,6 +7099,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: 668287788ac108347a3ff2f203c95b66, type: 3}
   m_PrefabInstance: {fileID: 1602097024}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1335724192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1335724193}
+  - component: {fileID: 1335724194}
+  m_Layer: 0
+  m_Name: setTimeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1335724193
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335724192}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 731534191}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1335724194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335724192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b42c06221db5749b61595cd5b774d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  playableDirector: {fileID: 1235518749}
+  dialogueManager: {fileID: 505471100}
 --- !u!1 &1351836792
 GameObject:
   m_ObjectHideFlags: 0
@@ -7861,7 +7912,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Po
+  m_text: GU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3c0d04639ae3602489e934b501497d7e, type: 2}
   m_sharedMaterial: {fileID: 6603050329504320869, guid: 3c0d04639ae3602489e934b501497d7e, type: 2}
@@ -8772,7 +8823,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -8868,7 +8919,7 @@ Tilemap:
       - {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       - {fileID: -8620789011913242613, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       m_AnimationSpeed: 2
-      m_AnimationTimeOffset: 41.711586
+      m_AnimationTimeOffset: 22.721136
       m_Flags: 0
   - first: {x: -3, y: 2, z: 0}
     second:
@@ -8879,7 +8930,7 @@ Tilemap:
       - {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       - {fileID: -8620789011913242613, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       m_AnimationSpeed: 2
-      m_AnimationTimeOffset: 6.5382957
+      m_AnimationTimeOffset: 43.051834
       m_Flags: 0
   - first: {x: 3, y: 2, z: 0}
     second:
@@ -8890,7 +8941,7 @@ Tilemap:
       - {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       - {fileID: -8620789011913242613, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       m_AnimationSpeed: 2
-      m_AnimationTimeOffset: 23.086155
+      m_AnimationTimeOffset: 29.04318
       m_Flags: 0
   m_TileAssetArray:
   - serializedVersion: 2
@@ -8910,10 +8961,10 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: ced0d59ccab9bef458b799414038fb1a, type: 2}
   m_TileSpriteArray:
   - serializedVersion: 2
-    m_RefCount: 1
+    m_RefCount: 0
     m_Data: {fileID: -3945480283909424540, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
   - serializedVersion: 2
-    m_RefCount: 2
+    m_RefCount: 3
     m_Data: {fileID: 8404629032946359487, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
   - serializedVersion: 2
     m_RefCount: 1

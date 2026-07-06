@@ -7,6 +7,7 @@ public class WorldState : MonoBehaviour
     public bool guardRanAway = false; // if player can open the jail cell now
     public bool escapedThroughCave = false; // if player escaped opening jail through a dungeon
     public bool jewelBladeObtained = false;
+    public bool castleFire = false;
 
     void Awake()
     {

@@ -8,13 +8,14 @@ public class ChoiceStolenKey : MonoBehaviour
     public DialogueManager dialogueManager;
     public Player player;
     bool choiceEnded = false;
-    public byte req_str = 13;
+    public byte req_str = 20;
     public byte req_dex = 17;
     public byte req_dex2 = 16;
     public PlayableDirector failedOutcome;
     public PlayableDirector str_success;
     public PlayableDirector dex_success;
     public PlayableDirector dex2_success;
+    public PlayableDirector str_fail;
     public GameObject[] guards;
 
     void Start()
@@ -41,12 +42,15 @@ public class ChoiceStolenKey : MonoBehaviour
         {
             if (PlayerData.Instance.strength >= req_str)
             {
+                dialogueManager.timelineDirector = str_success;
                 str_success.Play();
+                str_success = null;
             }
             else
             {
-                dialogueManager.ShowDialogue("ACTION FAILED", true, 0, false, null);
-                dialogueManager.ShowDialogue("Guard: This won't work on us, heretic! Get ready for some action!", true, 0, true, CloseDialogue);
+                dialogueManager.timelineDirector = str_fail;
+                str_fail.Play();
+                str_fail = null;
                 //SceneManager.LoadScene("CombatCastle", LoadSceneMode.Additive);
             }
         }
@@ -68,7 +72,10 @@ public class ChoiceStolenKey : MonoBehaviour
         {
             if (PlayerData.Instance.dexterity >= req_dex2)
             {
+                WorldState.Instance.castleFire = true;
+                dialogueManager.timelineDirector = dex2_success;
                 dex2_success.Play();
+                dex2_success = null;
             }
             else
             {
