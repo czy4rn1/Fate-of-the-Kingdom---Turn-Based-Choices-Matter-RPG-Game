@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: interactIcon
+  m_Name: dirt_6
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
-  m_Sprite: {fileID: -1017914348920310046, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+  m_Sprite: {fileID: -1401451786156162434, guid: 549b0d19b2192e647b006a8202907aeb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

@@ -26,7 +26,7 @@ public class PickUp : MonoBehaviour
         {
             dialogueManager.ShowDialogue("You've obtained the Jewel Blade", true, 0, true, CloseDialogue);
             byte[] stats = {5, 0, 2, 0, 2, 5};
-            PlayerData.Instance.AddEquipment("Jewel Blade", "Melee", stats);
+            PlayerData.Instance.AddEquipment("Jewel Blade", "Weapon", stats);
             Debug.Log("Obtained Jewel Blade");
             WorldState.Instance.jewelBladeObtained = true;
             gameObject.SetActive(false);

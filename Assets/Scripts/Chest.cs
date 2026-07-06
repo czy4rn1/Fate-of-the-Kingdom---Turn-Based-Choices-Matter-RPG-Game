@@ -15,6 +15,10 @@ public class Chest : MonoBehaviour
     public string item;
     public int amount;
 
+    public string equipment;
+    public string type;
+    public byte[] stats = new byte[6];
+
     public GameObject interactIcon;
 
     void Start()
@@ -41,8 +45,16 @@ public class Chest : MonoBehaviour
         {
             interactIcon.SetActive(false);
         }
-        dialogueManager.ShowDialogue($"Found x{amount} of {item}!", true, 0, true);
-        PlayerData.Instance.AddItem(item, amount);
+        if (item != "NULL")
+        {
+            dialogueManager.ShowDialogue($"Found x{amount} of {item}!", true, 0, true);
+            PlayerData.Instance.AddItem(item, amount);
+        }
+        else
+        {
+            dialogueManager.ShowDialogue($"Found {type}: {equipment}!", true, 0, true);
+            PlayerData.Instance.AddEquipment(equipment, type, stats);
+        }
         //Debug.Log("Player opened a chest");
     }
     private void OnTriggerEnter2D(Collider2D collision)
