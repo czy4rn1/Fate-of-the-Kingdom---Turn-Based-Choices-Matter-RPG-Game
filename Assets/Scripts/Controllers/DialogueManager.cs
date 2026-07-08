@@ -104,6 +104,8 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
     
     public void ShowDialogue(string text, bool isItDialogue, byte numOfCommands, bool isItLast, Action<int> onCommandSelected = null)
     {
+        isWaitingForPlayer = false;
+        fastForward = false;
         if(timelineDirector!=null) timelineDirector.Pause();
         if (text.Contains("!<NAME>!"))
             {

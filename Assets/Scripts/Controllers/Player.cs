@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private SpriteRenderer spriteRenderer;
-    public DialogueManager dialoguePanel;
     
     void Start()
     {
@@ -35,6 +34,12 @@ public class Player : MonoBehaviour
     public void setIsControllable(bool x)
     {
         isControllable = x;
+    }
+
+    public void StopMoving()
+    {
+        movement = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
     }
 
 }

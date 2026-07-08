@@ -9,6 +9,16 @@ public class WorldState : MonoBehaviour
     public bool jewelBladeObtained = false;
     public bool castleFire = false;
 
+    // --- KILMOR QUEST ---
+    public bool kilmor_questStarted = false;
+    public bool kilmor_questEnded = false;
+    public bool secretPathOpened = false;
+    public bool attackedKilmor = false;
+    public bool ignoredKilmor = false;
+    public bool savedChildren = false;
+    // --------------------
+    
+
     void Awake()
     {
         if (Instance == null)

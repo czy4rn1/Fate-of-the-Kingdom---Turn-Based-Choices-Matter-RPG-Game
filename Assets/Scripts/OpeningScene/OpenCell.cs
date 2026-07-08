@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class OpenCell : MonoBehaviour
@@ -25,8 +26,22 @@ public class OpenCell : MonoBehaviour
         }
     }
 
+    public IEnumerator PlayDialogue(string[] dialogueLines)
+    {
+        for(int i=0; i<dialogueLines.Length; i++)
+            {
+                bool last = false;
+                if (i == dialogueLines.Length-1) last = true;
+                dialogueManager.ShowDialogue(dialogueLines[i], true, 0, last, last ? CloseDialogue : null);
+                yield return null;
+                while (!dialogueManager.isWaitingForPlayer) yield return null;
+                while(dialogueManager.isWaitingForPlayer) yield return null; 
+            }
+    }
+
     public void CloseDialogue(int nothing)
     {
         player.isControllable = true;
     }
+
 }

@@ -14,7 +14,6 @@ public class ThiefCheck : MonoBehaviour
     private bool interactionActive = false;
     private float waitTime = 12f;
     private bool dialogueExtinguished = false;
-
     
     void Update()
     {
@@ -108,7 +107,7 @@ public class ThiefCheck : MonoBehaviour
         character.wait = false;
     }
 
-    private IEnumerator PlayDialogue(string[] dialogueLines)
+    public IEnumerator PlayDialogue(string[] dialogueLines)
     {
         for(int i=0; i<dialogueLines.Length; i++)
             {
@@ -120,5 +119,6 @@ public class ThiefCheck : MonoBehaviour
                 while(dialogueManager.isWaitingForPlayer) yield return null; 
             }
     }
+
 }
 
