@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2abada3e740552b48a40d74500673660
+guid: f733dbc6acc0b944a8abf657a05aee13
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639192950604075118
+  platformSettingsDirtyTick: 639192950654645189
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,7 +127,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Sprite-0001
+  - name: dark-grass
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 32
-      height: 32
-    spriteID: 05c4836edadf1524eb1f8df5cf4bca52
+      width: 48
+      height: 48
+    spriteID: 9f18e0596dc29c148a8b65bd4cbabead
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -162,7 +162,7 @@ ScriptedImporter:
       y: 4
       width: 48
       height: 48
-    spriteID: 89ac109978e1b474f8cd48b398b3578e
+    spriteID: 2c6aa8aa4f7cd0142a15794ae15936b5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -192,7 +192,7 @@ ScriptedImporter:
         y: 0
         width: 48
         height: 48
-      spriteId: 89ac109978e1b474f8cd48b398b3578e
+      spriteId: 2c6aa8aa4f7cd0142a15794ae15936b5
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
