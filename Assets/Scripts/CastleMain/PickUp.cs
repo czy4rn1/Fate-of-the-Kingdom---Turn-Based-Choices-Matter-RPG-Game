@@ -7,6 +7,10 @@ public class PickUp : MonoBehaviour
     public Player player;
     public string commandText;
     private bool interactionActive = false;
+    public string itemName;
+    public byte numOfCommands;
+    public string itemType;
+    public byte[] stats = new byte[6];
 
     void Update()
     {
@@ -16,7 +20,7 @@ public class PickUp : MonoBehaviour
         {
             interactionActive = true;
             player.isControllable = false;
-            dialogueManager.ShowDialogue(commandText, false, 2, false, OnCommandSelected);
+            dialogueManager.ShowDialogue(commandText, false, numOfCommands, false, OnCommandSelected);
         }
     }
 
@@ -24,11 +28,18 @@ public class PickUp : MonoBehaviour
     {
         if (command == 0)
         {
-            dialogueManager.ShowDialogue("You've obtained the Jewel Blade", true, 0, true, CloseDialogue);
-            byte[] stats = {5, 0, 2, 0, 2, 5};
-            PlayerData.Instance.AddEquipment("Jewel Blade", "Weapon", stats);
-            Debug.Log("Obtained Jewel Blade");
-            WorldState.Instance.jewelBladeObtained = true;
+            dialogueManager.ShowDialogue($"You've obtained the {itemName}", true, 0, true, CloseDialogue);
+            if (itemType == "Weapon") {               
+                PlayerData.Instance.AddEquipment(itemName, itemType, stats);
+                Debug.Log("Obtained Jewel Blade");
+                if (itemName == "Jewel Blade") WorldState.Instance.jewelBladeObtained = true;
+            }
+            else if (itemType == "Item")
+            {
+                PlayerData.Instance.AddItem(itemName, 1);
+                if (itemName == "Red Gem") WorldState.Instance.redGemObtained = true;
+                
+            }
             gameObject.SetActive(false);
         }
         else if (command == 1)

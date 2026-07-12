@@ -33,6 +33,8 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
     public bool dialogueActive = false;
     
     private bool hideIfLast = false;
+
+    public bool cutsceneEnded = false;
     
     void Start()
     {
@@ -52,6 +54,7 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
                 timelineDirector.Stop();
                 timelineDirector.gameObject.SetActive(false);
                 timelineDirector = null;
+                cutsceneEnded = true;
             }
             else {
                 ShowDialogue(text, true, 0, hideIfLast, null);

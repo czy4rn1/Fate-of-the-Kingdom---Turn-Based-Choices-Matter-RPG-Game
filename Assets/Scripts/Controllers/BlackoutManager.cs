@@ -6,6 +6,7 @@ public class BlackoutManager : MonoBehaviour
     public CanvasGroup canvasGroup;
     public float fadeSpeed = 0.01f;
     private Coroutine currentCoroutine;
+    public float curAlpha = 0;
 
     void Start()
     {
@@ -22,19 +23,24 @@ public class BlackoutManager : MonoBehaviour
         {
             while (canvasGroup.alpha > 0f) {
                 canvasGroup.alpha -= fadeSpeed;
+                curAlpha = canvasGroup.alpha;
                 yield return new WaitForSeconds(fadeSpeed);
             }
             canvasGroup.alpha = 0f;
+            curAlpha = canvasGroup.alpha;
         }
         else if (!fadeIn)
         {
             while (canvasGroup.alpha < 1f)
             {
                 canvasGroup.alpha += fadeSpeed;
+                curAlpha = canvasGroup.alpha;
                 yield return new WaitForSeconds(fadeSpeed);
             }
             canvasGroup.alpha = 1f;
+            curAlpha = canvasGroup.alpha;
         }
+        currentCoroutine = null;
     }
 
     public void SetFade(bool x)

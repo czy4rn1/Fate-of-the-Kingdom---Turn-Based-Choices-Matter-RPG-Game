@@ -17,6 +17,9 @@ public class WorldState : MonoBehaviour
     public bool ignoredKilmor = false;
     public bool savedChildren = false;
     // --------------------
+
+    public bool redGemObtained = false;
+    public bool golemsHaveGem = false;
     
 
     void Awake()
