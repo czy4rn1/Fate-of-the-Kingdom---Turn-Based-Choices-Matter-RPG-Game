@@ -15,6 +15,7 @@ public class GolemEncounter : MonoBehaviour
     public GameObject smallGolem;
     public byte req_dex;
     private bool cutsceneActive = false;
+    public CameraController cameraController;
 
     void Update()
     {
@@ -45,19 +46,13 @@ public class GolemEncounter : MonoBehaviour
         {
             if (PlayerData.Instance.dexterity >= req_dex)
             {
-                if (dex_success != null)
-                {
-                    dex_success.Play();
-                    dex_success = null;
-                }
+                StartCoroutine(DexCutscene(dex_success));
             }
             else
             {
-                if (dex_fail != null)
-                {
-                    dex_fail.Play();
-                    dex_fail = null;
-                }
+                WorldState.Instance.redGemObtained = false;
+                WorldState.Instance.golemsHaveGem = true;
+                StartCoroutine(DexCutscene(dex_fail));
             }
         }
         else if (command == 2)
@@ -70,7 +65,7 @@ public class GolemEncounter : MonoBehaviour
     {
         player.isControllable = true;
         yield return StartCoroutine(dialogueManager.HideShowPanel("hide"));
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         smallGolem.SetActive(false);
         gameObject.SetActive(false);
     }
@@ -90,6 +85,23 @@ public class GolemEncounter : MonoBehaviour
        introEnded = true;
     }
 
+    IEnumerator DexCutscene(PlayableDirector cutscene)
+    {
+        if (cutscene != null)
+        {
+            yield return StartCoroutine(dialogueManager.HideShowPanel("hide"));
+            yield return new WaitForSeconds(0.2f);
+            dialogueManager.timelineDirector = cutscene;
+            cutscene.Play();
+            while(!dialogueManager.cutsceneEnded) yield return null;
+            dialogueManager.cutsceneEnded = false;
+            cameraController.followPlayer = true;
+            player.isControllable = true;
+            smallGolem.SetActive(false);
+            gameObject.SetActive(false);
+        }
+    }
+
     public void CloseDialogue(int nothing)
     {
         player.isControllable = true;
@@ -100,6 +112,7 @@ public class GolemEncounter : MonoBehaviour
         yield return StartCoroutine(PlayDialogue(dialogueLines));
         yield return StartCoroutine(GolemsLeave());
         player.isControllable = true;
+        cameraController.followPlayer = true;
     }
 
     public IEnumerator GolemsLeave()

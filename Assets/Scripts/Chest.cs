@@ -9,6 +9,7 @@ public class Chest : MonoBehaviour
     private bool isPlayerNearby = false;
     private SpriteRenderer spriteRenderer;
     public Sprite openChestSprite;
+    public Player player;
 
     public DialogueManager dialogueManager;
 
@@ -32,7 +33,7 @@ public class Chest : MonoBehaviour
 
     void Update()
     {
-        if (isPlayerNearby && !isOpen && Input.GetKeyDown(KeyCode.F))
+        if (isPlayerNearby && !isOpen && Input.GetKeyDown(KeyCode.F) && player.isControllable)
         {
             OpenChest();
         }
@@ -62,7 +63,7 @@ public class Chest : MonoBehaviour
         if (isOpen) return;
         if (collision.CompareTag("Player")) {
             isPlayerNearby = true;
-            if (interactIcon != null)
+            if (interactIcon != null && player.isControllable)
             {
                 interactIcon.SetActive(true);
             }
