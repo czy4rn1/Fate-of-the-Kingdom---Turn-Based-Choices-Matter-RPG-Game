@@ -32,6 +32,15 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/CastleMain.unity
     m_guid: 2fa4dfd5559f70945b0f2fac984007a2
+  - m_enabled: 1
+    m_path: Assets/Scenes/CastleForest.unity
+    m_guid: 8bd9e5c078bbb324facbf2fd54c7433e
+  - m_enabled: 1
+    m_path: Assets/Scenes/Forest.unity
+    m_guid: 1140ece351ffd374fab30daf6afcdbd1
+  - m_enabled: 1
+    m_path: Assets/Scenes/Beach.unity
+    m_guid: 9bdae3f357be25546aea4c1ab4d4b733
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

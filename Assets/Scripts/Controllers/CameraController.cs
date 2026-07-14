@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Vector3 offset;
-    [SerializeField] private float damping;
+    private Vector3 offset;
+    public float damping;
 
     public BoxCollider2D leftBorder;
     public BoxCollider2D rightBorder;
@@ -18,11 +18,36 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
+        CalculateBorders();
+    }
+
+    public void CalculateBorders()
+    {
         if (leftBorder != null)   minX = leftBorder.bounds.max.x + 10f;
         if (rightBorder != null)  maxX = rightBorder.bounds.min.x - 10f;
         if (bottomBorder != null) minY = bottomBorder.bounds.max.y + 5f;
         if (topBorder != null)    maxY = topBorder.bounds.min.y;
     }
+
+    public void UpdateBorder(BoxCollider2D collider, byte x) {
+        switch (x)
+        {
+            case 0:
+                bottomBorder = collider;
+                break;
+            case 1:
+                topBorder = collider;
+                break;
+            case 2:
+                leftBorder = collider;
+                break;
+            case 3: 
+                rightBorder = collider;
+                break;            
+        }
+        CalculateBorders();
+    }
+
     private void FixedUpdate()
     {
         if (followPlayer) {
