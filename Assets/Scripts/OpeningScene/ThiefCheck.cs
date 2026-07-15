@@ -31,7 +31,7 @@ public class ThiefCheck : MonoBehaviour
                 player.isControllable = false;
                 if (!checkEnded) {
                 dialogueManager.ShowDialogue(
-                    $"\n1. [DEX {PlayerData.Instance.dexterity}/{req_lvl}] Steal the key to your cell.\n2. Ignore", 
+                    $"You see a Key to the Cell in the guard's pocket.\n1. [DEX {PlayerData.Instance.dexterity}/{req_lvl}] Steal the key\n2. Ignore", 
                     false, 
                     2, 
                     false, 
@@ -58,13 +58,14 @@ public class ThiefCheck : MonoBehaviour
             if (waitTime <= 0)
             {
                 if (!dialogueExtinguished) {
+                    character.rightX = 9.96f;
                     interactionActive = true;
                     character.activateAI(false);
                     player.isControllable = false;
                     string[] dialogueLines = {"GUARD: Wait, where is my key?",
                     "GUARD: It should be in my back pocket...",
                     "GUARD: Oh Lord, it's not there!",
-                    "GUARD: Oh, I know... It must have been Ursus. This sneaky little bastard!",
+                    "GUARD: Oh, I know... It must have been Ursus. That sneaky little bastard!",
                     "GUARD: It better be him, otherwise I'm dead!"};
                     StartCoroutine(PlayDialogue(dialogueLines));
                     character.movement.x = 1f;

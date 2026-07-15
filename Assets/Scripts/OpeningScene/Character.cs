@@ -8,7 +8,7 @@ public class Character : MonoBehaviour
     public float moveSpeed = 3.5f;
     public DialogueManager dialoguePanel;
     private float leftX = -10.45f;
-    private float rightX = 0.75f;
+    public float rightX = 0.75f;
     public bool wait = false;
     private bool goLeft = false;
     private float waitTimer;

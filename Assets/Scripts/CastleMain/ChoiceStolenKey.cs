@@ -17,6 +17,7 @@ public class ChoiceStolenKey : MonoBehaviour
     public PlayableDirector dex2_success;
     public PlayableDirector str_fail;
     public GameObject[] guards;
+    public CameraController cameraController;
 
     void Start()
     {
@@ -38,6 +39,7 @@ public class ChoiceStolenKey : MonoBehaviour
 
     public void OnChosenCommand(int command)
     {
+        choiceEnded = true;
         if (command == 0)
         {
             if (PlayerData.Instance.strength >= req_str)
@@ -89,15 +91,10 @@ public class ChoiceStolenKey : MonoBehaviour
         {
             //SceneManager.LoadScene("CombatCastle", LoadSceneMode.Additive);
         }
-        foreach (GameObject gob in guards)
-        {
-            gob.SetActive(false);
-        }
-        str_success = null;
-        dex2_success = null;
-        failedOutcome = null;
-        choiceEnded = true;
-        gameObject.SetActive(false);
+        //foreach (GameObject gob in guards)
+        //{
+        //    gob.SetActive(false);
+        //}
     }
 
     public void CloseDialogue(int nothing)
@@ -112,13 +109,21 @@ public class ChoiceStolenKey : MonoBehaviour
         {
             dex_success.Play();
         }
-        yield return null;
-        while (dex_success.state == PlayState.Playing)
-        {
-            yield return null;
-        }
+        while (!dialogueManager.cutsceneEnded) yield return null;
+        dialogueManager.cutsceneEnded = false;
+        dex_success = null;
         PlayerData.Instance.AddItem("Potion", 5);
         dialogueManager.ShowDialogue("Found x5 of Potion", true, 0, true, CloseDialogue);
+        cameraController.followPlayer = true;
+        ChoiceEnded();
+    }
+
+    private void ChoiceEnded()
+    {
+        str_success = null;
         dex_success = null;
+        dex2_success = null;
+        failedOutcome = null;
+        gameObject.SetActive(false);
     }
 }

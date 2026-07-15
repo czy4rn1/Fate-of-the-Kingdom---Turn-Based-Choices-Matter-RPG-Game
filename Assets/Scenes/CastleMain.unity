@@ -227,7 +227,7 @@ Transform:
   m_GameObject: {fileID: 27722833}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.28334, y: 0.84616, z: 0}
+  m_LocalPosition: {x: 13.22, y: 1.03, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6daad315f211c5a41acf8910e34b0314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  keyStolen: 0
+  keyStolen: 1
   guardRanAway: 0
   escapedThroughCave: 0
   jewelBladeObtained: 0
@@ -3657,7 +3657,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Zorax: Grrraaaah!!!'
+  m_text: Zo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3c0d04639ae3602489e934b501497d7e, type: 2}
   m_sharedMaterial: {fileID: 6603050329504320869, guid: 3c0d04639ae3602489e934b501497d7e, type: 2}
@@ -4182,7 +4182,7 @@ MonoBehaviour:
   backgroundPanel: {fileID: 982459244}
   dialogueText: {fileID: 894604537}
   scaleFactor: 5
-  isWaitingForPlayer: 1
+  isWaitingForPlayer: 0
   timelineDirector: {fileID: 0}
   cursor: {fileID: 85336840}
   dialogueActive: 1
@@ -4426,7 +4426,10 @@ MonoBehaviour:
   dex_success: {fileID: 879824461}
   dex2_success: {fileID: 654535934}
   str_fail: {fileID: 208285560}
-  guards: []
+  guards:
+  - {fileID: 27722833}
+  - {fileID: 1550112241}
+  cameraController: {fileID: 1928645477}
 --- !u!1 &1254165876
 GameObject:
   m_ObjectHideFlags: 0
@@ -12087,7 +12090,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 16
+      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -12103,7 +12106,7 @@ Tilemap:
       - {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       - {fileID: -8620789011913242613, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       m_AnimationSpeed: 2
-      m_AnimationTimeOffset: 9.364867
+      m_AnimationTimeOffset: 41.760094
       m_Flags: 0
   m_TileAssetArray:
   - serializedVersion: 2
@@ -12210,10 +12213,10 @@ Tilemap:
     m_RefCount: 0
     m_Data: {fileID: 1556182531084663342, guid: d3e25ea3401dc184b8274a00f1becd8a, type: 3}
   - serializedVersion: 2
-    m_RefCount: 1
+    m_RefCount: 0
     m_Data: {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
   - serializedVersion: 2
-    m_RefCount: 0
+    m_RefCount: 1
     m_Data: {fileID: -3945480283909424540, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 2
@@ -12544,7 +12547,7 @@ Transform:
   m_GameObject: {fileID: 1550112241}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.99, y: 0.1, z: 0}
+  m_LocalPosition: {x: 13.09, y: -0.21, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13712,7 +13715,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430d75d2822bc7d45a492b10e0686b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
-  offset: {x: 0, y: 0, z: 0}
   damping: 0.2
   leftBorder: {fileID: 1609567425}
   rightBorder: {fileID: 1757703068}
