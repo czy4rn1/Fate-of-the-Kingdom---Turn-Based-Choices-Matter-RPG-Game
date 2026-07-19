@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class FisherMan : MonoBehaviour
@@ -13,11 +12,6 @@ public class FisherMan : MonoBehaviour
     private bool choiceEnded = false;
     public byte req_per;
     public CollectFishes collectFishes;
-
-    void Start()
-    {
-        
-    }
 
     
     void Update()
@@ -46,9 +40,9 @@ public class FisherMan : MonoBehaviour
                 "4. I have to think about it", false, 4, true, OnCommandSelected);
                 if (WorldState.Instance.fish_questStarted && !WorldState.Instance.fish_questEnded)
                 {
-                    if (collectFishes.fishes_collected < 5) {
+                    if (collectFishes.fishes_collected < 7) {
                         string fishes = collectFishes.fishes_collected == 1 ? "fish" : "fishes";
-                        string text = $"Fisherman: You've collected {collectFishes.fishes_collected} {fishes}! {5-collectFishes.fishes_collected} more to go!";
+                        string text = $"Fisherman: You've collected {collectFishes.fishes_collected} {fishes}! {7-collectFishes.fishes_collected} more to go!";
                         dialogueManager.ShowDialogue(text, true, 0, true, CloseDialogue);
                     }
                     else

@@ -1,10 +1,8 @@
-using System.Collections;
-using UnityEditor.XR;
 using UnityEngine;
 
 public class CollectFishes : MonoBehaviour
 {
-    public GameObject[] fishes = new GameObject[5];
+    public GameObject[] fishes = new GameObject[7];
     public byte fishes_collected = 0;
     private bool fishesSpawned = false;
     void Start()
