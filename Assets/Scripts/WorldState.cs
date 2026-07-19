@@ -26,6 +26,7 @@ public class WorldState : MonoBehaviour
     // -- FISHERMAN ---
     public bool fish_questStarted = false;
     public bool fish_questEnded = false;
+    public bool fish_willHelp = false;
     public bool fish_killed = false;
     // ----------------
 

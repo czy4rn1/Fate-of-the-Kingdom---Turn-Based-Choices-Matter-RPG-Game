@@ -27,13 +27,17 @@ public class FisherMan : MonoBehaviour
             return;
         }
         else playerDetection.allowIcon = true;
+        if (choiceEnded && WorldState.Instance.fish_killed) gameObject.SetActive(false);
         if (isInteractable && 
         playerDetection.isPlayerNearby && 
         player.isControllable && 
         Input.GetKeyDown(KeyCode.F)) {
             isInteractable = false;
             player.isControllable = false;
-            if (!introEnded) StartCoroutine(PlayDialogue(introDialouge));
+            if (!introEnded) {
+                StartCoroutine(PlayDialogue(introDialouge));
+                introEnded = true;
+            }
             else {
                 if (!choiceEnded) dialogueManager.ShowDialogue("Would you help a poor old bastard like me?\n" +
                 "1. Sure, I'll do it for you.\n" +
@@ -72,25 +76,56 @@ public class FisherMan : MonoBehaviour
         if (command == 0) {
             WorldState.Instance.fish_questStarted = true;
             dialogueManager.ShowDialogue("Fisherman: Alrighty, then! I'll be waiting for you right here.", true, 0, true, CloseDialogue);
+            choiceEnded = true;
         }
         else if (command == 1) {
             if (PlayerData.Instance.persuasion >= req_per)
             {
-                
+               string[] dialogueLines = {"!<NAME>!: Please, listen to me. You might not realize it, because you've left the civilization years ago, but we've entered the dark ages",
+               "!<NAME>!: I haven't introduced myself to you. My name is !<NAME>!, and for the last year I've been a part of a rebellion.",
+               "!<NAME>!: Our mission is to overthrow Lord Magnus. Under his dynasty many of my friends have died, been captured or executed by his battalion.",
+               "!<NAME>!: With each month his army is growing bigger and stronger, and we were not certain, how he convinces people to join him.",
+               "!<NAME>!: Even a couple of former members of the rebellion have joined his army. One of them was my best friend.",
+               "!<NAME>!: I have just escaped his jail, and I managed to have a closer look at his knights.",
+               "!<NAME>!: Every single one of them had black eyes, some of them were worshipping him like a god. Their movements were unnatural, and many times it looked like they were fighting themselves from the inside.",
+               "!<NAME>!: I am certain he is a user of the Devil Magic, and I have to stop him before he brings Apocalypse on all of us.",
+               "!<NAME>!: And that includes you, as well.",
+               "!<NAME>!: So please, let's not delay my mission any further, and please transport me to Vilson.",
+               "Fisherman: I-uh... I see... I'm really sorry, I didn't know things got this bad up there...",
+               "Fisherman: I left when my son was convinced to join Magnus' army. It happened 3 years ago...",
+               "Fisherman: We had an awful fight - many epithets thrown at each other, and then it turned into a brawl.",
+               "Fisherman: He beat me up pretty badly.",
+               "Fisherman: It broke my heart, but that day I considered my son dead.",
+               "Fisherman: I decided to leave the town. Heartbroken, weak and lost of any hope.",
+               "Fisherman: I know that I'm an old man and my help isn't much worth, but I'd like to help you in any way I can.",
+               "Fisherman: Do you think it'd be possible to bring my son back?",
+               "!<NAME>!: Currently with the knowledge I have, I am not able to answer this question, but my goal is to save as many people as possible.",
+               "!<NAME>!: I'll do everything I can to bring your son back.",
+               "Fisherman: Thank you, !<NAME>!. Get in the boat, whenever you're ready."
+               }; 
+               WorldState.Instance.fish_questStarted = WorldState.Instance.fish_questEnded = WorldState.Instance.fish_willHelp = true;
+               StartCoroutine(PlayDialogue(dialogueLines));
+               choiceEnded = true;
             }
             else
             {
-                
+               string[] dialogueLines = {"!<NAME>!: Look, I don't have time for this.",
+               "!<NAME>!: I'm on a very important mission, and I have to get to Vilson as soon as possible.",
+               "!<NAME>!: Just quit talking, get on the boat and transport me there.",
+               "Fisherman: Yeah sure, bud. And I'm the king of Atlantis! Now get me some fish, please."}; 
+               StartCoroutine(PlayDialogue(dialogueLines));
             }
         }
         else if (command == 2) {
             WorldState.Instance.fish_killed = true;
+            string[] dialogueLines = {"!<NAME>!: You could have made it easy on yourself, but you've chosen otherwise.", "!<NAME>!: That's on you, old man"}; 
+            StartCoroutine(PlayDialogue(dialogueLines));
+            choiceEnded = true;
         }
         else if (command == 3)
         {
             dialogueManager.ShowDialogue("Fisherman: Well, I'm not going anywhere! You'll find me here.", true, 0, true, CloseDialogue);
         }
-        if (command != 3) choiceEnded = true;
     }
     public void CloseDialogue(int nothing)
     {
@@ -109,6 +144,5 @@ public class FisherMan : MonoBehaviour
                 while (!dialogueManager.isWaitingForPlayer) yield return null;
                 while(dialogueManager.isWaitingForPlayer) yield return null; 
             }    
-        introEnded = true;
     }
 }
