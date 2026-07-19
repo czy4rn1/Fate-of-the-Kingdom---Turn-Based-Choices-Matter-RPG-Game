@@ -7,6 +7,7 @@ public class BlackoutManager : MonoBehaviour
     public float fadeSpeed = 0.01f;
     private Coroutine currentCoroutine;
     public float curAlpha = 0;
+    public bool startBlack = false;
 
     void Start()
     {
@@ -14,6 +15,7 @@ public class BlackoutManager : MonoBehaviour
         {
             canvasGroup.alpha = 0f;
         }
+        if (startBlack) canvasGroup.alpha = 1f;
     }
 
     public IEnumerator Fade(bool fadeIn)

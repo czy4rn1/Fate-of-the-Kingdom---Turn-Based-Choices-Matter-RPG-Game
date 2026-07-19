@@ -41,6 +41,9 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/Beach.unity
     m_guid: 9bdae3f357be25546aea4c1ab4d4b733
+  - m_enabled: 1
+    m_path: Assets/Scenes/BoatTransition.unity
+    m_guid: 6b7691f1020a89f4b977d86a7781fc67
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
