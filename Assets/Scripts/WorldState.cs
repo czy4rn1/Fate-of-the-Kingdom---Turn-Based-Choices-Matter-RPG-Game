@@ -18,8 +18,18 @@ public class WorldState : MonoBehaviour
     public bool savedChildren = false;
     // --------------------
 
+    // --- FOREST ENCOUNTER ---
     public bool redGemObtained = false;
     public bool golemsHaveGem = false;
+    // ------------------------
+
+    // -- FISHERMAN ---
+    public bool fish_questStarted = false;
+    public bool fish_questEnded = false;
+    public bool fish_killed = false;
+    // ----------------
+
+
     
 
     void Awake()

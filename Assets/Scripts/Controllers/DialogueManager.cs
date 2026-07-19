@@ -68,6 +68,7 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
             if (!isWaitingForPlayer && !fastForward) fastForward = true;
             else if(isWaitingForPlayer)
             {
+                dialogueText.text = "";
                 isWaitingForPlayer = false;
                 fastForward = false;
                 bool hideNow = hideIfLast;
@@ -151,6 +152,7 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
         cursorPos = 0;
         if(!isItDialogue && cursor != null) cursor.SetActive(true);
         cursor.transform.localPosition = new Vector3(cursor.transform.localPosition.x, cursorYStart - cursorPos * cursorYJump);
+        if (isItDialogue && cursor != null) cursor.SetActive(false);
     }
 
     private IEnumerator TypeText(string text)
