@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
         if (leftBorder != null)   minX = leftBorder.bounds.max.x + 10f;
         if (rightBorder != null)  maxX = rightBorder.bounds.min.x - 10f;
         if (bottomBorder != null) minY = bottomBorder.bounds.max.y + 5f;
-        if (topBorder != null)    maxY = topBorder.bounds.min.y;
+        if (topBorder != null)    maxY = topBorder.bounds.min.y - 5f;
     }
 
     public void UpdateBorder(BoxCollider2D collider, byte x) {

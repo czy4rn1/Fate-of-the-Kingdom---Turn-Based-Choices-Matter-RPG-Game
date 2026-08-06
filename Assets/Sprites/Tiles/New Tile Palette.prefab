@@ -251,6 +251,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -3, y: -12, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 73
+      m_TileSpriteIndex: 72
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: -14, y: -11, z: 0}
     second:
       serializedVersion: 2
@@ -440,7 +450,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
-      m_AllTileFlags: 0
+      m_AllTileFlags: 2147483648
   - first: {x: -7, y: -9, z: 0}
     second:
       serializedVersion: 2
@@ -920,7 +930,7 @@ Tilemap:
       - {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       - {fileID: -8620789011913242613, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       m_AnimationSpeed: 2
-      m_AnimationTimeOffset: 69.14331
+      m_AnimationTimeOffset: 11.28894
       m_Flags: 0
   m_TileAssetArray:
   - serializedVersion: 2
@@ -1142,6 +1152,9 @@ Tilemap:
   - serializedVersion: 2
     m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 0ca67289fe3c77549a1fc522b953fe8b, type: 2}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 43268a58106672a4a99491ed303bea65, type: 2}
   m_TileSpriteArray:
   - serializedVersion: 2
     m_RefCount: 1
@@ -1359,9 +1372,12 @@ Tilemap:
   - serializedVersion: 2
     m_RefCount: 1
     m_Data: {fileID: -8633143191925137514, guid: cec7ab78c3e546843980988771cb1bc0, type: 3}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 4824377104871118000, guid: a01cd266f91f6a240b9924780073d4eb, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 2
-    m_RefCount: 73
+    m_RefCount: 74
     m_Data:
       e00: 1
       e01: 0
@@ -1381,7 +1397,7 @@ Tilemap:
       e33: 1
   m_TileColorArray:
   - serializedVersion: 2
-    m_RefCount: 73
+    m_RefCount: 74
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -1539,7 +1555,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1802637978834531051}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5179206502378637250
+--- !u!114 &5375730583343548374
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
