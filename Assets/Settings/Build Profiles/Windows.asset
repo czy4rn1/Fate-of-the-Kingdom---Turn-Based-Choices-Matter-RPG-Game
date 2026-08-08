@@ -44,6 +44,12 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/BoatTransition.unity
     m_guid: 6b7691f1020a89f4b977d86a7781fc67
+  - m_enabled: 1
+    m_path: Assets/Scenes/Volsen.unity
+    m_guid: 6934d920313478c4d895f5c5696865bf
+  - m_enabled: 1
+    m_path: Assets/Scenes/VolsenInn.unity
+    m_guid: 8d5efb29c7b6f2e43944b0128d19b7b1
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
