@@ -183,7 +183,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -179494401
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2549595046606831259, guid: 9d5534c8400898349b533f123023941d, type: 3}
@@ -551,7 +551,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -179494401
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7667549660874383953, guid: feb0112ec451dac4ebd3da5829f5d0d1, type: 3}
@@ -630,6 +630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6daad315f211c5a41acf8910e34b0314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldState
+  currentLevel: 
   keyStolen: 0
   guardRanAway: 0
   escapedThroughCave: 0
@@ -672,6 +673,7 @@ GameObject:
   m_Component:
   - component: {fileID: 738202046}
   - component: {fileID: 738202045}
+  - component: {fileID: 738202047}
   m_Layer: 0
   m_Name: CutsceneDown
   m_TagString: Untagged
@@ -717,6 +719,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &738202047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738202044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a2b3dad831475b46a5924e5a680608a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  playableDirector: {fileID: 738202045}
 --- !u!1 &799610036
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,6 +772,62 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.05755, y: 6.48774, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1005921033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1005921035}
+  - component: {fileID: 1005921034}
+  m_Layer: 0
+  m_Name: PlayerData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1005921034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005921033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f2dddd296c4b44a898e1d4af7519e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerData
+  playerName: 
+  strength: 0
+  intelligence: 0
+  persuasion: 0
+  dexterity: 0
+  vitality: 0
+  defense: 0
+  exp: 0
+  allExp: 0
+  lvl: 1
+  lvl_wall: 200
+  expToNextLvl: 200
+--- !u!4 &1005921035
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005921033}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.93805, y: 1.50604, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10898,3 +10969,4 @@ SceneRoots:
   - {fileID: 1504257116}
   - {fileID: 799610038}
   - {fileID: 664373093}
+  - {fileID: 1005921035}

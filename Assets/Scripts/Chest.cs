@@ -1,10 +1,8 @@
-using NUnit.Framework;
-using Unity.VectorGraphics;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Chest : MonoBehaviour
 {
+    public string chest_id;
     private bool isOpen = false;
     private bool isPlayerNearby = false;
     private SpriteRenderer spriteRenderer;
@@ -29,18 +27,21 @@ public class Chest : MonoBehaviour
         {
             interactIcon.SetActive(false);
         }
+        if (WorldState.Instance.IsChestOpen(chest_id)) setOpenChest();
     }
 
     void Update()
     {
         if (isPlayerNearby && !isOpen && Input.GetKeyDown(KeyCode.F) && player.isControllable)
         {
+            player.isControllable = false;
             OpenChest();
         }
     }
     void OpenChest()
     {
         isOpen = true;
+        WorldState.Instance.MarkChestOpen(chest_id);
         spriteRenderer.sprite = openChestSprite;
         if (interactIcon != null)
         {
@@ -48,12 +49,12 @@ public class Chest : MonoBehaviour
         }
         if (item != "NULL")
         {
-            dialogueManager.ShowDialogue($"Found x{amount} of {item}!", true, 0, true);
+            dialogueManager.ShowDialogue($"Found x{amount} of {item}!", true, 0, true, CloseDialogue);
             PlayerData.Instance.AddItem(item, amount);
         }
         else
         {
-            dialogueManager.ShowDialogue($"Found {type}: {equipment}!", true, 0, true);
+            dialogueManager.ShowDialogue($"Found {type}: {equipment}!", true, 0, true, CloseDialogue);
             PlayerData.Instance.AddEquipment(equipment, type, stats);
         }
         //Debug.Log("Player opened a chest");
@@ -78,5 +79,16 @@ public class Chest : MonoBehaviour
                 interactIcon.SetActive(false);
             }
         }
+    }
+    public void CloseDialogue(int nothing)
+    {
+        player.isControllable = true;
+    }
+
+    private void setOpenChest()
+    {
+        isOpen = true;
+
+        spriteRenderer.sprite = openChestSprite;
     }
 }

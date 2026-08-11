@@ -10,6 +10,7 @@ public class EnterArea : MonoBehaviour
     private bool interactionActive = false;
     public string sceneName;
     public BlackoutManager blackoutManager;
+    public bool enterLeave;
 
     
     void Update()
@@ -28,8 +29,8 @@ public class EnterArea : MonoBehaviour
             {
                 interactionActive = true;
                 player.isControllable = false;
-
-                dialogueManager.ShowDialogue("Do you want to enter the area?\n1. Yes\n2. No", false, 2, true, OnChosenCommand);
+                string enterLeaveText = enterLeave ? "enter" : "leave";
+                dialogueManager.ShowDialogue("Do you want to " + enterLeaveText + " the area?\n1. Yes\n2. No", false, 2, true, OnChosenCommand);
             }
         }
     }

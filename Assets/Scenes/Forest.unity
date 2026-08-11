@@ -1945,6 +1945,53 @@ Transform:
   - {fileID: 1484952088}
   m_Father: {fileID: 1127602940}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &267370456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 267370458}
+  - component: {fileID: 267370457}
+  m_Layer: 0
+  m_Name: LevelState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &267370457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267370456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37048a0ddd661e44ba2c9b7d3ac0b8ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  blackoutManager: {fileID: 729847346}
+  player: {fileID: 1635037842}
+  cameraController: {fileID: 1503771114}
+--- !u!4 &267370458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267370456}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 28.99736, y: 2.8302, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &270497144
 GameObject:
   m_ObjectHideFlags: 0
@@ -6280,6 +6327,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 729847345}
   fadeSpeed: 0.01
   curAlpha: 0
+  startBlack: 1
 --- !u!114 &729847347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25475,6 +25523,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1145509554}
   - component: {fileID: 1145509555}
+  - component: {fileID: 1145509556}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -25527,7 +25576,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -25543,6 +25592,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.0933189, y: 18.141102}
   m_EdgeRadius: 0
+--- !u!114 &1145509556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145509553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d0b44081cf1bab4ebfb7f6dc2771e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
+  sceneName: CastleForest
+  blackoutManager: {fileID: 729847346}
 --- !u!1001 &1150758845
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26335,6 +26398,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1229000524}
   - component: {fileID: 1229000525}
+  - component: {fileID: 1229000526}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -26387,7 +26451,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -26403,6 +26467,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.80221176, y: 23.876783}
   m_EdgeRadius: 0
+--- !u!114 &1229000526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229000523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d0b44081cf1bab4ebfb7f6dc2771e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
+  sceneName: Volsen
+  blackoutManager: {fileID: 729847346}
 --- !u!1 &1245357124
 GameObject:
   m_ObjectHideFlags: 0
@@ -28804,6 +28882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6daad315f211c5a41acf8910e34b0314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldState
+  currentLevel: 
   keyStolen: 0
   guardRanAway: 0
   escapedThroughCave: 0
@@ -28817,6 +28896,10 @@ MonoBehaviour:
   savedChildren: 0
   redGemObtained: 0
   golemsHaveGem: 0
+  fish_questStarted: 0
+  fish_questEnded: 0
+  fish_willHelp: 0
+  fish_killed: 0
 --- !u!4 &1559322993
 Transform:
   m_ObjectHideFlags: 0
@@ -29618,7 +29701,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -179494401
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7667549660874383953, guid: feb0112ec451dac4ebd3da5829f5d0d1, type: 3}
@@ -29640,7 +29723,7 @@ Transform:
   m_GameObject: {fileID: 1635037839}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.24, y: 3.46, z: 0}
+  m_LocalPosition: {x: 33.72, y: 2.26, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33388,6 +33471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FloatingAnim
   jumpRange: 0.1
   speed: 5
+  horizontal: 0
 --- !u!61 &1995980145
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34514,6 +34598,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1503771113}
+  - {fileID: 267370458}
   - {fileID: 1991318274}
   - {fileID: 1803239737}
   - {fileID: 1635037841}

@@ -15,7 +15,7 @@ public class Button : MonoBehaviour
 
     void Update()
     {
-        if (WorldState.Instance.kilmor_questStarted)
+        if (WorldState.Instance.kilmor_questStarted && !WorldState.Instance.attackedKilmor)
         {
             if (!pressed) {
                 if (playerDetection.isPlayerNearby &&

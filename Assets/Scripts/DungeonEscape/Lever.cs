@@ -17,7 +17,7 @@ public class Lever : MonoBehaviour
 
     void Update()
     {
-        if (WorldState.Instance.kilmor_questStarted)
+        if (WorldState.Instance.kilmor_questStarted && !WorldState.Instance.attackedKilmor)
         {
             playerDetection.allowIcon = true;
             if (!flipped) {

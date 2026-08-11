@@ -22,6 +22,8 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
     private byte cursorPos = 0;
     private const float cursorYStart = -22f;
     private const float cursorYJump = 4.8f;
+
+    private string currentTalker = "";
     
     private byte numOfCommands = 0;
     private bool commandsOpen = false;
@@ -157,7 +159,18 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
 
     private IEnumerator TypeText(string text)
     {
-        dialogueText.text = "";
+        int index = text.IndexOf(':');
+        if (index != -1) {
+            string talker = text[..index];
+            if (talker != currentTalker) dialogueText.text = "";
+            else {
+                dialogueText.text = talker;
+                text = text[index..];
+            }
+            currentTalker = talker;
+        }
+        else dialogueText.text = "";
+
         for(int i=0; i<text.Length; i++)
         {
             dialogueText.text += text[i];

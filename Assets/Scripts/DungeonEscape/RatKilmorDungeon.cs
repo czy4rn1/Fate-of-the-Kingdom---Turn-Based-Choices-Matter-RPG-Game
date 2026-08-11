@@ -18,6 +18,10 @@ public class RatKilmorDungeon : MonoBehaviour
     public string questCommands;
     public byte numOfCommands;
 
+    void Start()
+    {
+        introductionEnded = WorldState.Instance.kilmor_intro_ended;
+    }
     void Update()
     {
         if (!isInteractable) return;
@@ -89,6 +93,7 @@ public class RatKilmorDungeon : MonoBehaviour
                 while(dialogueManager.isWaitingForPlayer) yield return null; 
             }    
         introductionEnded = true;
+        WorldState.Instance.kilmor_intro_ended = true;
     }
 
     public IEnumerator SupportKilmor(bool x)
