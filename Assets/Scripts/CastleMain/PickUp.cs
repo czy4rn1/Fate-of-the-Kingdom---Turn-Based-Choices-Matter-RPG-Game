@@ -12,6 +12,11 @@ public class PickUp : MonoBehaviour
     public string itemType;
     public byte[] stats = new byte[6];
 
+    void Start()
+    {
+        if (itemName=="Red Gem" && (WorldState.Instance.redGemObtained || WorldState.Instance.golemsHaveGem)) gameObject.SetActive(false);
+    }
+
     void Update()
     {
         if (player.isControllable && playerDetection.isPlayerNearby &&

@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
     public BoxCollider2D bottomBorder;
     private float minX, maxX, minY, maxY;
     public bool followPlayer = true;
+    public bool onlyHorizontal = false;
 
     public Transform player;
     private Vector3 vel = Vector3.zero;
@@ -26,7 +27,7 @@ public class CameraController : MonoBehaviour
         if (leftBorder != null)   minX = leftBorder.bounds.max.x + 10f;
         if (rightBorder != null)  maxX = rightBorder.bounds.min.x - 10f;
         if (bottomBorder != null) minY = bottomBorder.bounds.max.y + 5f;
-        if (topBorder != null)    maxY = topBorder.bounds.min.y - 5f;
+        if (topBorder != null)    maxY = topBorder.bounds.min.y;
     }
 
     public void UpdateBorder(BoxCollider2D collider, byte x) {
@@ -53,6 +54,7 @@ public class CameraController : MonoBehaviour
         if (followPlayer) {
             Vector3 targetPosition = player.position + offset;
             targetPosition.z = transform.position.z;
+            if (onlyHorizontal) targetPosition.x = player.position.x - 4f;
             float clampedX = Mathf.Clamp(targetPosition.x, minX, maxX);
             float clampedY = Mathf.Clamp(targetPosition.y, minY, maxY);
             Vector3 clampedPosition = new Vector3(clampedX, clampedY, targetPosition.z);

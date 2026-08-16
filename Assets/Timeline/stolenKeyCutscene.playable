@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2763d0391d4e44a826631e4a4b294d, type: 3}
   m_Name: Dialogue Marker
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
-  m_Time: 2.9833333333333334
+  m_Time: 0
   text: '!<STOP_CUTSCENE>!'
   isItLast: 0
 --- !u!114 &-7451559214036684491
@@ -391,6 +391,7 @@ MonoBehaviour:
     m_Objects:
     - {fileID: -5178453980373961224}
     - {fileID: -8084345675444776607}
+    - {fileID: 6776413262720341284}
 --- !u!114 &-5178453980373961224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1044,6 +1045,21 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events: []
+--- !u!114 &6776413262720341284
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b2763d0391d4e44a826631e4a4b294d, type: 3}
+  m_Name: Dialogue Marker
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
+  m_Time: 2.9833333333333334
+  text: '!<STOP_CUTSCENE>!'
+  isItLast: 1
 --- !u!114 &7283694432700840849
 MonoBehaviour:
   m_ObjectHideFlags: 1

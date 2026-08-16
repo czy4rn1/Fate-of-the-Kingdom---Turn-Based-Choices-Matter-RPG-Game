@@ -83,6 +83,7 @@ public class GolemEncounter : MonoBehaviour
                     $"2. [DEX {PlayerData.Instance.dexterity}/{req_dex}] Escape\n"+
                     "3. Fight them", false, 3, false, OnChosenCommand);
        introEnded = true;
+       WorldState.Instance.golemEncounterEnded = true;
     }
 
     IEnumerator DexCutscene(PlayableDirector cutscene)

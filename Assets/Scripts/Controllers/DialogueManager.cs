@@ -96,7 +96,7 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
                 {
                     if(timelineDirector != null)
                     {
-                        timelineDirector.Play();
+                        if (timelineDirector.playableGraph.IsValid()) timelineDirector.playableGraph.GetRootPlayable(0).Play();
                     }
                 }
             }
@@ -112,7 +112,9 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
     {
         isWaitingForPlayer = false;
         fastForward = false;
-        if(timelineDirector!=null) timelineDirector.Pause();
+        if (timelineDirector != null) {
+            if(timelineDirector.playableGraph.IsValid()) timelineDirector.playableGraph.GetRootPlayable(0).Pause();
+        }
         if (text.Contains("!<NAME>!"))
             {
                 text = text.Replace("!<NAME>!", PlayerData.Instance.playerName);

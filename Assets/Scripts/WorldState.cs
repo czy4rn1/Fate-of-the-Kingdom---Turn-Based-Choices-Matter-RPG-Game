@@ -25,6 +25,7 @@ public class WorldState : MonoBehaviour
     // --- FOREST ENCOUNTER ---
     public bool redGemObtained = false;
     public bool golemsHaveGem = false;
+    public bool golemEncounterEnded = false;
     // ------------------------
 
     // -- FISHERMAN ---

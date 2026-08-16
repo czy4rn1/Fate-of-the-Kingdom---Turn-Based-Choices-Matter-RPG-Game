@@ -45,13 +45,13 @@ public class ChoiceStolenKey : MonoBehaviour
             if (PlayerData.Instance.strength >= req_str)
             {
                 dialogueManager.timelineDirector = str_success;
-                str_success.Play();
+                str_success.playableGraph.GetRootPlayable(0).Play();
                 str_success = null;
             }
             else
             {
                 dialogueManager.timelineDirector = str_fail;
-                str_fail.Play();
+                str_fail.playableGraph.GetRootPlayable(0).Play();
                 str_fail = null;
                 //SceneManager.LoadScene("CombatCastle", LoadSceneMode.Additive);
             }
@@ -65,7 +65,7 @@ public class ChoiceStolenKey : MonoBehaviour
             else
             {
                 dialogueManager.timelineDirector = failedOutcome;
-                failedOutcome.Play();
+                failedOutcome.playableGraph.GetRootPlayable(0).Play();
                 failedOutcome = null;
                 //SceneManager.LoadScene("CombatCastle", LoadSceneMode.Additive);
             }
@@ -76,13 +76,13 @@ public class ChoiceStolenKey : MonoBehaviour
             {
                 WorldState.Instance.castleFire = true;
                 dialogueManager.timelineDirector = dex2_success;
-                dex2_success.Play();
+                dex2_success.playableGraph.GetRootPlayable(0).Play();
                 dex2_success = null;
             }
             else
             {
                 dialogueManager.timelineDirector = failedOutcome;
-                failedOutcome.Play();
+                failedOutcome.playableGraph.GetRootPlayable(0).Play();
                 failedOutcome = null;
                 //SceneManager.LoadScene("CombatCastle", LoadSceneMode.Additive);
             }
@@ -107,7 +107,7 @@ public class ChoiceStolenKey : MonoBehaviour
         dialogueManager.timelineDirector = dex_success;
         if (dex_success != null)
         {
-            dex_success.Play();
+            dex_success.playableGraph.GetRootPlayable(0).Play();
         }
         while (!dialogueManager.cutsceneEnded) yield return null;
         dialogueManager.cutsceneEnded = false;

@@ -25,13 +25,6 @@ public class PlayerSortingManager : MonoBehaviour
 
     public void setCollision(bool x)
     {
-        if (x)
-        {
-            boxCollider2D.isTrigger = true;
-        }
-        else
-        {
-            boxCollider2D.isTrigger = false;
-        }
+        boxCollider2D.isTrigger = x;
     }
 }

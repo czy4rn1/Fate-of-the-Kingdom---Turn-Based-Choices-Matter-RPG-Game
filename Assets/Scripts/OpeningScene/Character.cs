@@ -7,6 +7,8 @@ public class Character : MonoBehaviour
     private Rigidbody2D rb;
     public float moveSpeed = 3.5f;
     public DialogueManager dialoguePanel;
+    public Animator animator;
+    public bool isRunning = false;
     private float leftX = -10.45f;
     public float rightX = 0.75f;
     public bool wait = false;
@@ -24,10 +26,16 @@ public class Character : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    void Update()
+    {
+        if (animator.GetBool("isRunning") != isRunning) animator.SetBool("isRunning", isRunning);
+    }
+
     void FixedUpdate()
     {
         if (AI_active) {
             if (!wait) {
+                isRunning = true;
                 playerDetection.allowIcon = false;
                 movement.x = goLeft ? -1f : 1f;
                 if(goLeft && rb.position.x <= leftX)
@@ -52,6 +60,7 @@ public class Character : MonoBehaviour
             }
             else
             {
+                isRunning = false;
                 playerDetection.allowIcon = true;
                 waitTimer -= Time.deltaTime;
                 if(waitTimer <= 0) {
