@@ -29,7 +29,7 @@ public class CastleMainPaths : MonoBehaviour
         {
             dialogueManager.timelineDirector = playableDirector;
             ended = true;
-            playableDirector.playableGraph.GetRootPlayable(0).Play();
+            playableDirector.Play();
         }
     }
 

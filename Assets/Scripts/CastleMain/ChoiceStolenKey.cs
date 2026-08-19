@@ -18,6 +18,7 @@ public class ChoiceStolenKey : MonoBehaviour
     public PlayableDirector str_fail;
     public GameObject[] guards;
     public CameraController cameraController;
+    public PlayableDirector guardsRunning;
 
     void Start()
     {
@@ -26,15 +27,17 @@ public class ChoiceStolenKey : MonoBehaviour
 
     void Update()
     {
-        if (!choiceEnded && !dialogueManager.dialogueActive)
-        {
-            dialogueManager.ShowDialogue("There is someone coming! What will you do?\n" + 
-            $"1. [STR {PlayerData.Instance.strength}/{req_str}] Scare them off\n" + 
-            $"2. [DEX {PlayerData.Instance.dexterity}/{req_dex}] Quickly hide in a barrel\n" +
-            $"3. [DEX {PlayerData.Instance.dexterity}/{req_dex2}] Throw a torch\n" + 
-            "4. Attack them with your bare hands", 
-            false, 4, true, OnChosenCommand);
-        }   
+        if(!guardsRunning.gameObject.activeInHierarchy) {
+            if (!choiceEnded && !dialogueManager.dialogueActive)
+            {
+                dialogueManager.ShowDialogue("There is someone coming! What will you do?\n" + 
+                $"1. [STR {PlayerData.Instance.strength}/{req_str}] Scare them off\n" + 
+                $"2. [DEX {PlayerData.Instance.dexterity}/{req_dex}] Quickly hide in a barrel\n" +
+                $"3. [DEX {PlayerData.Instance.dexterity}/{req_dex2}] Throw a torch\n" + 
+                "4. Attack them with your bare hands", 
+                false, 4, true, OnChosenCommand);
+            }
+            }   
     }
 
     public void OnChosenCommand(int command)
@@ -45,13 +48,13 @@ public class ChoiceStolenKey : MonoBehaviour
             if (PlayerData.Instance.strength >= req_str)
             {
                 dialogueManager.timelineDirector = str_success;
-                str_success.playableGraph.GetRootPlayable(0).Play();
+                str_success.Play();
                 str_success = null;
             }
             else
             {
                 dialogueManager.timelineDirector = str_fail;
-                str_fail.playableGraph.GetRootPlayable(0).Play();
+                str_fail.Play();
                 str_fail = null;
                 //SceneManager.LoadScene("CombatCastle", LoadSceneMode.Additive);
             }
@@ -65,7 +68,7 @@ public class ChoiceStolenKey : MonoBehaviour
             else
             {
                 dialogueManager.timelineDirector = failedOutcome;
-                failedOutcome.playableGraph.GetRootPlayable(0).Play();
+                failedOutcome.Play();
                 failedOutcome = null;
                 //SceneManager.LoadScene("CombatCastle", LoadSceneMode.Additive);
             }
@@ -76,13 +79,13 @@ public class ChoiceStolenKey : MonoBehaviour
             {
                 WorldState.Instance.castleFire = true;
                 dialogueManager.timelineDirector = dex2_success;
-                dex2_success.playableGraph.GetRootPlayable(0).Play();
+                dex2_success.Play();
                 dex2_success = null;
             }
             else
             {
                 dialogueManager.timelineDirector = failedOutcome;
-                failedOutcome.playableGraph.GetRootPlayable(0).Play();
+                failedOutcome.Play();
                 failedOutcome = null;
                 //SceneManager.LoadScene("CombatCastle", LoadSceneMode.Additive);
             }
@@ -104,10 +107,11 @@ public class ChoiceStolenKey : MonoBehaviour
 
     private IEnumerator DexSuccess()
     {
+        dialogueManager.cutsceneEnded = false;
         dialogueManager.timelineDirector = dex_success;
         if (dex_success != null)
         {
-            dex_success.playableGraph.GetRootPlayable(0).Play();
+            dex_success.Play();
         }
         while (!dialogueManager.cutsceneEnded) yield return null;
         dialogueManager.cutsceneEnded = false;
