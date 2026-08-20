@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 27722836}
   - component: {fileID: 27722835}
   - component: {fileID: 27722834}
+  - component: {fileID: 27722837}
   m_Layer: 0
   m_Name: Guard1
   m_TagString: Untagged
@@ -234,6 +235,20 @@ Transform:
   - {fileID: 1394164078}
   m_Father: {fileID: 627906379}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &27722837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27722833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa5295421bfe0f4cb9212b053fc0ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimation
+  animator: {fileID: 27722834}
+  isRunning: 0
 --- !u!1 &33160927
 GameObject:
   m_ObjectHideFlags: 0
@@ -3087,7 +3102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   playerName: Zorax
-  strength: 10
+  strength: 20
   intelligence: 0
   persuasion: 0
   dexterity: 17
@@ -3542,7 +3557,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Zorax: Oh no! Someone''s coming!'
+  m_text: 'Guard 1: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3c0d04639ae3602489e934b501497d7e, type: 2}
   m_sharedMaterial: {fileID: 6603050329504320869, guid: 3c0d04639ae3602489e934b501497d7e, type: 2}
@@ -4074,8 +4089,8 @@ MonoBehaviour:
   backgroundPanel: {fileID: 982459244}
   dialogueText: {fileID: 894604537}
   scaleFactor: 5
-  isWaitingForPlayer: 1
-  timelineDirector: {fileID: 1885860323}
+  isWaitingForPlayer: 0
+  timelineDirector: {fileID: 0}
   cursor: {fileID: 85336840}
   dialogueActive: 1
   cutsceneEnded: 1
@@ -12009,7 +12024,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 17
+      m_TileSpriteIndex: 16
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -12025,7 +12040,7 @@ Tilemap:
       - {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       - {fileID: -8620789011913242613, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       m_AnimationSpeed: 2
-      m_AnimationTimeOffset: 76.89526
+      m_AnimationTimeOffset: 21.540558
       m_Flags: 0
   m_TileAssetArray:
   - serializedVersion: 2
@@ -12132,10 +12147,10 @@ Tilemap:
     m_RefCount: 0
     m_Data: {fileID: 1556182531084663342, guid: d3e25ea3401dc184b8274a00f1becd8a, type: 3}
   - serializedVersion: 2
-    m_RefCount: 0
+    m_RefCount: 1
     m_Data: {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
   - serializedVersion: 2
-    m_RefCount: 1
+    m_RefCount: 0
     m_Data: {fileID: -3945480283909424540, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 2
@@ -12414,6 +12429,7 @@ GameObject:
   - component: {fileID: 1550112243}
   - component: {fileID: 1550112242}
   - component: {fileID: 1550112244}
+  - component: {fileID: 1550112245}
   m_Layer: 0
   m_Name: Guard1 (1)
   m_TagString: Untagged
@@ -12518,6 +12534,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1550112245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550112241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa5295421bfe0f4cb9212b053fc0ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimation
+  animator: {fileID: 1550112244}
+  isRunning: 0
 --- !u!1 &1553002388
 GameObject:
   m_ObjectHideFlags: 0
@@ -13434,7 +13464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!320 &1885860323
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -14089,6 +14119,7 @@ MonoBehaviour:
   isControllable: 1
   isRoadToRaggenfall: 0
   characterAnimation: {fileID: 2042473083}
+  dialogueManager: {fileID: 1175560457}
 --- !u!61 &2042473076
 BoxCollider2D:
   m_ObjectHideFlags: 0

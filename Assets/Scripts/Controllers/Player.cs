@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private Vector2 movement;
     private SpriteRenderer spriteRenderer;
     public CharacterAnimation characterAnimation;
+    public DialogueManager dialogueManager;
     
     void Start()
     {
@@ -28,6 +29,11 @@ public class Player : MonoBehaviour
             else if (movement.x < 0) spriteRenderer.flipX = true;
             if (movement.x != 0 || movement.y != 0) characterAnimation.isRunning = true;
             else characterAnimation.isRunning = false;
+        }
+        if (dialogueManager != null) {
+            if (dialogueManager.dialogueActive) {
+                characterAnimation.isRunning = false;
+            }
         }
     }
 

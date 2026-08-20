@@ -3437,6 +3437,7 @@ MonoBehaviour:
   isControllable: 1
   isRoadToRaggenfall: 0
   characterAnimation: {fileID: 1897328503}
+  dialogueManager: {fileID: 1395992852}
 --- !u!61 &1897328498
 BoxCollider2D:
   m_ObjectHideFlags: 0
