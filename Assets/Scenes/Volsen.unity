@@ -2004,7 +2004,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -179494401
   m_SortingLayer: 5
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3686294793436832064, guid: a365c31c5178a2340bfec674c8631a3b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -14895,7 +14895,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 4a44e23492d6a874991489287653210f, type: 3}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 4a44e23492d6a874991489287653210f, type: 3}
       propertyPath: m_SortingLayerID
