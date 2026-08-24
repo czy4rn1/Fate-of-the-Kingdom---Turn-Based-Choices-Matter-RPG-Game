@@ -2304,7 +2304,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 4, y: 10.558119, z: 4, w: -1.6053677}
+  m_margin: {x: 4, y: 10.558119, z: 4, w: -10.66366}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4050,6 +4050,89 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1001 &587660821
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1937121224}
+    m_Modifications:
+    - target: {fileID: -2253911629886400664, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_Name
+      value: interactIcon
+      objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1155539123
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: -8435245712485981826, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+--- !u!1 &587660822 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2253911629886400664, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+  m_PrefabInstance: {fileID: 587660821}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &587660823 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
+  m_PrefabInstance: {fileID: 587660821}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &591533400
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17154,7 +17237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1249925960
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20962,7 +21045,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1937121224}
   - component: {fileID: 1937121223}
-  - component: {fileID: 1937121222}
+  - component: {fileID: 1937121227}
+  - component: {fileID: 1937121226}
+  - component: {fileID: 1937121225}
+  - component: {fileID: 1937121229}
+  - component: {fileID: 1937121228}
   m_Layer: 0
   m_Name: Venard
   m_TagString: Untagged
@@ -20970,18 +21057,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1937121222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1937121221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c14d71b1bca1004899f94087aea92bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!212 &1937121223
 SpriteRenderer:
   serializedVersion: 2
@@ -21053,9 +21128,207 @@ Transform:
   m_LocalPosition: {x: -17.1, y: 1.41, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 587660823}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1937121225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937121221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1683fecb769cb52428e84d31bce6271e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDetection
+  interactIcon: {fileID: 587660822}
+  isPlayerNearby: 0
+  allowIcon: 1
+--- !u!114 &1937121226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937121221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c2306464632d72449b4125b12d72d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  dialogueManager: {fileID: 817633178}
+  dialogueEnded: 0
+--- !u!114 &1937121227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937121221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed9c010afb082ec48b9257b7506fd6de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  player: {fileID: 1022761611}
+  playerDetection: {fileID: 1937121225}
+  dialoguePlayer: {fileID: 1937121226}
+  introLines:
+  - 'Venard: Now look who''s back on his feet!'
+  - 'Venard: Was hoping they''d keep you in a little longer.'
+  - '!<NAME>!: Not too pleased with seeing you either.'
+  - 'Venard: Have you even considered what the consequences might be?'
+  - 'Venard: They got Merran for good. Not that you''d know of that, since you folded
+    so easily.'
+  - '!<NAME>!: What''s your deal, Venard? They ambushed us, and they simply got me
+    faster.'
+  - '!<NAME>!: You know what could have helped? Having more people in our team.'
+  - '!<NAME>!: And here you are, standing on a side, like an obedient Magnus'' lapdog,
+    judging everyone that even attempts to make a difference.'
+  - 'Venard: It''s a pointless battle, !<NAME>!! How many people have you lost already?'
+  - 'Venard: You have to realize, that sometimes you have to accept the changes.
+    Otherwise we''d be stuck in the same place.'
+  - 'Venard: No advancements, no progress at all.'
+  - 'Venard: Nothing.'
+  - '!<NAME>!: What makes you say that?'
+  - 'Venard: Good times create weak men, weak men create hard times, hard times create
+    strong men.'
+  - 'Venard: It''s a natural order of things, yet you want to reverse time, and keep
+    everything as it''s always been.'
+  - 'Venard: Do you know, why so many are gone? Because of the times we lived in. '
+  - 'Venard: People have become weak and fragile. Easy to break.'
+  - 'Venard: It''s still too early to take on such difficult tasks.'
+  - 'Venard: Your men are worthless, and you keep sending them to a certain death.'
+  - 'Venard: Your methods disgust me.'
+  standardLines:
+  - 'Venard: What are you still doing here?'
+  - 'Venard: Go and kill more of your men.'
+  commands: "Venard: Your methods disgust me. \\n1. I... haven't considered that\u2026
+    \\n2. You're the one that's weak. \\n3. I'm tired of your nonsense."
+  agreeLines:
+  - '!<NAME>!: I''ve made mistakes in my life, and many have died because of me.'
+  - '!<NAME>!: I never thought of my comrades as weak, but... You''re right.'
+  - "!<NAME>!: I've taken many poor, withering souls under my wings, and willingly
+    sent them to their demise\u2026"
+  - '!<NAME>!: I see now. There is no place for weaklings in my mission. The only
+    person I can truly count on, is me.'
+  - '!<NAME>!: But I won''t stop my mission now.'
+  - '!<NAME>!: My men will grow stronger one day, but not beside me.'
+  - '!<NAME>!: The recrutation process is over, I suppose.'
+  - '!<NAME>!: It''s just me and Ponter now. Farewell.'
+  disagreeLines:
+  - '!<NAME>!: Do you know, what makes a man strong? Courage. Determination. Their
+    willingness to take risks to make a change.'
+  - '!<NAME>!: My men well knew the risks, and what they were getting into by joining
+    our team.'
+  - '!<NAME>!: They knew, that ultimately they''re cutting their lives short, but
+    they wanted to matter. They were brave.'
+  - '!<NAME>!: We are not trying to reverse time. We''re trying to build a brighter
+    future for everyone.'
+  - '!<NAME>!: You will never grow strong, if you''re not willing to change.'
+  - '!<NAME>!: You want the natural order to take it''s course, but you fail to realize,
+    that you have to work for it yourself.'
+  - '!<NAME>!: Which is exactly what my men did, and what you never will.'
+  - '!<NAME>!: You''re a pathetic and meaningless soul, that gave up, before it was
+    given a choice, Venard.'
+  - '!<NAME>!: I''m really sorry for you.'
+  - "Venard: You dirty bast\u2026 I... It's not over yet, !<NAME>!."
+  playableDirector: {fileID: 0}
+--- !u!61 &1937121228
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937121221}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.65625, y: 1}
+    newSize: {x: 0.65625, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.65625, y: 1}
+  m_EdgeRadius: 0
+--- !u!61 &1937121229
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937121221}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.65625, y: 1}
+    newSize: {x: 0.65625, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1.5}
+  m_EdgeRadius: 0
 --- !u!1 &1946316173 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2253911629886400664, guid: ecc194b35efc9ef49845677ad1aa5b0e, type: 3}
