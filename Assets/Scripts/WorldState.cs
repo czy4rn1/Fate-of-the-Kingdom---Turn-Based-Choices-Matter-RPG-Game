@@ -35,6 +35,11 @@ public class WorldState : MonoBehaviour
     public bool fish_killed = false;
     // ----------------
 
+    // -- VOLSEN ------
+    public bool venardRemorse = false;
+    public bool venardKilled = false;
+    public bool venardEncounterEnded = false;
+
 
     
 

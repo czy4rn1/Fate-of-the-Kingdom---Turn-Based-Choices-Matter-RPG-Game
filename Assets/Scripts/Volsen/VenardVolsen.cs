@@ -17,7 +17,8 @@ public class VenardVolsen : MonoBehaviour
     private bool interactionEnded = false;
     void Start()
     {
-        
+        if (WorldState.Instance.venardKilled) gameObject.SetActive(false);
+        if (WorldState.Instance.venardRemorse) ChangeStandardLines();
     }
 
     
@@ -33,7 +34,7 @@ public class VenardVolsen : MonoBehaviour
             {
                 player.isControllable = false;
                 interactionActive = true;
-                if (!interactionEnded) {
+                if (!interactionEnded && !WorldState.Instance.venardEncounterEnded) {
                     StartCoroutine(Interaction());
                 }
                 else StartCoroutine(dialoguePlayer.PlayDialogue(standardLines, CloseDialogue));
@@ -50,18 +51,18 @@ public class VenardVolsen : MonoBehaviour
                 StartCoroutine(dialoguePlayer.PlayDialogue(agreeLines, CloseDialogue));
                 break;
             case 1:
+                WorldState.Instance.venardRemorse = true;
                 StartCoroutine(dialoguePlayer.PlayDialogue(disagreeLines, CloseDialogue));
-                if (standardLines[0] != null && standardLines[1] != null) {
-                    standardLines[0] = "Venard: Don't talk to me.";
-                    standardLines[1] = "Venard: Leave me alone, please.";
-                }
+                ChangeStandardLines();
                 break;
             case 2:
+                WorldState.Instance.venardKilled = true;
                 if (playableDirector != null) playableDirector.Play();
                 break;  
             default: break;          
         }
         interactionEnded = true;
+        WorldState.Instance.venardEncounterEnded = true;
     }
 
     public void CloseDialogue(int nothing)
@@ -75,5 +76,13 @@ public class VenardVolsen : MonoBehaviour
         StartCoroutine(dialoguePlayer.PlayDialogue(introLines, null));
         while (!dialoguePlayer.dialogueEnded) yield return null;
         dialoguePlayer.PlayCommand(commands, 3, OnCommandSelected);
+    }
+
+    private void ChangeStandardLines()
+    {
+        if (standardLines[0] != null && standardLines[1] != null) {
+            standardLines[0] = "Venard: Don't talk to me.";
+            standardLines[1] = "Venard: Leave me alone, please.";
+        }
     }
 }
