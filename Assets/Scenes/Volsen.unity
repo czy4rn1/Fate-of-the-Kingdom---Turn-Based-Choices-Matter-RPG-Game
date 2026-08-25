@@ -15615,6 +15615,9 @@ GameObject:
   - component: {fileID: 1021937300}
   - component: {fileID: 1021937299}
   - component: {fileID: 1021937298}
+  - component: {fileID: 1021937307}
+  - component: {fileID: 1021937306}
+  - component: {fileID: 1021937305}
   m_Layer: 0
   m_Name: npc1_0
   m_TagString: Untagged
@@ -15651,13 +15654,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   introDialogueLines:
   - '!<NAME>!: Hey, do you know where I''ll find Ponter?'
-  - 'Seller: Ehm... If you''re talking about the big guy, I saw him in the inn.'
+  - 'Merchant: Ehm... If you''re talking about the big guy, I saw him in the inn.'
   - '!<NAME>!: Thanks for help.'
   dialogueLines:
-  - 'Seller: You''ll find Ponter in the inn.'
+  - 'Merchant: You''ll find Ponter in the inn.'
   dialogueManager: {fileID: 817633178}
+  dialoguePlayer: {fileID: 1021937305}
   playerDetection: {fileID: 1021937298}
   player: {fileID: 1022761611}
+  initInteraction: {fileID: 1021937306}
 --- !u!61 &1021937300
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15848,6 +15853,83 @@ Transform:
   - {fileID: 1789042600}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1021937305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021937297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c2306464632d72449b4125b12d72d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayDialogueLines
+  dialogueManager: {fileID: 817633178}
+  dialogueEnded: 0
+--- !u!114 &1021937306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021937297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81211690b333de6478b7bad792e55d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InitInteraction
+  dialogueManager: {fileID: 817633178}
+  player: {fileID: 1022761611}
+  playerDetection: {fileID: 1021937298}
+  interactionActive: 0
+--- !u!114 &1021937307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021937297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15557b5c670c7b2439858a3cec2a90c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  initInteraction: {fileID: 1021937306}
+  player: {fileID: 1022761611}
+  dialoguePlayer: {fileID: 1021937305}
+  dialogueManager: {fileID: 817633178}
+  jewelBladeLines:
+  - 'Merchant: Oh Lords! Where have you found this?'
+  - '!<NAME>!: I stole it from Magnus'' Castle.'
+  - 'Merchant: From the castle? What would lord Magnus need that blade for?'
+  - 'Merchant: During my escapades I''ve read a lot about many enchanted objects
+    that turned out to be real...'
+  - 'Merchant: But I was certain that the Jewel Blade is just a legend.'
+  - '!<NAME>!: What is it''s purpose?'
+  - 'Merchant: It serves as a key to a hidden, demonic land.'
+  - 'Merchant: The legends say, that this land has been out of anyone''s reach for
+    centuries.'
+  - 'Merchant: Nobody that lives and knows of the legend has any idea where this
+    land could be.'
+  - 'Merchant: However, the prophecy says...'
+  - 'Merchant: Ehm...'
+  - 'Merchant: Hmm...'
+  - 'Merchant: It turns out I forgot the words...'
+  - 'Merchant: Oh, there''s the book. Let me read the prophecy for you.'
+  - '"When the day comes, one shall notice the unseen, that lays beyond the reach
+    of a damaged heart[...]"'
+  - '"[...]Trapped in a cell of stone, will be a mischievous Demon, plotting an escape
+    from his imprisonment[...]"'
+  - '"[...]And it is in hands of the Lightful One, to break through the Monster''s
+    tricks, and send it to eternal banishment."'
+  - 'Merchant: And that wraps it up.'
+  - '!<NAME>!: Beyond the reach of a damaged heart...'
+  - 'Merchant: Yeah... It''s a lot to digest, but that''s how these things usually
+    go.'
+  - '!<NAME>!: I appreciate your help.'
+  - 'Merchant: Don''t lose your sleep on that!'
+  talkingNPC: {fileID: 1021937299}
 --- !u!1 &1022761610
 GameObject:
   m_ObjectHideFlags: 0
@@ -17237,7 +17319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1249925960
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18451,6 +18533,13 @@ MonoBehaviour:
   fish_questEnded: 0
   fish_willHelp: 0
   fish_killed: 0
+  venardRemorse: 0
+  venardKilled: 0
+  venardEncounterEnded: 0
+  ponterQuestStarted: 0
+  ponterInfoObtained: 0
+  askSellerAboutJewelBlade: 0
+  learnedAboutHellsGarden: 0
 --- !u!4 &1355906288
 Transform:
   m_ObjectHideFlags: 0
@@ -34199,6 +34288,8 @@ GameObject:
   - component: {fileID: 2127601001}
   - component: {fileID: 2127601000}
   - component: {fileID: 2127601002}
+  - component: {fileID: 2127601004}
+  - component: {fileID: 2127601003}
   m_Layer: 0
   m_Name: Forgan_0
   m_TagString: Untagged
@@ -34384,8 +34475,10 @@ MonoBehaviour:
   dialogueLines:
   - 'Forgan: You''ll find Ponter in the inn.'
   dialogueManager: {fileID: 817633178}
+  dialoguePlayer: {fileID: 2127601003}
   playerDetection: {fileID: 2127601000}
   player: {fileID: 1022761611}
+  initInteraction: {fileID: 2127601004}
 --- !u!61 &2127601002
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34430,8 +34523,38 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 1, y: 1.5}
   m_EdgeRadius: 0
+--- !u!114 &2127601003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127600995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c2306464632d72449b4125b12d72d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayDialogueLines
+  dialogueManager: {fileID: 817633178}
+  dialogueEnded: 0
+--- !u!114 &2127601004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127600995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81211690b333de6478b7bad792e55d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InitInteraction
+  dialogueManager: {fileID: 817633178}
+  player: {fileID: 1022761611}
+  playerDetection: {fileID: 2127601000}
+  interactionActive: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -40,6 +40,12 @@ public class WorldState : MonoBehaviour
     public bool venardKilled = false;
     public bool venardEncounterEnded = false;
 
+    // -- VOLSEN INN -------
+    public bool ponterQuestStarted = false;
+    public bool ponterInfoObtained = false;
+    public bool askSellerAboutJewelBlade = false;
+    public bool learnedAboutHellsGarden = false;
+
 
     
 

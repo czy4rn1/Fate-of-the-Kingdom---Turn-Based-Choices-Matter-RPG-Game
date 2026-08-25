@@ -6,49 +6,26 @@ public class TalkingNPC : MonoBehaviour
     public string[] introDialogueLines;
     public string[] dialogueLines;
     public DialogueManager dialogueManager;
+    public PlayDialogueLines dialoguePlayer;
     public PlayerDetection playerDetection;
     public Player player;
-    private bool interactionActive = false;
     private bool introDialogue = true;
+    public InitInteraction initInteraction;
 
     void Update()
     {
-        if (!interactionActive) {
-            playerDetection.allowIcon = true;
-            if (!dialogueManager.dialogueActive)
-            {
-                if (player.isControllable &&
-                playerDetection.isPlayerNearby &&
-                Input.GetKeyDown(KeyCode.F))
-                {
-                    player.isControllable = false;
-                    interactionActive = true;
-                    StartCoroutine(PlayDialogue(introDialogue ? introDialogueLines : dialogueLines));
-                }
-            }
+        if (initInteraction.Interaction())
+        {
+            player.isControllable = false;
+            initInteraction.interactionActive = true;
+            StartCoroutine(dialoguePlayer.PlayDialogue(introDialogue ? introDialogueLines : dialogueLines, CloseDialogue));
+            if (introDialogue) introDialogue = false;
         }
-        else playerDetection.allowIcon = false;
     }
-
-    public IEnumerator PlayDialogue(string[] dialogueLines)
-    {
-        if (dialogueLines != null) {
-            for(int i=0; i<dialogueLines.Length; i++)
-                {
-                    bool last = false;
-                    if (i == dialogueLines.Length-1) last = true;
-                    dialogueManager.ShowDialogue(dialogueLines[i], true, 0, last, last ? CloseDialogue : null);
-                    yield return null;
-                    while (!dialogueManager.isWaitingForPlayer) yield return null;
-                    while(dialogueManager.isWaitingForPlayer) yield return null; 
-                }
-            }    
-    }
-
     public void CloseDialogue(int nothing)
     {
-        interactionActive = false;
         player.isControllable = true;
+        initInteraction.interactionActive = false;
         introDialogue = false;
     }
 
