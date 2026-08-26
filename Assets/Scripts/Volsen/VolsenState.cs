@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class VolsenState : MonoBehaviour
 {
     public BlackoutManager blackoutManager;
     public Player player;
     public CameraController cameraController;
+    public PlayableDirector guardLookingForWorkers;
     void Start()
     {
         if (WorldState.Instance.currentLevel == "Forest") {
@@ -18,6 +20,11 @@ public class VolsenState : MonoBehaviour
         else if (WorldState.Instance.currentLevel == "VolsenInn") player.transform.position = new Vector2(0f, 2f);
         else player.transform.position = new Vector2(0f, 0f);
         WorldState.Instance.currentLevel = "Volsen";
+        if (WorldState.Instance.ponterQuestStarted && !WorldState.Instance.fireFixing && WorldState.Instance.castleFire)
+        {
+            guardLookingForWorkers.Play();
+            WorldState.Instance.fireFixing = true;
+        }
         StartCoroutine(blackoutManager.Fade(true));
     }
 

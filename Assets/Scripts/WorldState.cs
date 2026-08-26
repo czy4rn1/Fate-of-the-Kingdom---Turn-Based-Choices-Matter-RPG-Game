@@ -45,6 +45,7 @@ public class WorldState : MonoBehaviour
     public bool ponterInfoObtained = false;
     public bool askSellerAboutJewelBlade = false;
     public bool learnedAboutHellsGarden = false;
+    public bool fireFixing = false;
 
 
     
