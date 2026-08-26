@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -7,14 +8,16 @@ public class VenardVolsen : MonoBehaviour
     public Player player;
     public PlayerDetection playerDetection;
     public PlayDialogueLines dialoguePlayer;
-    private bool interactionActive = false;
     public string[] introLines;
     public string[] standardLines;
     public string commands;
     public string[] agreeLines;
     public string[] disagreeLines;
-    public PlayableDirector playableDirector;
-    private bool interactionEnded = false;
+    public string[] questNoEncounter;
+    public string[] questNoRemorse;
+    public string[] questRemorse;
+    public PlayableDirector venardKilled;
+    public InitInteraction initInteraction;
     void Start()
     {
         if (WorldState.Instance.venardKilled) gameObject.SetActive(false);
@@ -24,23 +27,40 @@ public class VenardVolsen : MonoBehaviour
     
     void Update()
     {
-        if (!interactionActive)
+        if (initInteraction.Interaction())
         {
-            playerDetection.allowIcon = true;
-            if (playerDetection.isPlayerNearby &&
-            player.isControllable &&
-            !dialoguePlayer.dialogueManager.dialogueActive &&
-            Input.GetKeyDown(KeyCode.F))
-            {
-                player.isControllable = false;
-                interactionActive = true;
-                if (!interactionEnded && !WorldState.Instance.venardEncounterEnded) {
+            player.isControllable = false;
+            initInteraction.interactionActive = true;
+            if (!WorldState.Instance.ponterQuestStarted) {
+                if (!WorldState.Instance.venardEncounterEnded) {
                     StartCoroutine(Interaction());
                 }
                 else StartCoroutine(dialoguePlayer.PlayDialogue(standardLines, CloseDialogue));
             }
+            else
+            {
+                if (!WorldState.Instance.ponterQuestEnded)
+                {
+                    if (!WorldState.Instance.venardEncounterEnded)
+                    {
+                        StartCoroutine(dialoguePlayer.PlayDialogue(questNoEncounter, CloseDialogue));
+                    }
+                    else
+                    {
+                        if (!WorldState.Instance.venardRemorse)
+                        {
+                            StartCoroutine(dialoguePlayer.PlayDialogue(questNoRemorse, CloseDialogue));
+                        }
+                        else
+                        {
+                            StartCoroutine(dialoguePlayer.PlayDialogue(questRemorse, CloseDialogue));
+                            WorldState.Instance.ponterInfoObtained = true;
+                            WorldState.Instance.ponterInfoFromVenard = true;
+                        }
+                    }
+                }
+            }
         }
-        else playerDetection.allowIcon = false;
     }
 
     public void OnCommandSelected(int command)
@@ -57,18 +77,18 @@ public class VenardVolsen : MonoBehaviour
                 break;
             case 2:
                 WorldState.Instance.venardKilled = true;
-                if (playableDirector != null) playableDirector.Play();
+                if (venardKilled != null) venardKilled.Play();
                 break;  
             default: break;          
         }
-        interactionEnded = true;
+        initInteraction.interactionActive = false;
         WorldState.Instance.venardEncounterEnded = true;
     }
 
     public void CloseDialogue(int nothing)
     {
         player.isControllable = true;
-        interactionActive = false;
+        initInteraction.interactionActive = false;
     }
 
     public IEnumerator Interaction()

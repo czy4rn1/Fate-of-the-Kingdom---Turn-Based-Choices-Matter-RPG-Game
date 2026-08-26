@@ -42,10 +42,16 @@ public class WorldState : MonoBehaviour
 
     // -- VOLSEN INN -------
     public bool ponterQuestStarted = false;
+    public bool ponterQuestEnded = false;
     public bool ponterInfoObtained = false;
+    public bool ponterInfoFromVenard = false;
     public bool askSellerAboutJewelBlade = false;
     public bool learnedAboutHellsGarden = false;
     public bool fireFixing = false;
+    public bool roggenfall = false;
+    public bool castle = false;
+    public bool lava = false;
+    public bool flower = false;
 
 
     

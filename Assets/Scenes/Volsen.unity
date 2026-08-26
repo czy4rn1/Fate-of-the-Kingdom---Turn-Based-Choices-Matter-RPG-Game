@@ -16235,6 +16235,11 @@ MonoBehaviour:
     go.'
   - '!<NAME>!: I appreciate your help.'
   - 'Merchant: Don''t lose your sleep on that!'
+  ponterQuestLines:
+  - 'Merchant: Me? Not exactly.'
+  - 'Merchant: I do, sometimes, collect items that happen to be enchanted with magic,
+    but I never dwelled deeper into it.'
+  - 'Merchant: You''ll have to ask someone else.'
   talkingNPC: {fileID: 1021937299}
 --- !u!1 &1022761610
 GameObject:
@@ -18897,7 +18902,7 @@ MonoBehaviour:
   guardRanAway: 0
   escapedThroughCave: 0
   jewelBladeObtained: 0
-  castleFire: 1
+  castleFire: 0
   kilmor_intro_ended: 0
   kilmor_questStarted: 0
   kilmor_questEnded: 0
@@ -18916,10 +18921,16 @@ MonoBehaviour:
   venardKilled: 0
   venardEncounterEnded: 0
   ponterQuestStarted: 1
+  ponterQuestEnded: 0
   ponterInfoObtained: 0
+  ponterInfoFromVenard: 0
   askSellerAboutJewelBlade: 0
   learnedAboutHellsGarden: 0
   fireFixing: 0
+  roggenfall: 0
+  castle: 0
+  lava: 0
+  flower: 0
 --- !u!4 &1355906288
 Transform:
   m_ObjectHideFlags: 0
@@ -21551,6 +21562,7 @@ GameObject:
   - component: {fileID: 1937121225}
   - component: {fileID: 1937121229}
   - component: {fileID: 1937121228}
+  - component: {fileID: 1937121230}
   m_Layer: 0
   m_Name: Venard
   m_TagString: Untagged
@@ -21737,7 +21749,11 @@ MonoBehaviour:
     given a choice, Venard.'
   - '!<NAME>!: I''m really sorry for you.'
   - "Venard: You dirty bast\u2026 I... It's not over yet, !<NAME>!."
-  playableDirector: {fileID: 0}
+  questNoEncounter: []
+  questNoRemorse: []
+  questRemorse: []
+  venardKilled: {fileID: 0}
+  initInteraction: {fileID: 1937121230}
 --- !u!61 &1937121228
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21830,6 +21846,22 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1.5}
   m_EdgeRadius: 0
+--- !u!114 &1937121230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937121221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81211690b333de6478b7bad792e55d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InitInteraction
+  dialogueManager: {fileID: 817633178}
+  player: {fileID: 1022761611}
+  playerDetection: {fileID: 1937121225}
+  interactionActive: 0
 --- !u!1 &1946316173 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2253911629886400664, guid: ecc194b35efc9ef49845677ad1aa5b0e, type: 3}

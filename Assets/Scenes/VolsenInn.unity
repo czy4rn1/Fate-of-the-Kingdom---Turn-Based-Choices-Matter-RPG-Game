@@ -2222,7 +2222,6 @@ MonoBehaviour:
     magic. It''s roots, legends...'
   - 'Ponter: Then we will consider the course of action.'
   - '!<NAME>!: Fine, I''ll be back in a minute.'
-  commandEntry: 
   jewelBladeDialogue:
   - '!<NAME>!: When I was leaving the castle, I found this blade near one of the
     guards.'
@@ -3464,10 +3463,17 @@ MonoBehaviour:
   venardRemorse: 0
   venardKilled: 0
   venardEncounterEnded: 0
-  ponterQuestStarted: 0
-  ponterInfoObtained: 0
+  ponterQuestStarted: 1
+  ponterQuestEnded: 0
+  ponterInfoObtained: 1
+  ponterInfoFromVenard: 0
   askSellerAboutJewelBlade: 0
   learnedAboutHellsGarden: 0
+  fireFixing: 0
+  roggenfall: 0
+  castle: 0
+  lava: 0
+  flower: 0
 --- !u!4 &1584270750
 Transform:
   m_ObjectHideFlags: 0
