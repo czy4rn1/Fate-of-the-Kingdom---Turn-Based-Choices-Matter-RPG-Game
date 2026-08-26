@@ -21,6 +21,10 @@ public class PonterVolsenInn : MonoBehaviour
         {
             transform.position = new Vector2(-6.51f, -0.72f);
         }
+        if (WorldState.Instance.ponterQuestEnded)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     void Update()
