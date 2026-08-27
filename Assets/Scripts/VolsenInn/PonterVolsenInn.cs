@@ -17,8 +17,14 @@ public class PonterVolsenInn : MonoBehaviour
     private byte commandType = 0;
     public string[] jewelBladeDialogue;
     public string[] informationDialogue;
+    public string[] castleChoice;
+    public string[] raggenfallChoice;
+    public string[] blossomGardenChoice;
+    public string[] mayhemIslandChoice;
     private string command;
-    private string[] roggenfallChoice = {"Ponter: It is settled, then.", "Ponter: Let's not waste any time, !<NAME>!.", "Ponter: We should move."};
+    private int chosenPath = 255;
+    private bool choosePathAgain = false;
+    private bool infoPlayed = false;
     void Start()
     {
         
@@ -111,9 +117,41 @@ public class PonterVolsenInn : MonoBehaviour
             {
                 if (chosen.id == storyChoices[i].id)
                 {
-                    StoryChoice(i);
+                    StartCoroutine(StoryChoice(i));
                     break;
                 }
+            }
+        }
+        else if (commandType == 3)
+        {
+            if (command == 0)
+            {
+                choosePathAgain = false;
+               switch (chosenPath)
+                {
+                    case 0:
+                        WorldState.Instance.castle = true;
+                        break;
+                    case 1:
+                        WorldState.Instance.mayhemIsland = true;
+                        break;
+                    case 2:
+                        WorldState.Instance.blossomGarden = true;
+                        break;  
+                    case 3:
+                        WorldState.Instance.roggenfall = true;
+                        break;
+                    default:
+                        break;       
+                }
+                dialoguePlayer.dialogueEnded = true;  
+            }
+            else if (command == 1)
+            {
+                choosePathAgain = true;
+                dialoguePlayer.dialogueEnded = true;
+                StopAllCoroutines();
+                StartCoroutine(InfoToChoice());
             }
         }
         
@@ -128,16 +166,19 @@ public class PonterVolsenInn : MonoBehaviour
     public IEnumerator InfoToChoice()
     {
         commandType = 2;
-        StartCoroutine(dialoguePlayer.PlayDialogue(informationDialogue, null));
+        if (!infoPlayed) {
+            StartCoroutine(dialoguePlayer.PlayDialogue(informationDialogue, null));
+            infoPlayed = true;
+        }
         byte id = 0;
         for (int i=0; i<storyChoices.Length; i++)
         {
             storyChoices[i] = new DialogueChoice();
         }
-        storyChoices[0].text = "We can pretend to be workers";
-        storyChoices[1].text = "The fisherman can get us to XXX";
-        storyChoices[2].text = "Kilmor could help us get to XXX";
-        storyChoices[3].text = "Let's get to Roggenfall";
+        storyChoices[0].text = "We can sneak into the castle as workers";
+        storyChoices[1].text = "The fisherman can get us to Mayhem Island";
+        storyChoices[2].text = "Kilmor could help us get to Blossom Garden";
+        storyChoices[3].text = "Let's get to Raggenfall";
         List<DialogueChoice> finalstoryChoices = new List<DialogueChoice>();
 
         command = "Ponter: So what are we going to do?";
@@ -184,28 +225,26 @@ public class PonterVolsenInn : MonoBehaviour
             CloseDialogue(0);
         }
     }
-    private void StoryChoice(int choice)
+    private IEnumerator StoryChoice(int choice)
     {
+        commandType = 3;
+        chosenPath = choice;
+        string[] choiceEnded = {"Ponter: It is settled, then.", "Ponter: Let's not waste any time, !<NAME>!.", "Ponter: We should move."};
         if (choice == 0)
-        {
-            StartCoroutine(dialoguePlayer.PlayDialogue(roggenfallChoice, CloseDialogue));
-            WorldState.Instance.castle = true;
-        }
+            StartCoroutine(dialoguePlayer.PlayDialogue(castleChoice, null));
         else if (choice == 1)
-        {
-            StartCoroutine(dialoguePlayer.PlayDialogue(roggenfallChoice, CloseDialogue));
-            WorldState.Instance.flower = true;
-        }
+            StartCoroutine(dialoguePlayer.PlayDialogue(mayhemIslandChoice, null));
         else if (choice == 2)
-        {
-            StartCoroutine(dialoguePlayer.PlayDialogue(roggenfallChoice, CloseDialogue));
-            WorldState.Instance.lava = true;
-        }
+            StartCoroutine(dialoguePlayer.PlayDialogue(blossomGardenChoice, null));
         else if (choice == 3)
-        {
-            StartCoroutine(dialoguePlayer.PlayDialogue(roggenfallChoice, CloseDialogue));
-            WorldState.Instance.roggenfall = true;
+            StartCoroutine(dialoguePlayer.PlayDialogue(raggenfallChoice, null));
+       
+        while (!dialoguePlayer.dialogueEnded) yield return null;
+        dialoguePlayer.PlayCommand("Are you sure?\n1. Yes\n2. No", 2, OnChosenCommand);
+        while (!dialoguePlayer.dialogueEnded) yield return null;
+        if(!choosePathAgain) {
+            StartCoroutine(dialoguePlayer.PlayDialogue(choiceEnded, CloseDialogue));
+            WorldState.Instance.ponterQuestEnded = true;
         }
-        WorldState.Instance.ponterQuestEnded = true;
     }
 }

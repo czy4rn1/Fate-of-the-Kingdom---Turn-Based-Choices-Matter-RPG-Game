@@ -17,7 +17,15 @@ public class InitInteraction : MonoBehaviour
         if (!player.isControllable) return false;
         if (!playerDetection.isPlayerNearby) return false;
         if (!Input.GetKeyDown(KeyCode.F)) return false;
+        player.isControllable = false;
+        interactionActive = true;
         return true;
 
+    }
+
+    public void CloseInteraction(int nothing)
+    {
+        player.isControllable = true;
+        interactionActive = false;
     }
 }

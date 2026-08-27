@@ -2233,7 +2233,29 @@ MonoBehaviour:
   - 'Ponter: Go to the merchant. He''s in the south-west of the village. He''s quite
     a collector, so he might know something about the sword.'
   informationDialogue:
-  - dupa
+  - 'Ponter: Did you find out anything? '
+  - '!<NAME>!: Yes. I managed to get this book from Terra. '
+  - 'Ponter: Terra? That demented maniac? What dance moves did you have to perform
+    to obtain anything from him? '
+  - '!<NAME>!: I had to act exactly like this demented maniac. '
+  - 'Ponter: Hmm... That checks out... '
+  - 'Ponter: So what''s the book? '
+  - '!<NAME>!: It''s a collection of forbidden prophecies and tales regarding demons. '
+  - '!<NAME>!: Terra thought that it''s just a fantasy book. '
+  - '!<NAME>!: The book describes many places where people used to worship the Devil. '
+  - '!<NAME>!: The thing is that some of them are either unreachable today, have
+    been renamed or both.'
+  - '!<NAME>!: I''m sure we could learn something in one of these places or find
+    something useful. '
+  - 'Ponter: So what are we going to do? '
+  castleChoice:
+  - 1
+  raggenfallChoice:
+  - 2
+  blossomGardenChoice:
+  - 3
+  mayhemIslandChoice:
+  - 4
 --- !u!114 &764483465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3466,14 +3488,14 @@ MonoBehaviour:
   ponterQuestStarted: 1
   ponterQuestEnded: 0
   ponterInfoObtained: 1
-  ponterInfoFromVenard: 0
+  ponterInfoFromForgan: 0
   askSellerAboutJewelBlade: 0
   learnedAboutHellsGarden: 0
   fireFixing: 1
   roggenfall: 0
   castle: 0
-  lava: 0
-  flower: 0
+  mayhemIsland: 0
+  blossomGarden: 0
 --- !u!4 &1584270750
 Transform:
   m_ObjectHideFlags: 0

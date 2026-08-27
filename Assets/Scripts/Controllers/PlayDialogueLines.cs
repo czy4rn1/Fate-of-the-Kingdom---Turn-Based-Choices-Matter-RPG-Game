@@ -25,11 +25,13 @@ public class PlayDialogueLines : MonoBehaviour
     }
     public void PlayCommand(string line, byte numOfCommands, Action<int> OnCommandSelected)
     {
+        dialogueEnded = false;
         dialogueManager.ShowDialogue(line, false, numOfCommands, true, OnCommandSelected);
     }
 
     public void PlayCommand(string entry, List<DialogueChoice> choices, Action<int> OnCommandSelected)
     {
+        dialogueEnded = false;
         string command = entry;
         foreach (DialogueChoice choice in choices)
         {

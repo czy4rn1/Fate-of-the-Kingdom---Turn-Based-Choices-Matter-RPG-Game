@@ -55,7 +55,6 @@ public class VenardVolsen : MonoBehaviour
                         {
                             StartCoroutine(dialoguePlayer.PlayDialogue(questRemorse, CloseDialogue));
                             WorldState.Instance.ponterInfoObtained = true;
-                            WorldState.Instance.ponterInfoFromVenard = true;
                         }
                     }
                 }
