@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayDialogueLines : MonoBehaviour
@@ -25,6 +26,16 @@ public class PlayDialogueLines : MonoBehaviour
     public void PlayCommand(string line, byte numOfCommands, Action<int> OnCommandSelected)
     {
         dialogueManager.ShowDialogue(line, false, numOfCommands, true, OnCommandSelected);
+    }
+
+    public void PlayCommand(string entry, List<DialogueChoice> choices, Action<int> OnCommandSelected)
+    {
+        string command = entry;
+        foreach (DialogueChoice choice in choices)
+        {
+            command += $"\n{choice.id+1}. " + choice.text;
+        }
+        dialogueManager.ShowDialogue(command, false, (byte)choices.Count, true, OnCommandSelected);
     }
 
 }

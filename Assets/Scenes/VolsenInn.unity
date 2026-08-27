@@ -3452,13 +3452,13 @@ MonoBehaviour:
   secretPathOpened: 0
   attackedKilmor: 0
   ignoredKilmor: 0
-  savedChildren: 0
+  savedChildren: 1
   redGemObtained: 0
   golemsHaveGem: 0
   golemEncounterEnded: 0
   fish_questStarted: 0
   fish_questEnded: 0
-  fish_willHelp: 0
+  fish_willHelp: 1
   fish_killed: 0
   venardRemorse: 0
   venardKilled: 0
@@ -3469,7 +3469,7 @@ MonoBehaviour:
   ponterInfoFromVenard: 0
   askSellerAboutJewelBlade: 0
   learnedAboutHellsGarden: 0
-  fireFixing: 0
+  fireFixing: 1
   roggenfall: 0
   castle: 0
   lava: 0

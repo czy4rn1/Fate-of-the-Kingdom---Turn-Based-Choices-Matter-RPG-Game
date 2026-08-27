@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -9,6 +11,8 @@ public class PonterVolsenInn : MonoBehaviour
     public PlayableDirector ponterEntersInn;
     public InitInteraction initInteraction;
     public PlayDialogueLines dialoguePlayer;
+    private DialogueChoice[] storyChoices = new DialogueChoice[4];
+    private DialogueChoice[] dialogueChoices = new DialogueChoice[3];
     public string[] introLines;
     private byte commandType = 0;
     public string[] jewelBladeDialogue;
@@ -17,6 +21,7 @@ public class PonterVolsenInn : MonoBehaviour
     private string[] roggenfallChoice = {"Ponter: It is settled, then.", "Ponter: Let's not waste any time, !<NAME>!.", "Ponter: We should move."};
     void Start()
     {
+        
         if (!WorldState.Instance.keyStolen)
         {
             transform.position = new Vector2(-6.51f, -0.72f);
@@ -45,31 +50,37 @@ public class PonterVolsenInn : MonoBehaviour
                     {
                         StartCoroutine(dialoguePlayer.PlayDialogue(new []{"Ponter: Come back to me when you find out anything."}, CloseDialogue));
                     }
-                    else if (!WorldState.Instance.ponterInfoObtained && WorldState.Instance.jewelBladeObtained)
+                    else
                     {
                         commandType = 1;
-                        command = "Ponter: Do you want to tell me something?\n" + 
-                        "1. Tell him about the Jewel Blade\n" + 
-                        "2. Nothing";
-                        dialoguePlayer.PlayCommand(command, 2, OnChosenCommand);
+                        byte id = 0;
+                        for(int i=0; i<dialogueChoices.Length; i++)
+                        {
+                            dialogueChoices[i] = new DialogueChoice();
+                        }
+                        dialogueChoices[0].text = "Give him the information you've obtained";
+                        dialogueChoices[1].text = "Tell him about the Jewel Blade";
+                        dialogueChoices[2].text = "Nothing";
+
+                        List<DialogueChoice> finalDialogueChoices = new List<DialogueChoice>();
+
+                        if (WorldState.Instance.ponterInfoObtained)
+                        {
+                            dialogueChoices[0].id = id;
+                            finalDialogueChoices.Add(dialogueChoices[0]);
+                            id++;
+                        }
+                        if (WorldState.Instance.jewelBladeObtained)
+                        {
+                            dialogueChoices[1].id = id;
+                            finalDialogueChoices.Add(dialogueChoices[1]);
+                            id++;
+                        }
+                        dialogueChoices[2].id = id;
+                        finalDialogueChoices.Add(dialogueChoices[2]);
+                        dialoguePlayer.PlayCommand("Ponter: Do you want to tell me something?", finalDialogueChoices, OnChosenCommand);
                     }
-                    else if (WorldState.Instance.ponterInfoObtained && !WorldState.Instance.jewelBladeObtained)
-                    {
-                        commandType = 2;
-                        command = "Ponter: Do you want to tell me something?\n" + 
-                        "1. Give him the information you've obtained\n" + 
-                        "2. Nothing";
-                        dialoguePlayer.PlayCommand(command, 2, OnChosenCommand);
-                    }
-                    else if (WorldState.Instance.ponterInfoObtained && WorldState.Instance.jewelBladeObtained)
-                    {
-                        commandType = 3;
-                        command = "Ponter: Do you want to tell me something?\n" + 
-                        "1. Give him the information you've obtained\n" + 
-                        "2. Tell him about the Jewel Blade\n" +
-                        "3. Nothing";
-                        dialoguePlayer.PlayCommand(command, 3, OnChosenCommand);
-                    }
+                    
                 }
                 else
                 {
@@ -83,96 +94,29 @@ public class PonterVolsenInn : MonoBehaviour
     {
         if (commandType == 1)
         {
-            if (command == 0)
+            DialogueChoice chosen = dialogueChoices.FirstOrDefault(o => o.id == command);
+            for(int i=0; i<dialogueChoices.Length; i++)
             {
-                StartCoroutine(dialoguePlayer.PlayDialogue(jewelBladeDialogue, CloseDialogue));
-                WorldState.Instance.askSellerAboutJewelBlade = true;
-            }
-            else if (command == 1)  {
-                StartCoroutine(dialogueManager.HideShowPanel("hide"));
-                CloseDialogue(0);
+                if (chosen.id == dialogueChoices[i].id)
+                {
+                    DialogueChoice(i);
+                    break;
+                }
             }
         }
-        else if (commandType == 2)
-        {
-            if (command == 0)
+        else if (commandType == 2){
+            DialogueChoice chosen = storyChoices.FirstOrDefault(o => o.id == command);
+            Debug.Log(chosen.text);
+            for(int i=0; i<storyChoices.Length; i++)
             {
-                StartCoroutine(InfoToChoice());
-            }
-            else if (command == 1) {
-                StartCoroutine(dialogueManager.HideShowPanel("hide"));
-                CloseDialogue(0);
+                if (chosen.id == storyChoices[i].id)
+                {
+                    StoryChoice(i);
+                    break;
+                }
             }
         }
-        else if (commandType == 3)
-        {
-            if (command == 0)
-            {
-                StartCoroutine(InfoToChoice());
-            }
-            else if (command == 1)
-            {
-                StartCoroutine(dialoguePlayer.PlayDialogue(jewelBladeDialogue, CloseDialogue));
-                WorldState.Instance.askSellerAboutJewelBlade = true;
-            }
-            else if (command == 2) {
-                StartCoroutine(dialogueManager.HideShowPanel("hide"));
-                CloseDialogue(0);
-            }
-        }
-        else if (commandType == 4)
-        {
-            StoryChoice(1);
-        }
-        else if (commandType == 5)
-        {
-            if (command == 0)
-            {
-                StoryChoice(2);
-            }
-            else if (command == 1)
-            {
-                StoryChoice(1);
-            }
-        }
-        else if (commandType == 6)
-        {
-            if (command == 0)
-            {
-                StoryChoice(4);
-            }
-            else if (command == 1)
-            {
-                StoryChoice(1);
-            }
-        }
-        else if (commandType == 7)
-        {
-            if (command == 0)
-            {
-                StoryChoice(3);
-            }
-            else if(command == 1)
-            {
-                StoryChoice(4);
-            }
-            else if (command == 2)
-            {
-                StoryChoice(1);
-            }
-        }
-        else if (commandType == 8)
-        {
-            if (command == 0)
-            {
-                StoryChoice(3);
-            }
-            else if (command == 1)
-            {
-                StoryChoice(1);
-            }
-        }
-        //commandType = 0;
+        
     }
 
     public void CloseDialogue(int nothing)
@@ -183,57 +127,84 @@ public class PonterVolsenInn : MonoBehaviour
 
     public IEnumerator InfoToChoice()
     {
+        commandType = 2;
         StartCoroutine(dialoguePlayer.PlayDialogue(informationDialogue, null));
-        byte numOfCommands = 1;
+        byte id = 0;
+        for (int i=0; i<storyChoices.Length; i++)
+        {
+            storyChoices[i] = new DialogueChoice();
+        }
+        storyChoices[0].text = "We can pretend to be workers";
+        storyChoices[1].text = "The fisherman can get us to XXX";
+        storyChoices[2].text = "Kilmor could help us get to XXX";
+        storyChoices[3].text = "Let's get to Roggenfall";
+        List<DialogueChoice> finalstoryChoices = new List<DialogueChoice>();
+
         command = "Ponter: So what are we going to do?";
         if (WorldState.Instance.fireFixing) {
-            command += $"\n{numOfCommands}. " + "We can pretend to be workers"; 
-            numOfCommands++;
+            storyChoices[0].id = id; 
+            finalstoryChoices.Add(storyChoices[0]);
+            id++;
         }
         if (WorldState.Instance.fish_willHelp)
         {
-            command += $"\n{numOfCommands}. " + "The fisherman can get us to XXX"; 
-            numOfCommands++;
+            storyChoices[1].id = id;
+            finalstoryChoices.Add(storyChoices[1]);
+            id++;
         } 
         if (WorldState.Instance.savedChildren)
         {
-            command += $"\n{numOfCommands}. " + "Kilmor could help us get to XXX"; 
-            numOfCommands++;
+            storyChoices[2].id = id;
+            finalstoryChoices.Add(storyChoices[2]);
+            id++;
         } 
-        
-        command += $"\n{numOfCommands}. " + "Let's get to Roggenfall";
+        storyChoices[3].id = id;
+        finalstoryChoices.Add(storyChoices[3]);
 
-        if (!WorldState.Instance.fireFixing && !WorldState.Instance.fish_willHelp && !WorldState.Instance.savedChildren) commandType = 4;
-        if (WorldState.Instance.fireFixing && !WorldState.Instance.fish_willHelp && !WorldState.Instance.savedChildren) commandType = 5;
-        if (!WorldState.Instance.fireFixing && !WorldState.Instance.fish_willHelp && WorldState.Instance.savedChildren) commandType = 6;
-        if (!WorldState.Instance.fireFixing && WorldState.Instance.fish_willHelp && WorldState.Instance.savedChildren) commandType = 7;
-        if (!WorldState.Instance.fireFixing && WorldState.Instance.fish_willHelp && !WorldState.Instance.savedChildren) commandType = 8;
         while(!dialoguePlayer.dialogueEnded) yield return null;
 
-        dialoguePlayer.PlayCommand(command, numOfCommands, OnChosenCommand);
+        dialoguePlayer.PlayCommand(command, finalstoryChoices, OnChosenCommand);
     }
 
-    private void StoryChoice(byte choice)
+
+    public void DialogueChoice(int choice)
     {
-        if (choice == 1)
+        if (choice == 0)
         {
-            StartCoroutine(dialoguePlayer.PlayDialogue(roggenfallChoice, CloseDialogue));
-            WorldState.Instance.roggenfall = true;
+            StartCoroutine(InfoToChoice());
+        }
+        else if (choice == 1)
+        {
+            StartCoroutine(dialoguePlayer.PlayDialogue(jewelBladeDialogue, CloseDialogue));
+            WorldState.Instance.askSellerAboutJewelBlade = true;
         }
         else if (choice == 2)
+        {
+            StartCoroutine(dialogueManager.HideShowPanel("hide"));
+            CloseDialogue(0);
+        }
+    }
+    private void StoryChoice(int choice)
+    {
+        if (choice == 0)
         {
             StartCoroutine(dialoguePlayer.PlayDialogue(roggenfallChoice, CloseDialogue));
             WorldState.Instance.castle = true;
         }
-        else if (choice == 3)
+        else if (choice == 1)
         {
             StartCoroutine(dialoguePlayer.PlayDialogue(roggenfallChoice, CloseDialogue));
             WorldState.Instance.flower = true;
         }
-        else if (choice == 4)
+        else if (choice == 2)
         {
             StartCoroutine(dialoguePlayer.PlayDialogue(roggenfallChoice, CloseDialogue));
             WorldState.Instance.lava = true;
+        }
+        else if (choice == 3)
+        {
+            StartCoroutine(dialoguePlayer.PlayDialogue(roggenfallChoice, CloseDialogue));
+            WorldState.Instance.roggenfall = true;
         }
         WorldState.Instance.ponterQuestEnded = true;
     }
