@@ -17,7 +17,8 @@ public class CollectFishes : MonoBehaviour
                 fishesSpawned = true;
                 SpawnFish();
             }
-        }   
+        }
+        if (WorldState.Instance.fish_questEnded) gameObject.SetActive(false);   
     }
 
     void SpawnFish()

@@ -29,13 +29,11 @@ public class VenardVolsen : MonoBehaviour
     {
         if (initInteraction.Interaction())
         {
-            player.isControllable = false;
-            initInteraction.interactionActive = true;
             if (!WorldState.Instance.ponterQuestStarted) {
                 if (!WorldState.Instance.venardEncounterEnded) {
                     StartCoroutine(Interaction());
                 }
-                else StartCoroutine(dialoguePlayer.PlayDialogue(standardLines, CloseDialogue));
+                else StartCoroutine(dialoguePlayer.PlayDialogue(standardLines, initInteraction.CloseInteraction));
             }
             else
             {
@@ -43,18 +41,18 @@ public class VenardVolsen : MonoBehaviour
                 {
                     if (!WorldState.Instance.venardEncounterEnded)
                     {
-                        StartCoroutine(dialoguePlayer.PlayDialogue(questNoEncounter, CloseDialogue));
+                        StartCoroutine(dialoguePlayer.PlayDialogue(questNoEncounter, initInteraction.CloseInteraction));
                     }
                     else
                     {
                         if (!WorldState.Instance.venardRemorse)
                         {
-                            StartCoroutine(dialoguePlayer.PlayDialogue(questNoRemorse, CloseDialogue));
+                            StartCoroutine(dialoguePlayer.PlayDialogue(questNoRemorse, initInteraction.CloseInteraction));
                         }
                         else
                         {
-                            StartCoroutine(dialoguePlayer.PlayDialogue(questRemorse, CloseDialogue));
-                            WorldState.Instance.ponterInfoObtained = true;
+                            StartCoroutine(dialoguePlayer.PlayDialogue(questRemorse, initInteraction.CloseInteraction));
+
                         }
                     }
                 }
@@ -67,11 +65,11 @@ public class VenardVolsen : MonoBehaviour
         switch (command)
         {
             case 0:
-                StartCoroutine(dialoguePlayer.PlayDialogue(agreeLines, CloseDialogue));
+                StartCoroutine(dialoguePlayer.PlayDialogue(agreeLines, initInteraction.CloseInteraction));
                 break;
             case 1:
                 WorldState.Instance.venardRemorse = true;
-                StartCoroutine(dialoguePlayer.PlayDialogue(disagreeLines, CloseDialogue));
+                StartCoroutine(dialoguePlayer.PlayDialogue(disagreeLines, initInteraction.CloseInteraction));
                 ChangeStandardLines();
                 break;
             case 2:
@@ -82,12 +80,6 @@ public class VenardVolsen : MonoBehaviour
         }
         initInteraction.interactionActive = false;
         WorldState.Instance.venardEncounterEnded = true;
-    }
-
-    public void CloseDialogue(int nothing)
-    {
-        player.isControllable = true;
-        initInteraction.interactionActive = false;
     }
 
     public IEnumerator Interaction()

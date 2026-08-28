@@ -1607,6 +1607,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: dd21b93e0ab37d8448193b2d62a9ec10, type: 3}
   m_PrefabInstance: {fileID: 178010855}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &181089824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 181089826}
+  - component: {fileID: 181089825}
+  m_Layer: 0
+  m_Name: PlayDialogueLines
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &181089825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181089824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c2306464632d72449b4125b12d72d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayDialogueLines
+  dialogueManager: {fileID: 1020916468}
+  dialogueEnded: 0
+--- !u!4 &181089826
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181089824}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 42.49151, y: -21.09697, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &195911694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20519,6 +20565,7 @@ GameObject:
   - component: {fileID: 667566494}
   - component: {fileID: 667566493}
   - component: {fileID: 667566496}
+  - component: {fileID: 667566497}
   m_Layer: 0
   m_Name: Fisher Man
   m_TagString: Untagged
@@ -20577,6 +20624,8 @@ MonoBehaviour:
     for an entire week. '
   req_per: 14
   collectFishes: {fileID: 2056533078}
+  initInteraction: {fileID: 667566497}
+  dialoguePlayer: {fileID: 181089825}
 --- !u!212 &667566491
 SpriteRenderer:
   serializedVersion: 2
@@ -20794,6 +20843,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &667566497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667566488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81211690b333de6478b7bad792e55d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InitInteraction
+  dialogueManager: {fileID: 1020916468}
+  player: {fileID: 47330854}
+  playerDetection: {fileID: 667566489}
+  interactionActive: 0
 --- !u!1001 &673604909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22836,6 +22901,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 778c44da4a4b25144ad0287cbe502f0a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1085877516}
+    - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 778c44da4a4b25144ad0287cbe502f0a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1085877517}
   m_SourcePrefab: {fileID: -8435245712485981826, guid: 778c44da4a4b25144ad0287cbe502f0a, type: 3}
 --- !u!1 &1085877511 stripped
 GameObject:
@@ -22920,11 +22988,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7004afc49c902a4998f51902a606cf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  location: Beach
   player: {fileID: 47330854}
   dialogueManager: {fileID: 1020916468}
   playerDetection: {fileID: 1085877514}
   blackoutManager: {fileID: 2023099086}
+  initInteraction: {fileID: 1085877517}
+--- !u!114 &1085877517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085877511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81211690b333de6478b7bad792e55d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InitInteraction
+  dialogueManager: {fileID: 1020916468}
+  player: {fileID: 47330854}
+  playerDetection: {fileID: 1085877514}
+  interactionActive: 0
 --- !u!1001 &1086361334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32693,6 +32777,20 @@ MonoBehaviour:
   fish_questEnded: 0
   fish_willHelp: 0
   fish_killed: 0
+  venardRemorse: 0
+  venardKilled: 0
+  venardEncounterEnded: 0
+  ponterQuestStarted: 0
+  ponterQuestEnded: 0
+  ponterInfoObtained: 0
+  ponterInfoFromForgan: 0
+  askSellerAboutJewelBlade: 0
+  learnedAboutHellsGarden: 0
+  fireFixing: 0
+  roggenfall: 0
+  castle: 0
+  mayhemIsland: 0
+  blossomGarden: 0
 --- !u!4 &1526247682
 Transform:
   m_ObjectHideFlags: 0
@@ -35077,3 +35175,4 @@ SceneRoots:
   - {fileID: 1085877510}
   - {fileID: 2056533079}
   - {fileID: 47330859}
+  - {fileID: 181089826}

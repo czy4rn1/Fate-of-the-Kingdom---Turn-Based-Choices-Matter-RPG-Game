@@ -4,39 +4,35 @@ using UnityEngine.SceneManagement;
 
 public class Boat : MonoBehaviour
 {
-    public string location;
     public Player player;
     public DialogueManager dialogueManager;
-    private bool isInteractable = true;
     public PlayerDetection playerDetection;
     public BlackoutManager blackoutManager;
+    public InitInteraction initInteraction;
+    void Start()
+    {
+        if (WorldState.Instance.currentLevel == "Volsen")
+        {
+            if (!WorldState.Instance.fish_killed && !WorldState.Instance.fish_questEnded) gameObject.SetActive(false);
+        }
+    }
     void Update()
     {
-        if (!isInteractable) {
-            playerDetection.allowIcon = false;
-            return;
-        }
-        else playerDetection.allowIcon = true;
-        if (isInteractable && 
-        player.isControllable && 
-        playerDetection.isPlayerNearby &&
-        Input.GetKeyDown(KeyCode.F))
+        if (initInteraction.Interaction())
         {
-            isInteractable = false;
-            player.isControllable = false;
-            if (location == "Beach")
+            if (WorldState.Instance.currentLevel == "Beach")
             {
                 if (WorldState.Instance.fish_killed || WorldState.Instance.fish_questEnded)
                 {
                     StartCoroutine(LoadTransition());
                 }
                 else {
-                    dialogueManager.ShowDialogue("There's a boat here. It might be useful.", true, 0, true, CloseDialogue);
+                    dialogueManager.ShowDialogue("There's a boat here. It might be useful.", true, 0, true, initInteraction.CloseInteraction);
                 }
             }
-            else if (location == "Volsen")
+            else if (WorldState.Instance.currentLevel == "Volsen")
             {
-                
+                StartCoroutine(LoadTransition());
             }
         }
     }
@@ -46,17 +42,5 @@ public class Boat : MonoBehaviour
         yield return StartCoroutine(blackoutManager.Fade(false));
         while (blackoutManager.curAlpha < 1f) yield return null;
         SceneManager.LoadScene("BoatTransition");
-    }
-
-    public void CloseDialogue(int nothing)
-    {
-        player.isControllable = true;
-        StartCoroutine(SetInteractive());
-    }
-
-    IEnumerator SetInteractive()
-    {
-        yield return new WaitForSeconds(1f);
-        isInteractable = true;
     }
 }
