@@ -13,8 +13,7 @@ public class VenardVolsen : MonoBehaviour
     public string commands;
     public string[] agreeLines;
     public string[] disagreeLines;
-    public string[] questNoEncounter;
-    public string[] questNoRemorse;
+    public string[] questNoEncounterNoRemorse;
     public string[] questRemorse;
     public PlayableDirector venardKilled;
     public InitInteraction initInteraction;
@@ -41,13 +40,13 @@ public class VenardVolsen : MonoBehaviour
                 {
                     if (!WorldState.Instance.venardEncounterEnded)
                     {
-                        StartCoroutine(dialoguePlayer.PlayDialogue(questNoEncounter, initInteraction.CloseInteraction));
+                        StartCoroutine(dialoguePlayer.PlayDialogue(questNoEncounterNoRemorse, initInteraction.CloseInteraction));
                     }
                     else
                     {
                         if (!WorldState.Instance.venardRemorse)
                         {
-                            StartCoroutine(dialoguePlayer.PlayDialogue(questNoRemorse, initInteraction.CloseInteraction));
+                            StartCoroutine(dialoguePlayer.PlayDialogue(questNoEncounterNoRemorse, initInteraction.CloseInteraction));
                         }
                         else
                         {

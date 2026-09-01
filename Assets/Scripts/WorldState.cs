@@ -48,10 +48,12 @@ public class WorldState : MonoBehaviour
     public bool askSellerAboutJewelBlade = false;
     public bool learnedAboutHellsGarden = false;
     public bool fireFixing = false;
-    public bool roggenfall = false;
+    public bool raggenfall = false;
     public bool castle = false;
     public bool mayhemIsland = false;
     public bool blossomGarden = false;
+
+    public bool roadtorag_instructions = true;
 
 
     

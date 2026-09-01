@@ -23,6 +23,20 @@ public class InitInteraction : MonoBehaviour
 
     }
 
+    public bool Interaction(bool dontStop)
+    {
+        if (interactionActive) {
+            playerDetection.allowIcon = false;
+            return false;
+        }
+        else playerDetection.allowIcon = true;
+        if (dialogueManager.dialogueActive) return false;
+        if (!player.isControllable) return false;
+        if (!playerDetection.isPlayerNearby) return false;
+        if (!Input.GetKeyDown(KeyCode.F)) return false;
+        return true;
+    }
+
     public void CloseInteraction(int nothing)
     {
         player.isControllable = true;

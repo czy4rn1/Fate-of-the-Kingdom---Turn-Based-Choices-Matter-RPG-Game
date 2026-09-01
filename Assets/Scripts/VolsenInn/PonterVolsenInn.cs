@@ -139,7 +139,7 @@ public class PonterVolsenInn : MonoBehaviour
                         WorldState.Instance.blossomGarden = true;
                         break;  
                     case 3:
-                        WorldState.Instance.roggenfall = true;
+                        WorldState.Instance.raggenfall = true;
                         break;
                     default:
                         break;       

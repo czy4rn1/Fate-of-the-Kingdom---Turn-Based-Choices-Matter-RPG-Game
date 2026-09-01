@@ -7,6 +7,7 @@ public class VolsenState : MonoBehaviour
     public Player player;
     public CameraController cameraController;
     public PlayableDirector guardLookingForWorkers;
+    public BoxCollider2D roadToRaggenfall;
     void Start()
     {
         if (WorldState.Instance.currentLevel == "Forest") {
@@ -25,6 +26,7 @@ public class VolsenState : MonoBehaviour
             guardLookingForWorkers.Play();
             WorldState.Instance.fireFixing = true;
         }
+        if (!WorldState.Instance.raggenfall) roadToRaggenfall.enabled = false;
         StartCoroutine(blackoutManager.Fade(true));
     }
 

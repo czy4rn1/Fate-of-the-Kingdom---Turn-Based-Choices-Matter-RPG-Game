@@ -50,6 +50,9 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/VolsenInn.unity
     m_guid: 8d5efb29c7b6f2e43944b0128d19b7b1
+  - m_enabled: 1
+    m_path: Assets/Scenes/RoadToRaggenfall.unity
+    m_guid: 63c23e00ce7c0d14791f1f4746297f65
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
