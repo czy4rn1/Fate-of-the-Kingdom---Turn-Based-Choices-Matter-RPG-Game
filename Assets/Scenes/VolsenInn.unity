@@ -2249,13 +2249,48 @@ MonoBehaviour:
     something useful. '
   - 'Ponter: So what are we going to do? '
   castleChoice:
-  - 1
+  - '!<NAME>!: A Magnus'' knight approached me when I left the inn.'
+  - '!<NAME>!: They''re looking for workers to rebuild the main hall after a fire
+    that I caused.'
+  - '!<NAME>!: I''m almost certain he didn''t recognize me.'
+  - 'Ponter: And what''s your idea?'
+  - '!<NAME>!: We could pretend to be workers, and either sabotage the operation
+    or look for different entry points inside the castle.'
+  - '!<NAME>!: Looks like a dream come true to me.'
+  - 'Ponter: I''m not sure... It sounds very risky. Could be a trap as well.'
+  - 'Ponter: There is very little chance he didn''t recognize you. You''re a fugitive,
+    and a well-known at that.'
+  - 'Ponter: But on the other hand... This might be our best chance to get close
+    to Magnus and strike him down.'
+  - 'Ponter: It''s your call, I trust your choice.'
   raggenfallChoice:
-  - 2
+  - '!<NAME>!: Terra told me that the book mentions Raggenfall peak as one of places
+    to worship the Devil.'
+  - '!<NAME>!: He also mentioned in his demented way that it''s so cold there, your
+    intestines might freeze.'
+  - '!<NAME>!: I think we should go there. I''m sure we''ll find something that''ll
+    help us stop Magnus.'
+  - 'Ponter: We better go prepared and take some warm clothes with us.'
+  - 'Ponter!: There is a road near the merchant that can lead us there.'
   blossomGardenChoice:
-  - 3
+  - '!<NAME>!: After I escaped from the castle, I met a talking rat and helped him
+    get his children back.'
+  - '!<NAME>!: It so happens that the book has marked the area where I met him as
+    an entrypoint to Blossom Garden.'
+  - '!<NAME>!: Kilmor promised to help me in my mission, so I''m sure if we talk
+    to him, he''ll help us get there.'
+  - '!<NAME>!: The book says that the dungeon with entrance to the garden is full
+    of lava, so we''ll have to be extremely cautious.'
+  - 'Ponter: It sounds risky, but It might be our best shot.'
   mayhemIslandChoice:
-  - 4
+  - '!<NAME>!: After I escaped from the castle, I met a fisherman that got me here
+    on a boat.'
+  - '!<NAME>!: He told me that his son became a Magnus'' knight, and that he''d do
+    anything to bring him back. '
+  - '!<NAME>!: He promised to help me in our mission. I think he can get us to the
+    Mayhem Island.'
+  - 'Ponter: I see... Something tells me it''s going to be one hell of a fight in
+    there, but it sounds like a good plan.'
 --- !u!114 &764483465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3492,10 +3527,11 @@ MonoBehaviour:
   askSellerAboutJewelBlade: 0
   learnedAboutHellsGarden: 0
   fireFixing: 1
-  roggenfall: 0
+  raggenfall: 0
   castle: 0
   mayhemIsland: 0
   blossomGarden: 0
+  roadtorag_instructions: 1
 --- !u!4 &1584270750
 Transform:
   m_ObjectHideFlags: 0
