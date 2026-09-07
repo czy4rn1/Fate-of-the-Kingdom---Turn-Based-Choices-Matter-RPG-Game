@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public CharacterAnimation characterAnimation;
     public DialogueManager dialogueManager;
+    public BoxCollider2D boxCollider2D;
+    bool inAir = false;
+    public bool enableJump = false;
     
     void Start()
     {
@@ -23,18 +26,34 @@ public class Player : MonoBehaviour
     {
         if(isControllable) {
             movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
+            if (!inAir) movement.y = Input.GetAxisRaw("Vertical");
 
             if (movement.x > 0) spriteRenderer.flipX = false;
             else if (movement.x < 0) spriteRenderer.flipX = true;
             if (movement.x != 0 || movement.y != 0) characterAnimation.isRunning = true;
             else characterAnimation.isRunning = false;
+            if (enableJump) if (Input.GetKeyDown(KeyCode.Space) && !inAir) StartCoroutine(Jump());
         }
         if (dialogueManager != null) {
             if (dialogueManager.dialogueActive) {
                 characterAnimation.isRunning = false;
             }
         }
+    }
+
+    IEnumerator Jump()
+    {
+        if (boxCollider2D != null) boxCollider2D.enabled = false;
+        inAir = true;
+        moveSpeed = 6f;
+        float curY = transform.position.y;
+        movement.y = 1;
+        while (transform.position.y < curY + 1.2f) yield return null;
+        movement.y = -1;
+        while (transform.position.y > curY) yield return null;
+        inAir = false;
+        if (boxCollider2D != null) boxCollider2D.enabled = true;
+        moveSpeed = 5f;
     }
 
     void FixedUpdate()

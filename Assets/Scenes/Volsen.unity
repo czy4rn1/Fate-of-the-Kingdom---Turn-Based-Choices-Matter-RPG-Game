@@ -5511,6 +5511,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 1, y: -4, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 3, y: -3, z: 0}
     second:
       serializedVersion: 2
@@ -5666,13 +5676,19 @@ Tilemap:
   - serializedVersion: 2
     m_RefCount: 24
     m_Data: {fileID: 11400000, guid: b02c1b9efdeb5984bb74de13590001d3, type: 2}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 87384cadf5724eb46b2b11dfc4b4d179, type: 2}
   m_TileSpriteArray:
   - serializedVersion: 2
     m_RefCount: 24
     m_Data: {fileID: 2744182052830071792, guid: 2abada3e740552b48a40d74500673660, type: 3}
+  - serializedVersion: 2
+    m_RefCount: 1
+    m_Data: {fileID: 8532863690886531794, guid: 91f77ee1aeed0d24d8193f629ab661aa, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 2
-    m_RefCount: 24
+    m_RefCount: 25
     m_Data:
       e00: 1
       e01: 0
@@ -5692,7 +5708,7 @@ Tilemap:
       e33: 1
   m_TileColorArray:
   - serializedVersion: 2
-    m_RefCount: 24
+    m_RefCount: 25
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -19366,6 +19382,7 @@ MonoBehaviour:
   castle: 0
   mayhemIsland: 0
   blossomGarden: 0
+  roadtorag_instructions: 1
 --- !u!4 &1355906288
 Transform:
   m_ObjectHideFlags: 0
