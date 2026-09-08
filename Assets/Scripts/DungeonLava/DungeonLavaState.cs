@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class DungeonLavaState : MonoBehaviour
 {
@@ -6,9 +7,12 @@ public class DungeonLavaState : MonoBehaviour
     public BoxCollider2D right2;
     public Player player;
     public CameraController cameraController;
+    public DialogueManager dialogueManager;
+    public PlayableDirector playableDirector;
     void Start()
     {
-        
+        playableDirector.gameObject.SetActive(true);
+        dialogueManager.timelineDirector = playableDirector;
     }
 
     void Update()
