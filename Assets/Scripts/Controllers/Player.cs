@@ -1,6 +1,7 @@
 using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -32,7 +33,9 @@ public class Player : MonoBehaviour
             else if (movement.x < 0) spriteRenderer.flipX = true;
             if (movement.x != 0 || movement.y != 0) characterAnimation.isRunning = true;
             else characterAnimation.isRunning = false;
-            if (enableJump) if (Input.GetKeyDown(KeyCode.Space) && !inAir) StartCoroutine(Jump());
+            if (enableJump) if (Input.GetKeyDown(KeyCode.Space) && !inAir) {               
+                StartCoroutine(Jump(movement.y == -1, movement.y == 1));
+            }
         }
         if (dialogueManager != null) {
             if (dialogueManager.dialogueActive) {
@@ -41,19 +44,31 @@ public class Player : MonoBehaviour
         }
     }
 
-    IEnumerator Jump()
+    IEnumerator Jump(bool down, bool up)
     {
         if (boxCollider2D != null) boxCollider2D.enabled = false;
         inAir = true;
-        moveSpeed = 6f;
         float curY = transform.position.y;
         movement.y = 1;
-        while (transform.position.y < curY + 1.2f) yield return null;
-        movement.y = -1;
-        while (transform.position.y > curY) yield return null;
+        if (!down && !up) {
+            while (transform.position.y < curY + 1.5f) yield return null;
+            movement.y = -1;
+            while (transform.position.y > curY) yield return null;
+        }
+        else if (down && !up)
+        {
+            while (transform.position.y < curY + 0.5f) yield return null;
+            movement.y = -1;
+            while(transform.position.y > curY - 2.5f) yield return null;
+        }
+        else if (!down && up)
+        {
+            while (transform.position.y < curY + 2.5f) yield return null;
+            movement.y = -1;
+            while(transform.position.y > curY + 2.0f) yield return null;
+        }
         inAir = false;
         if (boxCollider2D != null) boxCollider2D.enabled = true;
-        moveSpeed = 5f;
     }
 
     void FixedUpdate()
