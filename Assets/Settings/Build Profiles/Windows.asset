@@ -53,6 +53,9 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/RoadToRaggenfall.unity
     m_guid: 63c23e00ce7c0d14791f1f4746297f65
+  - m_enabled: 1
+    m_path: Assets/Scenes/DungeonLava.unity
+    m_guid: ad91b5e3f096f384ca63cc4efe135abb
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

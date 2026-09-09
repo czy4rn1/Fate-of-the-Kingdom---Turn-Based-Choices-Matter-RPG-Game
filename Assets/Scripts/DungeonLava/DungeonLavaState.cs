@@ -9,10 +9,13 @@ public class DungeonLavaState : MonoBehaviour
     public CameraController cameraController;
     public DialogueManager dialogueManager;
     public PlayableDirector playableDirector;
+    public BlackoutManager blackoutManager;
     void Start()
     {
         playableDirector.gameObject.SetActive(true);
         dialogueManager.timelineDirector = playableDirector;
+        WorldState.Instance.currentLevel = "DungeonLava";
+        StartCoroutine(blackoutManager.Fade(true));       
     }
 
     void Update()

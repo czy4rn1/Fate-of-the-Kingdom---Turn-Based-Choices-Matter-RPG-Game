@@ -31,7 +31,9 @@ public class Player : MonoBehaviour
 
             if (movement.x > 0) spriteRenderer.flipX = false;
             else if (movement.x < 0) spriteRenderer.flipX = true;
-            if (movement.x != 0 || movement.y != 0) characterAnimation.isRunning = true;
+            if (movement.x != 0 || movement.y != 0) {
+                if (!inAir) characterAnimation.isRunning = true;
+            }
             else characterAnimation.isRunning = false;
             if (enableJump) if (Input.GetKeyDown(KeyCode.Space) && !inAir) {               
                 StartCoroutine(Jump(movement.y == -1, movement.y == 1));
@@ -50,6 +52,8 @@ public class Player : MonoBehaviour
         inAir = true;
         float curY = transform.position.y;
         movement.y = 1;
+        characterAnimation.isRunning = false;
+        characterAnimation.isJumping = true;
         if (!down && !up) {
             while (transform.position.y < curY + 1.5f) yield return null;
             movement.y = -1;
@@ -68,6 +72,7 @@ public class Player : MonoBehaviour
             while(transform.position.y > curY + 2.0f) yield return null;
         }
         inAir = false;
+        characterAnimation.isJumping = false;
         if (boxCollider2D != null) boxCollider2D.enabled = true;
     }
 
