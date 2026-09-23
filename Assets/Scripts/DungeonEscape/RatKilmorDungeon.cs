@@ -11,8 +11,10 @@ public class RatKilmorDungeon : MonoBehaviour
     public PlayableDirector betrayCutscene;
     public PlayableDirector supportCutscene2;
     public GameObject[] kids = new GameObject[3];
-
+    public InitInteraction initInteraction;
+    private bool questStarted = false;
     private bool isInteractable = true;
+
     private bool introductionEnded = false;
     
     public string[] introDialogues;
@@ -25,58 +27,61 @@ public class RatKilmorDungeon : MonoBehaviour
         {
             foreach (GameObject kid in kids) kid.SetActive(true);
         }
+        if (WorldState.Instance.kilmor_questEnded) questStarted = true;
         introductionEnded = WorldState.Instance.kilmor_intro_ended;
     }
     void Update()
     {
-        if (!isInteractable) return;
-        if (playerDetection.isPlayerNearby && 
-        player.isControllable && 
-        !dialogueManager.dialogueActive && 
-        Input.GetKeyDown(KeyCode.F))
-        {
-            player.isControllable = false;
-            isInteractable = false;
-            if (!introductionEnded && !WorldState.Instance.kilmor_questStarted)
+        if (isInteractable) {
+            if (initInteraction.Interaction())
             {
-                StartCoroutine(PlayDialogue(introDialogues));
-            }
-            else if (introductionEnded && !WorldState.Instance.kilmor_questStarted)
-            {
-                dialogueManager.ShowDialogue(questCommands, false, numOfCommands, false, OnCommandSelected);
-            }
-            else if (introductionEnded && WorldState.Instance.kilmor_questStarted && !WorldState.Instance.attackedKilmor && !WorldState.Instance.kilmor_questEnded)
-            {
-                if (!WorldState.Instance.secretPathOpened) {
-                    string[] dialogueLines = {"Rat Kilmor: I think this is the place. I can still smell them.",
-                    "Rat Kilmor: However I don't see any pathways that could lead us any further."};
-                    StartCoroutine(PlayDialogue(dialogueLines));
-                }
-                else
+                if (!introductionEnded && !WorldState.Instance.kilmor_questStarted)
                 {
-                    string[] dialogueLines = {"Rat Kilmor: !<NAME>!, let's go! We have to save them!"};
-                    StartCoroutine(PlayDialogueSupportKilmor(dialogueLines, false));
+                    StartCoroutine(PlayDialogue(introDialogues));
                 }
-            }
-            else if (introductionEnded && WorldState.Instance.savedChildren)
-            {
-                if (!WorldState.Instance.blossomGarden)
+                else if (introductionEnded && (!WorldState.Instance.kilmor_questStarted || !questStarted))
                 {
-                    StartCoroutine(PlayDialogue(new string[] {"Rat Kilmor: Thank you so much for saving my children. Come back if you need help from me."}));
+                    dialogueManager.ShowDialogue(questCommands, false, numOfCommands, false, OnCommandSelected);
                 }
-                else
+                else if (introductionEnded && 
+                WorldState.Instance.kilmor_questStarted &&
+                questStarted && 
+                !WorldState.Instance.attackedKilmor && 
+                !WorldState.Instance.kilmor_questEnded)
                 {
-                    
+                    if (!WorldState.Instance.secretPathOpened) {
+                        string[] dialogueLines = {"Rat Kilmor: I think this is the place. I can still smell them.",
+                        "Rat Kilmor: However I don't see any pathways that could lead us any further."};
+                        StartCoroutine(PlayDialogue(dialogueLines));
+                    }
+                    else
+                    {
+                        string[] dialogueLines = {"Rat Kilmor: !<NAME>!, let's go! We have to save them!"};
+                        StartCoroutine(PlayDialogueSupportKilmor(dialogueLines, false));
+                    }
+                }
+                else if (introductionEnded && WorldState.Instance.savedChildren)
+                {
+                    if (!WorldState.Instance.blossomGarden)
+                    {
+                        StartCoroutine(PlayDialogue(new string[] {"Rat Kilmor: Thank you so much for saving my children. Come back if you need help from me."}));
+                    }
+                    else
+                    {
+                        
+                    }
                 }
             }
         }
+        else {playerDetection.allowIcon = false;}
     }
 
     public void OnCommandSelected(int command)
     {
         if (command == 0)
         {
-           WorldState.Instance.kilmor_questStarted = true; 
+           WorldState.Instance.kilmor_questStarted = true;
+           questStarted = true; 
            string[] dialogues = {"Rat Kilmor: Thank you so much, !<NAME>!!", "Rat Kilmor: All right, follow me."};
            StartCoroutine(PlayDialogueSupportKilmor(dialogues, true));
         }
@@ -93,7 +98,7 @@ public class RatKilmorDungeon : MonoBehaviour
         else if (command == 2)
         {
             dialogueManager.ShowDialogue("Rat Kilmor: Please come back, if you change your mind. I really need your help. I can't live without my kids.", 
-            true, 0, true, CloseDialogue);
+            true, 0, true, initInteraction.CloseInteraction);
         }
     }
 
@@ -103,7 +108,7 @@ public class RatKilmorDungeon : MonoBehaviour
             {
                 bool last = false;
                 if (i == dialogueLines.Length-1) last = true;
-                dialogueManager.ShowDialogue(dialogueLines[i], true, 0, last, last ? CloseDialogue : null);
+                dialogueManager.ShowDialogue(dialogueLines[i], true, 0, last, last ? initInteraction.CloseInteraction : null);
                 yield return null;
                 while (!dialogueManager.isWaitingForPlayer) yield return null;
                 while(dialogueManager.isWaitingForPlayer) yield return null; 
@@ -114,13 +119,14 @@ public class RatKilmorDungeon : MonoBehaviour
 
     public IEnumerator SupportKilmor(bool x)
     {
-        isInteractable = false;
         if (x) {
             if (supportCutscene != null) {
+                isInteractable = false;
                 playerDetection.allowIcon = false;
                 supportCutscene.Play();
                 while(supportCutscene.state == PlayState.Playing) yield return null;
                 supportCutscene = null; 
+                isInteractable = true;
             }
         }
         else {
@@ -132,8 +138,6 @@ public class RatKilmorDungeon : MonoBehaviour
                     supportCutscene2 = null; 
             }
         }
-        isInteractable = true; 
-        playerDetection.allowIcon = true;  
     }
 
     public IEnumerator PlayDialogueSupportKilmor(string[] dialogueLines, bool firstCutscene)
@@ -146,7 +150,6 @@ public class RatKilmorDungeon : MonoBehaviour
     {
         yield return StartCoroutine(PlayDialogue(dialogueLines));
         player.isControllable = false;
-        isInteractable = false;
         if (betrayCutscene != null)
         {
             dialogueManager.timelineDirector = betrayCutscene;
@@ -157,9 +160,4 @@ public class RatKilmorDungeon : MonoBehaviour
         }
     }
 
-    public void CloseDialogue(int nothing)
-    {
-        player.isControllable = true;
-        isInteractable = true;
-    }
 }

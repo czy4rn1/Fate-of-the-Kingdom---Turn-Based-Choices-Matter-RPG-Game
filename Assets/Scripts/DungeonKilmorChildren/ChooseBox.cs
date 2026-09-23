@@ -13,9 +13,12 @@ public class ChooseBox : MonoBehaviour
 
     void Update()
     {
-        if (initInteraction.Interaction())
-        {
-            minigame.NextPhase(minigame.curPhase == correctPhase, initInteraction.CloseInteraction);
+        if (!minigame.gameEnded) {
+            if (initInteraction.Interaction())
+            {
+                minigame.NextPhase(minigame.curPhase == correctPhase, initInteraction.CloseInteraction);
+            }
         }
+        else initInteraction.playerDetection.allowIcon = false;
     }
 }
