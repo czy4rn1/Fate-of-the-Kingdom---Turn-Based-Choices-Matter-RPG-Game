@@ -10,6 +10,7 @@ public class RatKilmorDungeon : MonoBehaviour
     public PlayableDirector supportCutscene;
     public PlayableDirector betrayCutscene;
     public PlayableDirector supportCutscene2;
+    public GameObject[] kids = new GameObject[3];
 
     private bool isInteractable = true;
     private bool introductionEnded = false;
@@ -20,6 +21,10 @@ public class RatKilmorDungeon : MonoBehaviour
 
     void Start()
     {
+        if (WorldState.Instance.savedChildren)
+        {
+            foreach (GameObject kid in kids) kid.SetActive(true);
+        }
         introductionEnded = WorldState.Instance.kilmor_intro_ended;
     }
     void Update()
@@ -40,7 +45,7 @@ public class RatKilmorDungeon : MonoBehaviour
             {
                 dialogueManager.ShowDialogue(questCommands, false, numOfCommands, false, OnCommandSelected);
             }
-            else if (introductionEnded && WorldState.Instance.kilmor_questStarted && !WorldState.Instance.attackedKilmor)
+            else if (introductionEnded && WorldState.Instance.kilmor_questStarted && !WorldState.Instance.attackedKilmor && !WorldState.Instance.kilmor_questEnded)
             {
                 if (!WorldState.Instance.secretPathOpened) {
                     string[] dialogueLines = {"Rat Kilmor: I think this is the place. I can still smell them.",
@@ -51,6 +56,17 @@ public class RatKilmorDungeon : MonoBehaviour
                 {
                     string[] dialogueLines = {"Rat Kilmor: !<NAME>!, let's go! We have to save them!"};
                     StartCoroutine(PlayDialogueSupportKilmor(dialogueLines, false));
+                }
+            }
+            else if (introductionEnded && WorldState.Instance.savedChildren)
+            {
+                if (!WorldState.Instance.blossomGarden)
+                {
+                    StartCoroutine(PlayDialogue(new string[] {"Rat Kilmor: Thank you so much for saving my children. Come back if you need help from me."}));
+                }
+                else
+                {
+                    
                 }
             }
         }

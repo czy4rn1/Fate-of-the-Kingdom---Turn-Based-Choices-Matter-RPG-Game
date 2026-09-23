@@ -10,6 +10,7 @@ public class DungeonKilmorChildrenMinigame : MonoBehaviour
     public PlayableDirector failedCutscene;
     public PlayableDirector successCutscene;
     private bool gameStarted = false;
+    public bool gameEnded = false;
     public PlayDialogueLines dialoguePlayer;
     public string[] instructions = new string[3];
     public Player player;
@@ -18,11 +19,16 @@ public class DungeonKilmorChildrenMinigame : MonoBehaviour
     public byte attemptsLeft = 2;
     public DialogueManager dialogueManager;
     public BlackoutManager blackoutManager;
+    public GameObject[] rats = new GameObject[3];
+    public GameObject glassBox;
+    public MoveToCutscene moveToSuccessCutscene;
+    public BoxCollider2D bottomBorder;
 
     void Start()
     {
         WorldState.Instance.currentLevel = "KilmorQuest";
         StartCoroutine(blackoutManager.Fade(true));
+        bottomBorder.gameObject.SetActive(false);
     }
 
     void Update()
@@ -48,6 +54,7 @@ public class DungeonKilmorChildrenMinigame : MonoBehaviour
                 StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {instructions[curPhase]}, CloseDialogue));
             }
         }
+        if (gameEnded) bottomBorder.gameObject.SetActive(true);
     }
 
     public void CloseDialogue(int nothing)
@@ -64,8 +71,12 @@ public class DungeonKilmorChildrenMinigame : MonoBehaviour
             if (curPhase < 3) StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {instructions[curPhase]}, action));
             else
             {
-                dialogueManager.timelineDirector = successCutscene;
-                successCutscene.Play();
+                glassBox.SetActive(false);
+                foreach (GameObject rat in rats) rat.SetActive(true);
+                moveToSuccessCutscene.StartCutscene();
+                gameEnded = true;
+                WorldState.Instance.savedChildren = true;
+                WorldState.Instance.kilmor_questEnded = true;
             }
         }
         else
@@ -76,6 +87,8 @@ public class DungeonKilmorChildrenMinigame : MonoBehaviour
             {
                 dialogueManager.timelineDirector = failedCutscene;
                 failedCutscene.Play();
+                WorldState.Instance.kilmor_questEnded = true;
+                gameEnded = true;
             }
             
         }
