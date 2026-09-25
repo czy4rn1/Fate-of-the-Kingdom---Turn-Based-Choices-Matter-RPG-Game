@@ -6,6 +6,7 @@ public class SceneLoader : MonoBehaviour
 {
     public string sceneName;
     public BlackoutManager blackoutManager;
+    public bool dontLoadOnTrigger;
     
     public void LoadScene(string sceneName)
     {
@@ -14,6 +15,7 @@ public class SceneLoader : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (dontLoadOnTrigger) return;
         if (collision.CompareTag("Player")) {
             StartCoroutine(LoadArea());
         }

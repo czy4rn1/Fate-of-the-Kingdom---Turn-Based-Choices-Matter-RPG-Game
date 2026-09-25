@@ -4,6 +4,7 @@ using UnityEngine.Playables;
 
 public class RatKilmorDungeon : MonoBehaviour
 {
+    public SceneLoader LavaLoader;
     public PlayerDetection playerDetection;
     public Player player;
     public DialogueManager dialogueManager;
@@ -19,6 +20,7 @@ public class RatKilmorDungeon : MonoBehaviour
     
     public string[] introDialogues;
     public string questCommands;
+    public string[] blossomGardenLines;
     public byte numOfCommands;
 
     void Start()
@@ -69,7 +71,7 @@ public class RatKilmorDungeon : MonoBehaviour
                     }
                     else
                     {
-                        
+                        StartCoroutine(PlayDialogueStartBlossom());
                     }
                 }
             }
@@ -159,6 +161,14 @@ public class RatKilmorDungeon : MonoBehaviour
             betrayCutscene = null;
             player.isControllable = true;
         }
+    }
+
+    public IEnumerator PlayDialogueStartBlossom()
+    {
+        yield return StartCoroutine(PlayDialogue(blossomGardenLines));
+        playerDetection.allowIcon = false;
+        player.isControllable = false;
+        yield return StartCoroutine(LavaLoader.LoadArea());
     }
 
 }
