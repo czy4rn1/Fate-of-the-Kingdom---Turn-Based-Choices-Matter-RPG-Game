@@ -1,14 +1,15 @@
 using System;
+using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 
 public class DungeonKilmorChildrenMinigame : MonoBehaviour
 {
     
     public PlayableDirector startCutscene;
-    public PlayableDirector failedCutscene;
-    public PlayableDirector successCutscene;
+    public PlayableDirector failCutscene;
     private bool gameStarted = false;
     public bool gameEnded = false;
     public PlayDialogueLines dialoguePlayer;
@@ -22,6 +23,7 @@ public class DungeonKilmorChildrenMinigame : MonoBehaviour
     public GameObject[] rats = new GameObject[3];
     public GameObject glassBox;
     public MoveToCutscene moveToSuccessCutscene;
+    public MoveToCutscene moveToFailureCutscene;
     public BoxCollider2D bottomBorder;
 
     void Start()
@@ -85,12 +87,21 @@ public class DungeonKilmorChildrenMinigame : MonoBehaviour
             if (attemptsLeft > 0) StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {"Ras: Wrong! No mistakes from now on!"}, action));
             else
             {
-                dialogueManager.timelineDirector = failedCutscene;
-                failedCutscene.Play();
-                WorldState.Instance.kilmor_questEnded = true;
-                gameEnded = true;
+                StartCoroutine(LoseAndLoad());
             }
             
         }
+    }
+
+    IEnumerator LoseAndLoad()
+    {
+        moveToFailureCutscene.StartCutscene();
+        WorldState.Instance.kilmor_questEnded = true;
+        WorldState.Instance.kilmor_dead = true;
+        gameEnded = true;
+        while (failCutscene.gameObject.activeInHierarchy) yield return null;
+        StartCoroutine(blackoutManager.Fade(false));
+        while (blackoutManager.curAlpha < 1f) yield return null;
+        SceneManager.LoadScene("DungeonEscape");
     }
 }

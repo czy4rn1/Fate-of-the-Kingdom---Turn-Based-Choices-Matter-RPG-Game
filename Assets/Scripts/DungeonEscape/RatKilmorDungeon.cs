@@ -29,6 +29,7 @@ public class RatKilmorDungeon : MonoBehaviour
         }
         if (WorldState.Instance.kilmor_questEnded) questStarted = true;
         introductionEnded = WorldState.Instance.kilmor_intro_ended;
+        if (WorldState.Instance.kilmor_dead || WorldState.Instance.attackedKilmor) gameObject.SetActive(false);
     }
     void Update()
     {

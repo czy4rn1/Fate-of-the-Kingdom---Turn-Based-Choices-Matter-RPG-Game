@@ -20,6 +20,7 @@ public class WorldState : MonoBehaviour
     public bool attackedKilmor = false;
     public bool ignoredKilmor = false;
     public bool savedChildren = false;
+    public bool kilmor_dead = false;
     // --------------------
 
     // --- FOREST ENCOUNTER ---
