@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: feb0112ec451dac4ebd3da5829f5d0d1
+guid: 6e8f554c2e7c64e47b1ae348af7f713c
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,10 +33,10 @@ ScriptedImporter:
     sRGBTexture: 1
     spriteMode: 2
     spriteExtrude: 1
-    spriteMeshType: 0
+    spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 32
+    spritePixelsToUnits: 64
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639221751637298517
+  platformSettingsDirtyTick: 639260452110752982
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,9 +127,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: placeholder-character
+  - name: sand-cover
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.516129, y: -0.016129032}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 50
-      height: 32
-    spriteID: f74a0d3be061e444aabacf4605b022e4
+      width: 124
+      height: 124
+    spriteID: ca7811957543bbf48991ed66c5cd950c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -149,7 +149,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: Player_0
+  - name: sand-cover_0
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -158,10 +158,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
-      width: 16
-      height: 32
-    spriteID: 9eac1698bd4557943a370ded077b2724
+      y: 64
+      width: 64
+      height: 64
+    spriteID: 7d3a15b2be0324a42b45792094bb92e7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -170,7 +170,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: Player_1
+  - name: sand-cover_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -178,11 +178,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 36
-      y: 4
-      width: 16
-      height: 32
-    spriteID: 8d86d846e520d3c49a752cb0c39f02b9
+      x: 68
+      y: 64
+      width: 64
+      height: 64
+    spriteID: d702d442a93a0db459308754094f3999
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -191,7 +191,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: Player_2
+  - name: sand-cover_2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -199,11 +199,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 64
-      y: 4
-      width: 25
-      height: 32
-    spriteID: 2f971e1d0970b11419cededc1a76c8bb
+      x: 4
+      y: 0
+      width: 64
+      height: 64
+    spriteID: f8eee4df8a5547c4fb65bd864600256e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -212,7 +212,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: Player_3
+  - name: sand-cover_3
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -220,53 +220,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 99
-      y: 4
-      width: 17
-      height: 32
-    spriteID: a073142c3a956f342a3c2886e28d3420
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: Player_4
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 128
-      y: 4
-      width: 21
-      height: 32
-    spriteID: 88eb581b238e955428ff5a2d51239852
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: Player_5
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 161
-      y: 4
-      width: 27
-      height: 32
-    spriteID: c48fbb2bf60a35e43aacfc2e6d53d961
+      x: 68
+      y: 0
+      width: 64
+      height: 64
+    spriteID: aaf955357467a674a9719342caa50e12
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -279,25 +237,25 @@ ScriptedImporter:
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 3557795503
+      value0: 1981654530
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: placeholder-character
+    name: sand-cover
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Player
+    - name: sand-cover
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 8
-        y: 0
-        width: 184
-        height: 32
-      spriteId: f74a0d3be061e444aabacf4605b022e4
+        x: 0
+        y: 2
+        width: 124
+        height: 124
+      spriteId: ca7811957543bbf48991ed66c5cd950c
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -343,5 +301,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 192, y: 32}
-  previousTextureSize: {x: 256, y: 64}
+  canvasSize: {x: 128, y: 128}
+  previousTextureSize: {x: 256, y: 256}

@@ -56,6 +56,9 @@ public class WorldState : MonoBehaviour
 
     public bool roadtorag_instructions = true;
 
+    // -- MAYHEM ISLAND --
+    public bool mayhemQuestStarted = false;
+
 
     
 
