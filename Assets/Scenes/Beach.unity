@@ -404,6 +404,8 @@ MonoBehaviour:
   isRoadToRaggenfall: 0
   characterAnimation: {fileID: 47330860}
   dialogueManager: {fileID: 1020916468}
+  boxCollider2D: {fileID: 0}
+  enableJump: 0
 --- !u!61 &47330855
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -588,6 +590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimation
   animator: {fileID: 47330857}
   isRunning: 0
+  isJumping: 0
 --- !u!1001 &50335973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1135,6 +1138,7 @@ MonoBehaviour:
   interactIcon: {fileID: 1115789258}
   isPlayerNearby: 0
   allowIcon: 1
+  player: {fileID: 0}
 --- !u!114 &108140118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19331,6 +19335,7 @@ MonoBehaviour:
   interactIcon: {fileID: 493229248}
   isPlayerNearby: 0
   allowIcon: 1
+  player: {fileID: 0}
 --- !u!114 &257801981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20588,6 +20593,7 @@ MonoBehaviour:
   interactIcon: {fileID: 1620616088}
   isPlayerNearby: 0
   allowIcon: 1
+  player: {fileID: 0}
 --- !u!114 &667566490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20602,7 +20608,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   playerDetection: {fileID: 667566489}
   player: {fileID: 47330854}
-  dialogueManager: {fileID: 1020916468}
   introDialouge:
   - 'Fisherman: Ohohoh! A visitor, hello there! It''s been a while since I''ve seen
     anyone here.'
@@ -22976,6 +22981,7 @@ MonoBehaviour:
   interactIcon: {fileID: 478641312}
   isPlayerNearby: 0
   allowIcon: 1
+  player: {fileID: 47330854}
 --- !u!114 &1085877516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22993,6 +22999,10 @@ MonoBehaviour:
   playerDetection: {fileID: 1085877514}
   blackoutManager: {fileID: 2023099086}
   initInteraction: {fileID: 1085877517}
+  dialoguePlayer: {fileID: 181089825}
+  mayhemIslandLines: []
+  fisherman: {fileID: 0}
+  moveCamera: {fileID: 0}
 --- !u!114 &1085877517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23183,6 +23193,7 @@ MonoBehaviour:
   interactIcon: {fileID: 358748571}
   isPlayerNearby: 0
   allowIcon: 1
+  player: {fileID: 0}
 --- !u!114 &1086361340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24020,6 +24031,7 @@ MonoBehaviour:
   interactIcon: {fileID: 673604911}
   isPlayerNearby: 0
   allowIcon: 1
+  player: {fileID: 0}
 --- !u!114 &1198172267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30895,6 +30907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
   sceneName: DungeonEscape
   blackoutManager: {fileID: 2023099086}
+  dontLoadOnTrigger: 0
 --- !u!61 &1276373444
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -32078,6 +32091,7 @@ MonoBehaviour:
   interactIcon: {fileID: 1093424901}
   isPlayerNearby: 0
   allowIcon: 1
+  player: {fileID: 0}
 --- !u!114 &1467615718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32339,6 +32353,7 @@ MonoBehaviour:
   interactIcon: {fileID: 1507797312}
   isPlayerNearby: 0
   allowIcon: 1
+  player: {fileID: 0}
 --- !u!114 &1496578982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32770,6 +32785,7 @@ MonoBehaviour:
   attackedKilmor: 0
   ignoredKilmor: 0
   savedChildren: 0
+  kilmor_dead: 0
   redGemObtained: 0
   golemsHaveGem: 0
   golemEncounterEnded: 0
@@ -32787,10 +32803,13 @@ MonoBehaviour:
   askSellerAboutJewelBlade: 0
   learnedAboutHellsGarden: 0
   fireFixing: 0
-  roggenfall: 0
+  raggenfall: 0
   castle: 0
   mayhemIsland: 0
   blossomGarden: 0
+  roadtorag_instructions: 1
+  mayhemQuestStarted: 0
+  mayhemQuestEnded: 0
 --- !u!4 &1526247682
 Transform:
   m_ObjectHideFlags: 0
@@ -33594,6 +33613,7 @@ MonoBehaviour:
   interactIcon: {fileID: 885797881}
   isPlayerNearby: 0
   allowIcon: 1
+  player: {fileID: 0}
 --- !u!114 &1728060626
 MonoBehaviour:
   m_ObjectHideFlags: 0
