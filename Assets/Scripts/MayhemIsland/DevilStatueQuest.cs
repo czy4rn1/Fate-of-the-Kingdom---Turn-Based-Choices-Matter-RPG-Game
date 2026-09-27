@@ -18,6 +18,7 @@ public class DevilStatueQuest : MonoBehaviour
 
     void Start()
     {
+        WorldState.Instance.currentLevel = "MayhemIsland";
         if (WorldState.Instance.mayhemQuestStarted && !WorldState.Instance.mayhemQuestEnded) digging.SetActive(true);
         else digging.SetActive(false);
         dialoguePlayer.dialogueManager.timelineDirector = entryCutscene;
