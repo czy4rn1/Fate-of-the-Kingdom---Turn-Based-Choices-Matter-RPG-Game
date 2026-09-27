@@ -6,13 +6,19 @@ public class PlayerDetection : MonoBehaviour
     public GameObject interactIcon;
     public bool isPlayerNearby = false;
     public bool allowIcon = true;
+    public Player player;
     void Start()
     {
         if(interactIcon != null) interactIcon.SetActive(false);
     }
 
     void Update()
-    {
+    {   
+        if (player != null)
+        {
+            if (!player.isControllable) allowIcon = false;
+            else allowIcon = true;
+        }
         if(!allowIcon && interactIcon != null) interactIcon.SetActive(false);
         if (allowIcon && interactIcon != null && isPlayerNearby) interactIcon.SetActive(true);
         else if (allowIcon && interactIcon != null && !isPlayerNearby) interactIcon.SetActive(false);

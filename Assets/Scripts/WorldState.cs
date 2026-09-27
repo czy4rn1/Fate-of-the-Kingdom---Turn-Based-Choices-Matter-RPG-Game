@@ -58,6 +58,7 @@ public class WorldState : MonoBehaviour
 
     // -- MAYHEM ISLAND --
     public bool mayhemQuestStarted = false;
+    public bool mayhemQuestEnded = false;
 
 
     
