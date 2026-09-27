@@ -12,6 +12,7 @@ public class Portal : MonoBehaviour
     private Coroutine coroutine;
     void Start()
     {
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
         Color c = spriteRenderer.color;
         c.a = 0f;
         spriteRenderer.color = c;

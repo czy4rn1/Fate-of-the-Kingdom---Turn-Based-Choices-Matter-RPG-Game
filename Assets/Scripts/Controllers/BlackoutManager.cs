@@ -16,6 +16,7 @@ public class BlackoutManager : MonoBehaviour
             canvasGroup.alpha = 0f;
         }
         if (startBlack) canvasGroup.alpha = 1f;
+        else canvasGroup.alpha = 0f;
         curAlpha = canvasGroup.alpha;
     }
 
