@@ -5,8 +5,10 @@ public class CastleForestState : MonoBehaviour
     public BlackoutManager blackoutManager;
     public Player player;
     public CameraController cameraController;
+    public GameObject guard;
     void Start()
     {
+        if (!WorldState.Instance.castle) guard.SetActive(false);
         if (WorldState.Instance.currentLevel == "Forest") {
             player.transform.position = new Vector2(16.87698f, -13.37693f);
             cameraController.transform.position = new Vector3(9.049997f, -11.99f, -10f);
