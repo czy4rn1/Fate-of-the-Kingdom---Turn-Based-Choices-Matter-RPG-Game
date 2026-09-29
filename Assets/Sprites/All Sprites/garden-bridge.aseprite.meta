@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 53b41abb5c7e2d245aea29a2a26814d7
+guid: a057472e3177511449c05e704219b12b
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -82,7 +82,7 @@ ScriptedImporter:
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
-    addSortingGroup: 1
+    addSortingGroup: 0
     addShadowCasters: 0
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
@@ -97,12 +97,12 @@ ScriptedImporter:
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
-    addSortingGroup: 1
+    addSortingGroup: 0
     addShadowCasters: 0
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639263120137671557
+  platformSettingsDirtyTick: 639263124198418417
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -129,7 +129,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Layer 1
     originalName: 
-    pivot: {x: 0.52459013, y: -0.09375}
+    pivot: {x: 0.5, y: -1.5294118}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 61
-      height: 64
-    spriteID: 547f07e26fe4c084595cb5dcd95180be
+      width: 34
+      height: 17
+    spriteID: eaaa1499ab1e2964ebe0c2907367450e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -148,6 +148,27 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: Layer 2
+    originalName: 
+    pivot: {x: 0.5, y: -1.6666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 29
+      width: 34
+      height: 12
+    spriteID: 76fa1f3c7b03c804e96cac3bfc6ba7d3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 29}
   spriteSheetImportData: []
   tileSetImportData: []
   asepriteLayers:
@@ -167,11 +188,36 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 6
-        width: 61
-        height: 64
-      spriteId: 547f07e26fe4c084595cb5dcd95180be
+        x: 15
+        y: 26
+        width: 34
+        height: 17
+      spriteId: eaaa1499ab1e2964ebe0c2907367450e
+    linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
+    parentIndex: -1
+  - layerIndex: 1
+    uuid:
+      value0: 4287466677
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 0
+    name: Layer 2
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Layer 2
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 15
+        y: 20
+        width: 34
+        height: 12
+      spriteId: 76fa1f3c7b03c804e96cac3bfc6ba7d3
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -217,5 +263,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 64, y: 80}
-  previousTextureSize: {x: 128, y: 128}
+  canvasSize: {x: 64, y: 64}
+  previousTextureSize: {x: 64, y: 64}
