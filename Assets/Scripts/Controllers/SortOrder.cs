@@ -2,20 +2,24 @@ using UnityEngine;
 
 public class SortOrder : MonoBehaviour
 {
-    public SpriteRenderer playerRenderer;
     public SpriteRenderer sr;
-    float playerFeet;
-    float treeBase;
     public float offset;
+    public bool isStatic = true;
 
     void Start()
     {
-       treeBase = sr.bounds.min.y + offset; 
+        if (sr == null) sr = GetComponent<SpriteRenderer>();
+        UpdateOrder(); 
     }
 
-    void Update()
+    void LateUpdate()
     {
-        playerFeet = playerRenderer.bounds.min.y;
-        sr.sortingOrder = playerFeet < treeBase ? 0 : 3;
+        if (!isStatic) UpdateOrder();
+    }
+
+    void UpdateOrder()
+    {
+        float baseY = sr.bounds.min.y + offset;
+        sr.sortingOrder = -Mathf.RoundToInt(baseY * 100);
     }
 }
