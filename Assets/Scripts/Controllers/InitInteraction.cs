@@ -1,3 +1,4 @@
+using UnityEditor.UI;
 using UnityEngine;
 
 public class InitInteraction : MonoBehaviour
@@ -41,5 +42,13 @@ public class InitInteraction : MonoBehaviour
     {
         player.isControllable = true;
         interactionActive = false;
+    }
+
+    public void EnableInteraction(bool enable)
+    {
+        playerDetection.allowIcon = enable;
+        if (!enable) playerDetection.interactIcon.SetActive(enable);
+        playerDetection.enabled = enable;
+        this.enabled = enable;
     }
 }

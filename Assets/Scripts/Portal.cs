@@ -28,6 +28,12 @@ public class Portal : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        visible = true;
+    }
+ 
+
     private IEnumerator HideShow(bool show)
     {
         Color c = spriteRenderer.color;

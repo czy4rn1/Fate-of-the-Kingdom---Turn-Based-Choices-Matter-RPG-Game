@@ -9,14 +9,14 @@ public class FloatingAnim : MonoBehaviour
     private Vector3 startPosition;
     void Start()
     {
-        startPosition = transform.position;
+        startPosition = transform.localPosition;
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         float sin = Mathf.Sin(Time.time * speed);
         float offset = sin * jumpRange;
-        if (!horizontal) transform.position = new Vector3(startPosition.x, startPosition.y + offset, startPosition.z);
-        else transform.position = new Vector3(startPosition.x + offset, startPosition.y, startPosition.z);
+        if (!horizontal) transform.localPosition = new Vector3(startPosition.x, startPosition.y + offset, startPosition.z);
+        else transform.localPosition = new Vector3(startPosition.x + offset, startPosition.y, startPosition.z);
     }
 }

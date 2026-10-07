@@ -69,5 +69,6 @@
     },
     "dotnet.defaultSolution": "Fate of the Kingdom.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false,
-    "dotnet.preferCSharpExtension": true
+    "dotnet.preferCSharpExtension": true,
+    "sarif-viewer.connectToGithubCodeScanning": "off"
 }

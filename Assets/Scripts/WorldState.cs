@@ -60,6 +60,12 @@ public class WorldState : MonoBehaviour
     public bool mayhemQuestStarted = false;
     public bool mayhemQuestEnded = false;
 
+    // -- BLOSSOM GARDEN -- 
+    public bool gardenerSummoned = false;
+    public bool vaseMoved = false;
+    public bool treeGameEnded = false;
+    public bool gardenerIntroPlayed = false;
+
 
     
 
