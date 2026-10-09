@@ -65,6 +65,11 @@ public class WorldState : MonoBehaviour
     public bool vaseMoved = false;
     public bool treeGameEnded = false;
     public bool gardenerIntroPlayed = false;
+    public bool gardenerChoiceMade = false;
+    public bool gardenerJoins = false;
+    public bool ponterDead = false;
+    public bool playerEnslaved = false;
+    public bool gardenerStandard = false;
 
 
     
