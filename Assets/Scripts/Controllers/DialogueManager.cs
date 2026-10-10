@@ -37,6 +37,7 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
     private bool hideIfLast = false;
 
     public bool cutsceneEnded = false;
+    public bool lineConfirmed = false;
     
     void Start()
     {
@@ -73,6 +74,7 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
                 dialogueText.text = "";
                 isWaitingForPlayer = false;
                 fastForward = false;
+                lineConfirmed = true;
                 bool hideNow = hideIfLast;
                 hideIfLast = false;
                 if(hideNow)
@@ -110,6 +112,7 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
     
     public void ShowDialogue(string text, bool isItDialogue, byte numOfCommands, bool isItLast, Action<int> onCommandSelected = null)
     {
+        lineConfirmed = false;
         isWaitingForPlayer = false;
         fastForward = false;
         if (timelineDirector != null) {

@@ -70,6 +70,8 @@ public class WorldState : MonoBehaviour
     public bool ponterDead = false;
     public bool playerEnslaved = false;
     public bool gardenerStandard = false;
+    public bool appleCutscenePlayed = false;
+    public bool appleTaken = false;
 
 
     

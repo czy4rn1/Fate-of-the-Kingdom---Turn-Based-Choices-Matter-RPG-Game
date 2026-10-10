@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public bool isRoadToRaggenfall = false;
     private Rigidbody2D rb;
     private Vector2 movement;
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     public CharacterAnimation characterAnimation;
     public DialogueManager dialogueManager;
     public BoxCollider2D boxCollider2D;

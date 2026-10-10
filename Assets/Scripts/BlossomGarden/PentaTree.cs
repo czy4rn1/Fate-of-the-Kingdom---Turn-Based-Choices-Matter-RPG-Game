@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class PentaTree : MonoBehaviour
 {
@@ -11,12 +10,13 @@ public class PentaTree : MonoBehaviour
     public PentaTreeGame minigame;
     private Color originalColor;
     public Color targetColor;
-    public bool compsEnabled = false;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
-        if (WorldState.Instance.treeGameEnded) initInteraction.EnableInteraction(false);
+        if (WorldState.Instance.treeGameEnded) {
+            initInteraction.EnableInteraction(false);
+        }
     }
 
     void Update()
@@ -27,7 +27,7 @@ public class PentaTree : MonoBehaviour
                 dialoguePlayer.PlayCommand("Interact with the apple tree?\n1. Yes\n2. No", 2, OnChosenCommand);
             }
         }
-        if (minigame.allTreesChosen && compsEnabled) initInteraction.EnableInteraction(false);
+        if (WorldState.Instance.treeGameEnded) initInteraction.EnableInteraction(false);
     }
 
 
@@ -43,7 +43,9 @@ public class PentaTree : MonoBehaviour
 
     public IEnumerator ChangeColor(bool correct)
     {
-        if (correct) initInteraction.EnableInteraction(false);
+        if (correct) {
+            initInteraction.EnableInteraction(false);
+        }
         else {
             initInteraction.enabled = true;
             initInteraction.EnableInteraction(true);

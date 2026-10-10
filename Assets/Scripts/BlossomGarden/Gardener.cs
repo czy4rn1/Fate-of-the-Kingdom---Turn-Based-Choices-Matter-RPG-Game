@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 
 public class Gardener : MonoBehaviour
 {
@@ -24,27 +26,20 @@ public class Gardener : MonoBehaviour
     public string[] perFail;
     public string[] questLines;
     public string[] slaveLines;
+    public MoveToCutscene moveToCutscene;
+    bool retry = false;
+    SpriteRenderer sr;
 
     
     void Start()
     {
-        if (!WorldState.Instance.gardenerChoiceMade)
-        {
-            for(int i=0; i<choices.Length; i++)
-            {
-                choices[i] = new DialogueChoice
-                {
-                    text = choicesText[i]
-                };
-            }
-            
-        }
+        sr = GetComponent<SpriteRenderer>();
     }
 
     
     void Update()
     {
-        if (initInteraction.Interaction())
+        if (initInteraction.enabled && initInteraction.Interaction())
         {
             StartCoroutine(Dialogue());
         }
@@ -52,6 +47,8 @@ public class Gardener : MonoBehaviour
 
     IEnumerator Dialogue()
     {
+        if (!WorldState.Instance.ponterDead && !retry) yield return StartCoroutine(moveToCutscene.MoveForDialogue(false, true));
+        retry = false;
         if (!WorldState.Instance.gardenerIntroPlayed) {
             yield return StartCoroutine(dialoguePlayer.PlayDialogue(
             WorldState.Instance.gardenerSummoned ? introSummoned : introNotSummoned));
@@ -60,6 +57,7 @@ public class Gardener : MonoBehaviour
         }
         
         if (!WorldState.Instance.gardenerChoiceMade) {
+            SetUpChoices();
             byte id = 0;
             List<DialogueChoice> finalChoices = new List<DialogueChoice>();
             choices[0].id = id++;
@@ -96,10 +94,13 @@ public class Gardener : MonoBehaviour
                 else lines[1] = "Gardener: Do your bidding, and we'll achieve great things together!";
             }
             else {
+                if (!WorldState.Instance.ponterDead) yield return StartCoroutine(moveToCutscene.MoveForDialogue(true, true));
                 initInteraction.CloseInteraction(0);
                 yield break;
             }
-            StartCoroutine(dialoguePlayer.PlayDialogue(lines, initInteraction.CloseInteraction));
+            yield return StartCoroutine(dialoguePlayer.PlayDialogue(lines));
+            if (!WorldState.Instance.ponterDead) yield return StartCoroutine(moveToCutscene.MoveForDialogue(true, true));
+            initInteraction.CloseInteraction(0);
         }
            
         
@@ -112,7 +113,7 @@ public class Gardener : MonoBehaviour
         {
             if (chosen.id == choices[i].id)
             {
-                StoryChoice(i);
+                StartCoroutine(StoryChoice(i));
                 break;
             }
         }
@@ -120,22 +121,38 @@ public class Gardener : MonoBehaviour
 
     }
 
-    void StoryChoice(int i)
+    IEnumerator StoryChoice(int i)
     {
-        if (i == 4) initInteraction.CloseInteraction(i);
+        if (i == 4) {
+            if (!WorldState.Instance.ponterDead) yield return StartCoroutine(moveToCutscene.MoveForDialogue(true, true));
+            initInteraction.CloseInteraction(i);
+        }
         else
         {
             bool x;
             switch(i){
             case 0:
-                StartCoroutine(dialoguePlayer.PlayDialogue(questLines, initInteraction.CloseInteraction));
+                string[] questShowUp = new[] {questLines[0], "Gardener: The apple behind me - The Forbidden Fruit..."}.Concat(questLines[3..5]).Append("Gardener: You can take it.").Concat(questLines[7..10]).ToArray();
+                x = WorldState.Instance.gardenerSummoned;
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(x ? questLines : questShowUp));
+                if (!WorldState.Instance.ponterDead) yield return StartCoroutine(moveToCutscene.MoveForDialogue(true, true));
+                initInteraction.CloseInteraction(i);
                 WorldState.Instance.gardenerStandard = true;
+                if (!x) StartCoroutine(MoveToHouse());
                 break;
             case 1:
                 x = PlayerData.Instance.persuasion >= reqPer;
-                StartCoroutine(dialoguePlayer.PlayDialogue(x ? perSuccess : perFail, initInteraction.CloseInteraction));
-                if (!x) return;
-                else WorldState.Instance.gardenerJoins = true;
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(x ? perSuccess : perFail));
+                if (!x) {
+                    retry = true;
+                    StartCoroutine(Dialogue());
+                    yield break;
+                }
+                else {
+                    WorldState.Instance.gardenerJoins = true;
+                    if (!WorldState.Instance.ponterDead) yield return StartCoroutine(moveToCutscene.MoveForDialogue(true, true));
+                    initInteraction.CloseInteraction(i);
+                }
                 break;
             case 2:
                 x = PlayerData.Instance.intelligence >= reqInt;
@@ -147,11 +164,43 @@ public class Gardener : MonoBehaviour
                 }
                 break;
             case 3:
-                StartCoroutine(dialoguePlayer.PlayDialogue(slaveLines, initInteraction.CloseInteraction));
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(slaveLines));
+                if (!WorldState.Instance.ponterDead) yield return StartCoroutine(moveToCutscene.MoveForDialogue(true, true));
+                initInteraction.CloseInteraction(i);
                 WorldState.Instance.playerEnslaved = true;
                 break;            
             }
             WorldState.Instance.gardenerChoiceMade = true;
         }
+    }
+
+    IEnumerator MoveToHouse()
+    {
+        initInteraction.EnableInteraction(false);
+        sr.sortingLayerName = "UI";
+        Vector2 targetPos = new Vector2(63.83f, -12.83f);
+        while (Vector2.Distance(gameObject.transform.parent.transform.parent.position, targetPos) > 0.05f)
+        {    
+            gameObject.transform.parent.transform.parent.position = Vector2.MoveTowards(gameObject.transform.parent.transform.parent.position, targetPos, 2f * Time.deltaTime);
+            yield return null;
+        }
+        sr.sortingLayerName = "Characters";
+        initInteraction.enabled = true;
+        initInteraction.EnableInteraction(true);
+    }
+
+    void SetUpChoices()
+    {
+        for(int i=0; i<choices.Length; i++)
+        {
+            choices[i] = new DialogueChoice
+            {
+                text = choicesText[i]
+            };
+        }
+        choices[1].text = choices[1].text.Replace("{y}", reqPer.ToString());
+        choices[2].text = choices[2].text.Replace("{w}", reqInt.ToString());
+        choices[1].text = choices[1].text.Replace("{x}", PlayerData.Instance.persuasion.ToString());
+        choices[2].text = choices[2].text.Replace("{z}", PlayerData.Instance.intelligence.ToString());
     }
 }

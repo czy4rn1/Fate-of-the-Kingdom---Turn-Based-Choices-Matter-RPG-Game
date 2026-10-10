@@ -1,6 +1,7 @@
+using System.Collections;
 using System.Linq;
-using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class PentaTreeGame : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PentaTreeGame : MonoBehaviour
     public PentaTree[] pentaTrees = new PentaTree[5];
     public PlayDialogueLines dialoguePlayer;
     public bool allTreesChosen = false;
+    public BlackoutManager blackoutManager;
     void Start()
     {
         
@@ -31,6 +33,10 @@ public class PentaTreeGame : MonoBehaviour
         curTrees++;
         StartCoroutine(callingTree.ChangeColor(true));
         if (curTrees < allTrees) StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {"The tree changed it's color!"}, callingTree.initInteraction.CloseInteraction));
-        else allTreesChosen = true;
+        else {
+            allTreesChosen = true;
+        }
     }
+
+    
 }

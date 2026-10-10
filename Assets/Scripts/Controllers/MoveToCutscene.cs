@@ -30,22 +30,23 @@ public class MoveToCutscene : MonoBehaviour
         cutscene.Play();
     }
 
-    public IEnumerator MoveForDialogue(bool exit)
+    public IEnumerator MoveForDialogue(bool exit, bool vertical = false)
     {
         character.gameObject.SetActive(true);
         character.isRunning = true;
         Transform characterTransform = character.gameObject.transform;
         Vector2 playerPos = player.transform.position;
         if (!exit) characterTransform.position = playerPos;
-        Vector2 target = new Vector2(exit ? playerPos.x : playerPos.x + 2f, playerPos.y);
-        characterSR.flipX = exit;
+        Vector2 target = new Vector2(exit ? playerPos.x : vertical ? playerPos.x : playerPos.x + 2f, exit ? playerPos.y : vertical ? playerPos.y - 0.5f : playerPos.y);
+        if (!vertical) characterSR.flipX = exit;
+        else characterSR.flipX = player.spriteRenderer.flipX;
         while (Vector2.Distance(character.gameObject.transform.position, target) > 0.05f)
         {    
             characterTransform.position = Vector2.MoveTowards(characterTransform.position, target, moveSpeed * Time.deltaTime);
             yield return null;
         }
         characterTransform.position = target;
-        characterSR.flipX = !characterSR.flipX;
+        if (!vertical) characterSR.flipX = !characterSR.flipX;
         character.isRunning = false;
         if (exit) character.gameObject.SetActive(false);
     }

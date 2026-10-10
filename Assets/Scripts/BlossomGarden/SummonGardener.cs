@@ -9,6 +9,7 @@ public class SummonGardener : MonoBehaviour
 
     void Update()
     {
+        if (WorldState.Instance.gardenerSummoned) initInteraction.EnableInteraction(false);
         if (initInteraction.Interaction())
         {
             dialoguePlayer.PlayCommand($"[INT {PlayerData.Instance.intelligence}/{reqInt}] Summon the demon?\n1. Yes\n2. No", 2, OnChosenCommand);
@@ -23,7 +24,6 @@ public class SummonGardener : MonoBehaviour
                 gardener.SetActive(true);
                 initInteraction.CloseInteraction(command);
                 WorldState.Instance.gardenerSummoned = true;
-                initInteraction.EnableInteraction(false);
             }
             else StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {"ACTION FAILED"}, initInteraction.CloseInteraction));
         }

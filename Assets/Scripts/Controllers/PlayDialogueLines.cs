@@ -17,8 +17,7 @@ public class PlayDialogueLines : MonoBehaviour
                     if (i == dialogueLines.Length-1) last = true;
                     dialogueManager.ShowDialogue(dialogueLines[i], true, 0, last, last ? CloseDialogue : null);
                     yield return null;
-                    while (!dialogueManager.isWaitingForPlayer) yield return null;
-                    while(dialogueManager.isWaitingForPlayer) yield return null; 
+                    while (!dialogueManager.lineConfirmed) yield return null;
                 }
             }
             dialogueEnded = true;    
