@@ -59,6 +59,9 @@ TagManager:
   - name: Characters
     uniqueID: 4115472895
     locked: 0
+  - name: Spells
+    uniqueID: 4197084533
+    locked: 0
   - name: UI
     uniqueID: 3139428173
     locked: 0

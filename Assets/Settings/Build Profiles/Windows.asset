@@ -62,6 +62,9 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/MayhemIsland.unity
     m_guid: e937e21ccfa357b49ae8f131e0656d66
+  - m_enabled: 1
+    m_path: Assets/Scenes/BlossomGarden.unity
+    m_guid: 1cca567ebe0c37d4d89a7561a03d3ac6
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

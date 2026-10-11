@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if(WorldState.Instance.playerPosessed) spriteRenderer.color = WorldState.Instance.posessedColor;
         if(isControllable) {
             movement.x = Input.GetAxisRaw("Horizontal");
             if (!inAir) movement.y = Input.GetAxisRaw("Vertical");

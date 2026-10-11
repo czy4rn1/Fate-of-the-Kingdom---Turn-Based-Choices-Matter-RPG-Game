@@ -10,6 +10,7 @@ public class BlossomGardenState : MonoBehaviour
     public GameObject devilStatue;
     public BlackoutManager blackoutManager;
     public PlayableDirector cutscene;
+    public PlayableDirector entrance;
     public GameObject apple;
     void Start()
     {
@@ -24,6 +25,14 @@ public class BlossomGardenState : MonoBehaviour
             devilStatue.SetActive(true);
         }
         if (WorldState.Instance.appleCutscenePlayed && !WorldState.Instance.appleTaken) apple.SetActive(true);
+        if (!WorldState.Instance.gardenEntrancePlayed)
+        {
+            pentaTreeGame.dialoguePlayer.dialogueManager.timelineDirector = entrance;
+            entrance.Play();
+            WorldState.Instance.gardenEntrancePlayed = true;
+
+        }
+        WorldState.Instance.currentLevel = "BlossomGarden";
         StartCoroutine(blackoutManager.Fade(true));
     }
 

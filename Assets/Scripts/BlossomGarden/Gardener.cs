@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Playables;
-using UnityEngine.UI;
 
 public class Gardener : MonoBehaviour
 {
@@ -29,6 +26,10 @@ public class Gardener : MonoBehaviour
     public MoveToCutscene moveToCutscene;
     bool retry = false;
     SpriteRenderer sr;
+    public Sprite idleSprite;
+    public Sprite castingSprite;
+    public bool casting = false;
+    public BlackoutManager blackoutManager;
 
     
     void Start()
@@ -39,15 +40,18 @@ public class Gardener : MonoBehaviour
     
     void Update()
     {
+        if (casting) sr.sprite = castingSprite;
+        else sr.sprite = idleSprite;
         if (initInteraction.enabled && initInteraction.Interaction())
         {
             StartCoroutine(Dialogue());
         }
+        if (WorldState.Instance.gardenerSummoned && !WorldState.Instance.gardenerStandard) WorldState.Instance.disableTrees = true;
     }
 
     IEnumerator Dialogue()
     {
-        if (!WorldState.Instance.ponterDead && !retry) yield return StartCoroutine(moveToCutscene.MoveForDialogue(false, true));
+        if (!WorldState.Instance.ponterDead && !retry && !WorldState.Instance.ponterCaptured) yield return StartCoroutine(moveToCutscene.MoveForDialogue(false, true));
         retry = false;
         if (!WorldState.Instance.gardenerIntroPlayed) {
             yield return StartCoroutine(dialoguePlayer.PlayDialogue(
@@ -79,8 +83,7 @@ public class Gardener : MonoBehaviour
             string[] lines = new string[2];
             if (WorldState.Instance.gardenerStandard) {
                 lines[0] = "Gardener: I admire your determination, but this is all I can do for you.";
-                lines[1] = "Gardener: You better leave, before I change my mind and trap your soul in Hell.";
-                
+                lines[1] = "Gardener: You better leave, before I change my mind and trap your soul in Hell.";                
             }
             else if (WorldState.Instance.gardenerJoins)
             {
@@ -93,13 +96,18 @@ public class Gardener : MonoBehaviour
                 if (WorldState.Instance.ponterDead) lines[1] = "Gardener: Unless you wish your fate to be worse than your friend's...";
                 else lines[1] = "Gardener: Do your bidding, and we'll achieve great things together!";
             }
+            else if (WorldState.Instance.blossomDarkness)
+            {
+                lines[0] = "Gardener: Don't be afraid to use the power I gave you.";
+                lines[1] = "Gardener: It will greatly help you.";
+            }
             else {
-                if (!WorldState.Instance.ponterDead) yield return StartCoroutine(moveToCutscene.MoveForDialogue(true, true));
+                if (!WorldState.Instance.ponterDead && !WorldState.Instance.ponterCaptured) yield return StartCoroutine(moveToCutscene.MoveForDialogue(true, true));
                 initInteraction.CloseInteraction(0);
                 yield break;
             }
             yield return StartCoroutine(dialoguePlayer.PlayDialogue(lines));
-            if (!WorldState.Instance.ponterDead) yield return StartCoroutine(moveToCutscene.MoveForDialogue(true, true));
+            if (!WorldState.Instance.ponterDead && !WorldState.Instance.ponterCaptured) yield return StartCoroutine(moveToCutscene.MoveForDialogue(true, true));
             initInteraction.CloseInteraction(0);
         }
            
@@ -139,6 +147,7 @@ public class Gardener : MonoBehaviour
                 initInteraction.CloseInteraction(i);
                 WorldState.Instance.gardenerStandard = true;
                 if (!x) StartCoroutine(MoveToHouse());
+                WorldState.Instance.disableTrees = false;
                 break;
             case 1:
                 x = PlayerData.Instance.persuasion >= reqPer;
@@ -157,17 +166,29 @@ public class Gardener : MonoBehaviour
             case 2:
                 x = PlayerData.Instance.intelligence >= reqInt;
                 dialoguePlayer.dialogueManager.timelineDirector = x ? intSuccess : intFail;
-                dialoguePlayer.dialogueManager.timelineDirector.Play();
                 if (!x) {
                     WorldState.Instance.ponterDead = true;
                     WorldState.Instance.playerEnslaved = true;
                 }
+                else WorldState.Instance.blossomDarkness = true;
+                yield return StartCoroutine(blackoutManager.Fade(false));
+                dialoguePlayer.dialogueManager.timelineDirector.Play();
+                StartCoroutine(blackoutManager.Fade(true));
                 break;
             case 3:
-                yield return StartCoroutine(dialoguePlayer.PlayDialogue(slaveLines));
-                if (!WorldState.Instance.ponterDead) yield return StartCoroutine(moveToCutscene.MoveForDialogue(true, true));
-                initInteraction.CloseInteraction(i);
+                WorldState.Instance.ponterCaptured = true;
                 WorldState.Instance.playerEnslaved = true;
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(slaveLines[0..7]));
+                casting = true;
+                yield return StartCoroutine(Wait(3));
+                WorldState.Instance.playerPosessed = true;
+                casting = false;
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(slaveLines[7..11]));
+                casting = true;
+                moveToCutscene.character.gameObject.SetActive(false);
+                yield return StartCoroutine(Wait(2));
+                casting = false;
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(slaveLines[11..15], initInteraction.CloseInteraction));                              
                 break;            
             }
             WorldState.Instance.gardenerChoiceMade = true;
@@ -202,5 +223,15 @@ public class Gardener : MonoBehaviour
         choices[2].text = choices[2].text.Replace("{w}", reqInt.ToString());
         choices[1].text = choices[1].text.Replace("{x}", PlayerData.Instance.persuasion.ToString());
         choices[2].text = choices[2].text.Replace("{z}", PlayerData.Instance.intelligence.ToString());
+    }
+
+    IEnumerator Wait(float seconds)
+    {
+        float timer = 0f;
+        while (timer < seconds)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
     }
 }

@@ -25,6 +25,7 @@ public class InfoDialogue : MonoBehaviour
         while (!dialoguePlayer.dialogueEnded) yield return null;
         if (infoThenLoad && sceneName != null)
         {
+            initInteraction.EnableInteraction(false);
             StartCoroutine(blackoutManager.Fade(false));
             while (blackoutManager.curAlpha < 1f) yield return null;
             SceneManager.LoadScene(sceneName); 

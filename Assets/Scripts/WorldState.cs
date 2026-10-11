@@ -12,6 +12,9 @@ public class WorldState : MonoBehaviour
     public bool jewelBladeObtained = false;
     public bool castleFire = false;
 
+    public bool playerPosessed = false;
+    public Color posessedColor;
+
     // --- KILMOR QUEST ---
     public bool kilmor_intro_ended = false;
     public bool kilmor_questStarted = false;
@@ -61,6 +64,7 @@ public class WorldState : MonoBehaviour
     public bool mayhemQuestEnded = false;
 
     // -- BLOSSOM GARDEN -- 
+    public bool gardenEntrancePlayed = false;
     public bool gardenerSummoned = false;
     public bool vaseMoved = false;
     public bool treeGameEnded = false;
@@ -72,6 +76,12 @@ public class WorldState : MonoBehaviour
     public bool gardenerStandard = false;
     public bool appleCutscenePlayed = false;
     public bool appleTaken = false;
+    public bool blossomDarkness = false;
+    public bool disableTrees = false;
+    public bool ponterCaptured = false;
+
+    // -- DUNGEON LAVA --
+    public bool lavaEntryCutscenePlayed = false;
 
 
     
