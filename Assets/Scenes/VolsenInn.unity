@@ -199,6 +199,7 @@ MonoBehaviour:
   interactIcon: {fileID: 1071013958}
   isPlayerNearby: 0
   allowIcon: 1
+  player: {fileID: 0}
 --- !u!114 &4465848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1069,7 +1070,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &359375005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2154,6 +2155,7 @@ MonoBehaviour:
   interactIcon: {fileID: 1659338838}
   isPlayerNearby: 0
   allowIcon: 1
+  player: {fileID: 0}
 --- !u!114 &764483462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2305,6 +2307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   animator: {fileID: 764483466}
   isRunning: 0
+  isJumping: 0
 --- !u!95 &764483466
 Animator:
   serializedVersion: 7
@@ -2615,7 +2618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 668287788ac108347a3ff2f203c95b66, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 43
+      value: 53.9
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 668287788ac108347a3ff2f203c95b66, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3176,6 +3179,7 @@ MonoBehaviour:
   cursor: {fileID: 860390124}
   dialogueActive: 1
   cutsceneEnded: 0
+  lineConfirmed: 0
 --- !u!95 &1395992853
 Animator:
   serializedVersion: 7
@@ -3503,6 +3507,8 @@ MonoBehaviour:
   escapedThroughCave: 0
   jewelBladeObtained: 0
   castleFire: 0
+  playerPosessed: 0
+  posessedColor: {r: 0, g: 0, b: 0, a: 0}
   kilmor_intro_ended: 0
   kilmor_questStarted: 0
   kilmor_questEnded: 0
@@ -3510,6 +3516,7 @@ MonoBehaviour:
   attackedKilmor: 0
   ignoredKilmor: 0
   savedChildren: 1
+  kilmor_dead: 0
   redGemObtained: 0
   golemsHaveGem: 0
   golemEncounterEnded: 0
@@ -3532,6 +3539,24 @@ MonoBehaviour:
   mayhemIsland: 0
   blossomGarden: 0
   roadtorag_instructions: 1
+  mayhemQuestStarted: 0
+  mayhemQuestEnded: 0
+  gardenEntrancePlayed: 0
+  gardenerSummoned: 0
+  vaseMoved: 0
+  treeGameEnded: 0
+  gardenerIntroPlayed: 0
+  gardenerChoiceMade: 0
+  gardenerJoins: 0
+  ponterDead: 0
+  playerEnslaved: 0
+  gardenerStandard: 0
+  appleCutscenePlayed: 0
+  appleTaken: 0
+  blossomDarkness: 0
+  disableTrees: 0
+  ponterCaptured: 0
+  lavaEntryCutscenePlayed: 0
 --- !u!4 &1584270750
 Transform:
   m_ObjectHideFlags: 0
@@ -4090,8 +4115,11 @@ MonoBehaviour:
   moveSpeed: 5
   isControllable: 1
   isRoadToRaggenfall: 0
+  spriteRenderer: {fileID: 0}
   characterAnimation: {fileID: 1897328503}
   dialogueManager: {fileID: 1395992852}
+  boxCollider2D: {fileID: 0}
+  enableJump: 0
 --- !u!61 &1897328498
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4277,6 +4305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimation
   animator: {fileID: 1897328500}
   isRunning: 0
+  isJumping: 0
 --- !u!1001 &1931421697
 PrefabInstance:
   m_ObjectHideFlags: 0

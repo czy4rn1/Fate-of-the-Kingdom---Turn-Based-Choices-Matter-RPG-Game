@@ -8,7 +8,6 @@ public class PonterVolsenInn : MonoBehaviour
 {
     public Player player;
     public DialogueManager dialogueManager;
-    public PlayableDirector ponterEntersInn;
     public InitInteraction initInteraction;
     public PlayDialogueLines dialoguePlayer;
     private DialogueChoice[] storyChoices = new DialogueChoice[4];
@@ -27,11 +26,7 @@ public class PonterVolsenInn : MonoBehaviour
     private bool infoPlayed = false;
     void Start()
     {
-        
-        if (!WorldState.Instance.keyStolen)
-        {
-            transform.position = new Vector2(-6.51f, -0.72f);
-        }
+        transform.position = new Vector2(-6.51f, -0.72f);
         if (WorldState.Instance.ponterQuestEnded)
         {
             gameObject.SetActive(false);
@@ -175,7 +170,7 @@ public class PonterVolsenInn : MonoBehaviour
         {
             storyChoices[i] = new DialogueChoice();
         }
-        storyChoices[0].text = "We can sneak into the castle as workers";
+        storyChoices[0].text = "We can sneak into the castle as the repair crew";
         storyChoices[1].text = "The fisherman can get us to Mayhem Island";
         storyChoices[2].text = "Kilmor could help us get to Blossom Garden";
         storyChoices[3].text = "Let's get to Raggenfall";

@@ -79193,6 +79193,7 @@ MonoBehaviour:
   castingSprite: {fileID: 8074085176887683382, guid: 0b3962ce532e7aa4c9d1b83f00893c2c, type: 3}
   casting: 0
   blackoutManager: {fileID: 558965403}
+  posessFire: {fileID: 57891070}
 --- !u!1001 &1797713928
 PrefabInstance:
   m_ObjectHideFlags: 0

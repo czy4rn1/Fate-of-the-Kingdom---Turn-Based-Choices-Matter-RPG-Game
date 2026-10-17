@@ -30,6 +30,8 @@ public class Gardener : MonoBehaviour
     public Sprite castingSprite;
     public bool casting = false;
     public BlackoutManager blackoutManager;
+    private WaitTimer waitTimer = new WaitTimer();
+    public GameObject posessFire;
 
     
     void Start()
@@ -180,13 +182,15 @@ public class Gardener : MonoBehaviour
                 WorldState.Instance.playerEnslaved = true;
                 yield return StartCoroutine(dialoguePlayer.PlayDialogue(slaveLines[0..7]));
                 casting = true;
-                yield return StartCoroutine(Wait(3));
+                posessFire.SetActive(true);
+                yield return StartCoroutine(waitTimer.Wait(3));
                 WorldState.Instance.playerPosessed = true;
+                posessFire.SetActive(false);
                 casting = false;
                 yield return StartCoroutine(dialoguePlayer.PlayDialogue(slaveLines[7..11]));
                 casting = true;
                 moveToCutscene.character.gameObject.SetActive(false);
-                yield return StartCoroutine(Wait(2));
+                yield return StartCoroutine(waitTimer.Wait(2));
                 casting = false;
                 yield return StartCoroutine(dialoguePlayer.PlayDialogue(slaveLines[11..15], initInteraction.CloseInteraction));                              
                 break;            
@@ -225,13 +229,4 @@ public class Gardener : MonoBehaviour
         choices[2].text = choices[2].text.Replace("{z}", PlayerData.Instance.intelligence.ToString());
     }
 
-    IEnumerator Wait(float seconds)
-    {
-        float timer = 0f;
-        while (timer < seconds)
-        {
-            timer += Time.deltaTime;
-            yield return null;
-        }
-    }
 }
