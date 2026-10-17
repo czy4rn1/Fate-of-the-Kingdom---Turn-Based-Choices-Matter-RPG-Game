@@ -83,6 +83,15 @@ public class WorldState : MonoBehaviour
     // -- DUNGEON LAVA --
     public bool lavaEntryCutscenePlayed = false;
 
+    // -- AHORGIS --
+    public enum Ahorgis : byte
+    {
+        NotStarted = 0,
+        BridgeOpened = 20,
+
+    }
+    public byte ahorgis_state = (byte)Ahorgis.NotStarted;
+
 
     
 

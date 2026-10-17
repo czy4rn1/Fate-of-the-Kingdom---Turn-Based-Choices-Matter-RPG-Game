@@ -7,6 +7,7 @@ TagManager:
   - Player1
   - cursor2
   - enemy
+  - Box
   layers:
   - Default
   - TransparentFX
@@ -61,6 +62,9 @@ TagManager:
     locked: 0
   - name: Spells
     uniqueID: 4197084533
+    locked: 0
+  - name: Filter
+    uniqueID: 2497642543
     locked: 0
   - name: UI
     uniqueID: 3139428173

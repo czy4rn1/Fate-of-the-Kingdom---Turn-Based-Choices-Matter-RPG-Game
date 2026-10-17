@@ -15,6 +15,8 @@ public class MovingBox : MonoBehaviour
     private Vector2 movement;
     private RaycastHit2D[] hits = new RaycastHit2D[8];
     private ContactFilter2D filter;
+    public bool movable = true;
+    public Vector2 ogPos;
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -22,20 +24,27 @@ public class MovingBox : MonoBehaviour
         bc = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         filter.useTriggers = false;
+        ogPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (movable)
+        {
+            if (Input.GetKeyDown(KeyCode.X)) transform.position = ogPos;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.collider.CompareTag("Player"))
         {
-            Debug.Log("Kontakt z graczem");
-            if (coroutine != null) return;
-            coroutine = StartCoroutine(Push());
+            if (movable) {
+                Debug.Log("Kontakt z graczem");
+                if (coroutine != null) return;
+                coroutine = StartCoroutine(Push());
+            }
         }
     }
 
@@ -54,7 +63,7 @@ public class MovingBox : MonoBehaviour
     {
         if (movement == Vector2.zero) return;
         float step = pushSpeed * Time.fixedDeltaTime;
-        if (rb.Cast(movement, filter, hits, step + 0.01f) == 0)
+        if (rb.Cast(movement, filter, hits, step + 0.01f) == 0 && movable)
             rb.MovePosition(rb.position + movement * step);
     }
 
