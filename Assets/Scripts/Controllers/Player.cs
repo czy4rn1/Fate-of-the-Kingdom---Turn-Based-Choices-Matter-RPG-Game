@@ -1,7 +1,5 @@
 using System.Collections;
-using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -16,6 +14,7 @@ public class Player : MonoBehaviour
     public BoxCollider2D boxCollider2D;
     bool inAir = false;
     public bool enableJump = false;
+    public bool enableClimb = false;
     
     void Start()
     {
@@ -31,6 +30,18 @@ public class Player : MonoBehaviour
             movement.x = Input.GetAxisRaw("Horizontal");
             if (!inAir) movement.y = Input.GetAxisRaw("Vertical");
 
+            if (enableClimb)
+            {
+                characterAnimation.isRunning = false;
+                characterAnimation.isClimbing = true;
+                characterAnimation.climbSpeed = (movement.x == 0 && movement.y == 0) ? 0 : 1f;
+                return;
+            }
+            else
+            {
+                if(characterAnimation.isClimbing) characterAnimation.isClimbing = false;
+                characterAnimation.climbSpeed = 0.2f;
+            }
             if (movement.x > 0) spriteRenderer.flipX = false;
             else if (movement.x < 0) spriteRenderer.flipX = true;
             if (movement.x != 0 || movement.y != 0) {
