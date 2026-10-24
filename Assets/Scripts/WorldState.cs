@@ -60,8 +60,14 @@ public class WorldState : MonoBehaviour
     public bool roadtorag_instructions = true;
 
     // -- MAYHEM ISLAND --
-    public bool mayhemQuestStarted = false;
-    public bool mayhemQuestEnded = false;
+    public enum Mayhem : byte
+    {
+        NotEntered = 0,
+        Entered = 5,
+        Started = 10,
+        Ended = 20
+    }
+    public byte mayhem_state = (byte)Mayhem.NotEntered;
 
     // -- BLOSSOM GARDEN -- 
     public bool gardenEntrancePlayed = false;
@@ -87,8 +93,11 @@ public class WorldState : MonoBehaviour
     public enum Ahorgis : byte
     {
         NotStarted = 0,
-        BridgeOpened = 20,
-
+        BridgeOpened = 10,
+        ChoiceMade = 20,
+        Trident = 21,
+        Posessed = 22,
+        Flood = 23
     }
     public byte ahorgis_state = (byte)Ahorgis.NotStarted;
 

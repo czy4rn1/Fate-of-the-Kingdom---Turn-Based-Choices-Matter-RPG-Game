@@ -14,10 +14,12 @@ public class Boat : MonoBehaviour
     public string[] mayhemIslandLines;
     public GameObject fisherman;
     public PlayableDirector moveCamera;
+    public SceneLoader sceneLoader;
     void Start()
     {
         if (WorldState.Instance.currentLevel == "Volsen")
         {
+            sceneLoader = GetComponent<SceneLoader>();
             if (!WorldState.Instance.fish_killed && !WorldState.Instance.fish_questEnded) gameObject.SetActive(false);
             if (fisherman != null) if (WorldState.Instance.fish_killed) fisherman.SetActive(false);
         }
@@ -40,11 +42,26 @@ public class Boat : MonoBehaviour
             {
                 if (WorldState.Instance.mayhemIsland && WorldState.Instance.fish_willHelp)
                 {
-                    StartCoroutine(MayhemIsland());
+                    dialoguePlayer.PlayCommand("Fisherman: Where to, my friend?\n1. Go to Mayhem Island\n2. Go to the Beach\n3. Leave", 3, OnChosenCommand);
                 }
                 else StartCoroutine(LoadTransition());
             }
+            else if (WorldState.Instance.currentLevel == "MayhemIsland") StartCoroutine(sceneLoader.LoadArea());
         }
+    }
+
+    void OnChosenCommand(int command)
+    {
+        if (command == 0)
+        {
+            if (WorldState.Instance.mayhem_state <= (byte)WorldState.Mayhem.NotEntered)
+            {
+                StartCoroutine(MayhemIsland());
+            }
+            else StartCoroutine(sceneLoader.LoadArea());
+        }
+        else if (command == 1) StartCoroutine(LoadTransition());
+        else initInteraction.CloseInteraction(command);
     }
 
     IEnumerator LoadTransition()
@@ -60,7 +77,6 @@ public class Boat : MonoBehaviour
         if (moveCamera != null) moveCamera.Play();
         yield return StartCoroutine(blackoutManager.Fade(true));
         yield return StartCoroutine(dialoguePlayer.PlayDialogue(mayhemIslandLines));
-        yield return StartCoroutine(blackoutManager.Fade(false));
-        SceneManager.LoadScene("MayhemIsland");
+        yield return StartCoroutine(sceneLoader.LoadArea());
     }
 }

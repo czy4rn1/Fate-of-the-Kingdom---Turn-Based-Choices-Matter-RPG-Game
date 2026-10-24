@@ -15,14 +15,39 @@ public class DevilStatueQuest : MonoBehaviour
     public PlayableDirector cutscene;
     public string[] unlockAtlantis;
     public PlayableDirector entryCutscene;
+    public GameObject devilPlatform;
+    public Player player;
+    public GameObject cameraController;
 
     void Start()
     {
+        if (WorldState.Instance.currentLevel == "Ahorgis")
+        {
+            player.transform.position = new Vector2(-0.53f, -0.35f);
+            cameraController.transform.position = new Vector3(-0.53f, -0.35f, -10f);
+        }
+        else if (WorldState.Instance.currentLevel == "Volsen")
+        {
+            player.transform.position = new Vector2(-1.11f, -16.31f);
+            cameraController.transform.position = new Vector3(-1.11f, -16.31f, -10f);
+        }
         WorldState.Instance.currentLevel = "MayhemIsland";
-        if (WorldState.Instance.mayhemQuestStarted && !WorldState.Instance.mayhemQuestEnded) digging.SetActive(true);
+        if (WorldState.Instance.mayhem_state >= (byte)WorldState.Mayhem.Started && WorldState.Instance.mayhem_state < (byte)WorldState.Mayhem.Ended) digging.SetActive(true);
         else digging.SetActive(false);
-        dialoguePlayer.dialogueManager.timelineDirector = entryCutscene;
-        entryCutscene.Play();
+        if (WorldState.Instance.mayhem_state <= (byte)WorldState.Mayhem.NotEntered){
+            WorldState.Instance.mayhem_state = (byte)WorldState.Mayhem.Entered;
+            dialoguePlayer.dialogueManager.timelineDirector = entryCutscene;
+            entryCutscene.Play();
+        }
+        if (WorldState.Instance.mayhem_state >= (byte)WorldState.Mayhem.Ended)
+        {
+            devilPlatform.SetActive(true);
+            for (int i=0; i<devilPlatform.transform.childCount; i++)
+            {
+                Portal portal = devilPlatform.transform.GetChild(i).GetComponent<Portal>();
+                if (portal != null) portal.visible = true;
+            }
+        }
         StartCoroutine(blackoutManager.Fade(true));
     }
 
@@ -40,12 +65,12 @@ public class DevilStatueQuest : MonoBehaviour
     IEnumerator InteractWithPonter()
     {
         yield return StartCoroutine(moveToCutscene.MoveForDialogue(false));
-        if (!WorldState.Instance.mayhemQuestStarted) {
+        if (WorldState.Instance.mayhem_state < (byte)WorldState.Mayhem.Started) {
             yield return StartCoroutine(dialoguePlayer.PlayDialogue(introLines));
-            WorldState.Instance.mayhemQuestStarted = true;
+            WorldState.Instance.mayhem_state = (byte)WorldState.Mayhem.Started;
             digging.SetActive(true);
         }
-        else if (WorldState.Instance.mayhemQuestStarted && !WorldState.Instance.mayhemQuestEnded)
+        else if (WorldState.Instance.mayhem_state >= (byte)WorldState.Mayhem.Started && WorldState.Instance.mayhem_state < (byte)WorldState.Mayhem.Ended)
         {
             if (curItems < allItems)
             {
@@ -57,7 +82,7 @@ public class DevilStatueQuest : MonoBehaviour
             }
             else
             {
-                WorldState.Instance.mayhemQuestEnded = true;
+                WorldState.Instance.mayhem_state = (byte)WorldState.Mayhem.Ended;
                 yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[]
                 {
                     "!<NAME>!: Woah! You feel it?",

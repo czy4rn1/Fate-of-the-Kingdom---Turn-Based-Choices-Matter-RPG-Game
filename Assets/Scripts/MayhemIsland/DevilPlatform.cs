@@ -13,15 +13,19 @@ public class DevilPlatform : MonoBehaviour
 
     void Start()
     {
-        allVisible = false;
+        if (WorldState.Instance.mayhem_state >= (byte)WorldState.Mayhem.Ended) allVisible = true;
+        else allVisible = false;
     }
 
     void Update()
     {
         if (initInteraction.Interaction())
         {
-            if (!allVisible) return;
-            dialogueManager.ShowDialogue("Do you wish to enter Atlantis?\n1. Yes\n2. No", false, 2, true, OnChosenCommand);
+            if (!allVisible) {
+                initInteraction.CloseInteraction(0);
+                return;
+            }
+            dialogueManager.ShowDialogue("Do you wish to enter Ahorgis?\n1. Yes\n2. No", false, 2, true, OnChosenCommand);
         }
     }
 
@@ -43,7 +47,8 @@ public class DevilPlatform : MonoBehaviour
         cutscene.Play();
         StartCoroutine(blackoutManager.Fade(true));
         while (cutscene.state == PlayState.Playing) yield return null;
-        SceneManager.LoadScene("Atlantis");
+        yield return StartCoroutine(blackoutManager.Fade(false));
+        SceneManager.LoadScene("Ahorgis");
     }
 
 }

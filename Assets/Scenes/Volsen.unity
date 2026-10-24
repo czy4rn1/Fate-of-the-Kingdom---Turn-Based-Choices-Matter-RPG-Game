@@ -1150,6 +1150,8 @@ MonoBehaviour:
   animator: {fileID: 177143200}
   isRunning: 0
   isJumping: 0
+  isClimbing: 0
+  climbSpeed: 0.2
 --- !u!95 &177143200
 Animator:
   serializedVersion: 7
@@ -2196,6 +2198,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 778c44da4a4b25144ad0287cbe502f0a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1502116186}
+    - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 778c44da4a4b25144ad0287cbe502f0a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1502116192}
   m_SourcePrefab: {fileID: -8435245712485981826, guid: 778c44da4a4b25144ad0287cbe502f0a, type: 3}
 --- !u!1 &267233184
 GameObject:
@@ -6806,6 +6811,7 @@ MonoBehaviour:
   cursor: {fileID: 1696032933}
   dialogueActive: 0
   cutsceneEnded: 0
+  lineConfirmed: 0
 --- !u!95 &817633179
 Animator:
   serializedVersion: 7
@@ -16817,10 +16823,12 @@ MonoBehaviour:
   moveSpeed: 5
   isControllable: 1
   isRoadToRaggenfall: 0
+  spriteRenderer: {fileID: 0}
   characterAnimation: {fileID: 1022761617}
   dialogueManager: {fileID: 817633178}
   boxCollider2D: {fileID: 0}
   enableJump: 0
+  enableClimb: 0
 --- !u!61 &1022761612
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17006,6 +17014,8 @@ MonoBehaviour:
   animator: {fileID: 1022761614}
   isRunning: 0
   isJumping: 0
+  isClimbing: 0
+  climbSpeed: 0.2
 --- !u!1 &1039628016 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2253911629886400664, guid: ecc194b35efc9ef49845677ad1aa5b0e, type: 3}
@@ -19539,6 +19549,8 @@ MonoBehaviour:
   escapedThroughCave: 0
   jewelBladeObtained: 0
   castleFire: 0
+  playerPosessed: 0
+  posessedColor: {r: 0, g: 0, b: 0, a: 0}
   kilmor_intro_ended: 0
   kilmor_questStarted: 0
   kilmor_questEnded: 0
@@ -19552,7 +19564,7 @@ MonoBehaviour:
   golemEncounterEnded: 0
   fish_questStarted: 0
   fish_questEnded: 1
-  fish_willHelp: 0
+  fish_willHelp: 1
   fish_killed: 0
   venardRemorse: 0
   venardKilled: 0
@@ -19566,11 +19578,27 @@ MonoBehaviour:
   fireFixing: 0
   raggenfall: 0
   castle: 0
-  mayhemIsland: 0
+  mayhemIsland: 1
   blossomGarden: 0
   roadtorag_instructions: 1
-  mayhemQuestStarted: 0
-  mayhemQuestEnded: 0
+  mayhem_state: 10
+  gardenEntrancePlayed: 0
+  gardenerSummoned: 0
+  vaseMoved: 0
+  treeGameEnded: 0
+  gardenerIntroPlayed: 0
+  gardenerChoiceMade: 0
+  gardenerJoins: 0
+  ponterDead: 0
+  playerEnslaved: 0
+  gardenerStandard: 0
+  appleCutscenePlayed: 0
+  appleTaken: 0
+  blossomDarkness: 0
+  disableTrees: 0
+  ponterCaptured: 0
+  lavaEntryCutscenePlayed: 0
+  ahorgis_state: 0
 --- !u!4 &1355906288
 Transform:
   m_ObjectHideFlags: 0
@@ -20629,11 +20657,27 @@ MonoBehaviour:
   - '!<NAME>!: Thank you.'
   fisherman: {fileID: 1218956003}
   moveCamera: {fileID: 2041194475}
+  mayhemLoader: {fileID: 0}
 --- !u!4 &1502116191 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: 778c44da4a4b25144ad0287cbe502f0a, type: 3}
   m_PrefabInstance: {fileID: 256721980}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1502116192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502116185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d0b44081cf1bab4ebfb7f6dc2771e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
+  sceneName: MayhemIsland
+  blackoutManager: {fileID: 1249925962}
+  dontLoadOnTrigger: 1
 --- !u!1001 &1531409794
 PrefabInstance:
   m_ObjectHideFlags: 0

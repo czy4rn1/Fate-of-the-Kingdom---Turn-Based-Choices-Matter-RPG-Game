@@ -24,7 +24,6 @@ public class SceneLoader : MonoBehaviour
     public IEnumerator LoadArea()
     {
         yield return blackoutManager.Fade(false);
-        while (blackoutManager.curAlpha < 1f) yield return null;
         LoadScene(sceneName);
     }
 }
