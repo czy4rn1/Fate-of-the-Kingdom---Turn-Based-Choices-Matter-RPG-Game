@@ -9,15 +9,20 @@ public class AhorgisKing : MonoBehaviour
     public PlayDialogueLines dialoguePlayer;
     public int reqStr = 35;
     public PlayableDirector floodCutscene;
-    public PlayableDirector posessedCutscene;
     public MoveToCutscene ponter;
     public string[] strSucess;
     public string[] strFail;
     public string[] floodDialogue;
+    public string[] posessedDialogue;
+    public GameObject playerFire;
+    public GameObject ponterBarrier;
     WaitTimer waitTimer = new WaitTimer();
     public SpriteRenderer trident;
     public GameObject tridentFire;
     public Color tridentColor;
+    public BlackoutManager blackoutManager;
+    public CameraController cameraController;
+    public GameObject FloodTerrain;
 
     void Start()
     {
@@ -45,8 +50,8 @@ public class AhorgisKing : MonoBehaviour
         else if (command == 1)
         {
             WorldState.Instance.ahorgis_state = (byte)WorldState.Ahorgis.Posessed;
-            dialoguePlayer.dialogueManager.timelineDirector = posessedCutscene;
-            posessedCutscene.Play();
+            WorldState.Instance.ponterCaptured = true;
+            StartCoroutine(Posessed());
         }
         else if (command == 2)
         {
@@ -100,10 +105,19 @@ public class AhorgisKing : MonoBehaviour
 
     IEnumerator Flood()
     {
+        Vector3 cameraPos = cameraController.transform.position;
+        yield return StartCoroutine(dialoguePlayer.PlayDialogue(floodDialogue[..9]));
+        yield return StartCoroutine(blackoutManager.Fade(false));
         dialoguePlayer.dialogueManager.timelineDirector = floodCutscene;
         floodCutscene.Play();
+        yield return StartCoroutine(blackoutManager.Fade(true));
         while (floodCutscene.gameObject.activeInHierarchy) yield return null;
-        yield return StartCoroutine(dialoguePlayer.PlayDialogue(floodDialogue));
+        yield return StartCoroutine(blackoutManager.Fade(false));
+        FloodTerrain.SetActive(false);
+        cameraController.transform.position = cameraPos;
+        cameraController.followPlayer = true;
+        yield return StartCoroutine(blackoutManager.Fade(true));
+        yield return StartCoroutine(dialoguePlayer.PlayDialogue(floodDialogue[9..]));
         yield return StartCoroutine(EndInteraction());
     }
 
@@ -124,5 +138,21 @@ public class AhorgisKing : MonoBehaviour
             /// boss fight
         }
         tridentFire.SetActive(false);
+    }
+
+    IEnumerator Posessed()
+    {
+        yield return StartCoroutine(dialoguePlayer.PlayDialogue(posessedDialogue[..9]));
+        ponterBarrier.SetActive(true);
+        yield return StartCoroutine(waitTimer.Wait(2f));
+        ponter.character.gameObject.SetActive(false);
+        yield return StartCoroutine(dialoguePlayer.PlayDialogue(posessedDialogue[9..14]));
+        playerFire.SetActive(true);
+        yield return StartCoroutine(waitTimer.Wait(2f));
+        WorldState.Instance.playerPosessed = true;
+        yield return StartCoroutine(waitTimer.Wait(2f));
+        playerFire.SetActive(false);
+        yield return StartCoroutine(dialoguePlayer.PlayDialogue(posessedDialogue[14..]));
+        yield return StartCoroutine(EndInteraction());
     }
 }

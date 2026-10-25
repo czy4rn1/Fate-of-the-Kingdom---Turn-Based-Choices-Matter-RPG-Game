@@ -13,9 +13,11 @@ public class AhorgisState : MonoBehaviour
     public BlackoutManager blackoutManager;
     public MoveToCutscene ponter;
     public GameObject trident;
+    public GameObject Volsen;
 
     void Start()
     {
+        Volsen.SetActive(false);
         if (WorldState.Instance.ahorgis_state == (byte)WorldState.Ahorgis.Trident) trident.SetActive(false);
         WorldState.Instance.currentLevel = "Ahorgis";
         if (WorldState.Instance.ahorgis_state == (byte)WorldState.Ahorgis.NotStarted)

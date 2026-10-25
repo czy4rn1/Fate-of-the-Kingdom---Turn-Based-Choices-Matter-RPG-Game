@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Portal : MonoBehaviour
 {
@@ -7,16 +8,26 @@ public class Portal : MonoBehaviour
     private bool curVisible = false;
     private float curAlpha = 0f;
     public SpriteRenderer spriteRenderer;
+    public Tilemap tilemap;
     public float showSpeed = 0.01f;
-    private WaitForSeconds wait;
+    private WaitTimer wait = new WaitTimer();
     private Coroutine coroutine;
+    public bool tilemapType = false;
     void Start()
     {
-        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
-        Color c = spriteRenderer.color;
-        c.a = 0f;
-        spriteRenderer.color = c;
-        wait = new WaitForSeconds(showSpeed);
+        if (!tilemapType && spriteRenderer == null) {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            Color c = spriteRenderer.color;
+            c.a = 0f;
+            spriteRenderer.color = c;
+        }
+        else if (tilemapType && tilemap == null)
+        {
+            tilemap = GetComponent<Tilemap>();
+            Color c = tilemap.color;
+            c.a = 0f;
+            tilemap.color = c;
+        }
     }
     void Update()
     {
@@ -36,15 +47,16 @@ public class Portal : MonoBehaviour
 
     private IEnumerator HideShow(bool show)
     {
-        Color c = spriteRenderer.color;
+        Color c = !tilemapType ? spriteRenderer.color : tilemap.color;
         c.a = curAlpha;
         if (show)
         {
            while (curAlpha < 1f) {
                 curAlpha += showSpeed;
                 c.a = curAlpha;
-                spriteRenderer.color = c;
-                yield return wait;
+                if (!tilemapType) spriteRenderer.color = c;
+                else tilemap.color = c;
+                yield return wait.Wait(showSpeed);
            }
            curAlpha = 1f;
         }
@@ -53,8 +65,9 @@ public class Portal : MonoBehaviour
             while (curAlpha > 0f) {
                 curAlpha -= showSpeed;
                 c.a = curAlpha;
-                spriteRenderer.color = c;
-                yield return wait;
+                if (!tilemapType) spriteRenderer.color = c;
+                else tilemap.color = c;
+                yield return wait.Wait(showSpeed);
             }
             curAlpha = 0f;
         }

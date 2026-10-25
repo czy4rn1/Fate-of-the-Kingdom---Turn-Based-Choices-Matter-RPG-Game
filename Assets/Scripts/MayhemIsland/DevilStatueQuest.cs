@@ -64,7 +64,7 @@ public class DevilStatueQuest : MonoBehaviour
 
     IEnumerator InteractWithPonter()
     {
-        yield return StartCoroutine(moveToCutscene.MoveForDialogue(false));
+        if (!WorldState.Instance.ponterCaptured) yield return StartCoroutine(moveToCutscene.MoveForDialogue(false));
         if (WorldState.Instance.mayhem_state < (byte)WorldState.Mayhem.Started) {
             yield return StartCoroutine(dialoguePlayer.PlayDialogue(introLines));
             WorldState.Instance.mayhem_state = (byte)WorldState.Mayhem.Started;
@@ -96,7 +96,8 @@ public class DevilStatueQuest : MonoBehaviour
 
             }
         }
-        yield return StartCoroutine(moveToCutscene.MoveForDialogue(true));
+        else yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {"!<NAME>!: We've done all we could."}));
+        if (!WorldState.Instance.ponterCaptured) yield return StartCoroutine(moveToCutscene.MoveForDialogue(true));
         initInteraction.CloseInteraction(0);
     }
 }
