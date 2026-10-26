@@ -101,6 +101,17 @@ public class WorldState : MonoBehaviour
     }
     public byte ahorgis_state = (byte)Ahorgis.NotStarted;
 
+    public enum Raggenfall : byte
+    {
+        NotStarted = 0,
+        ChoiceMade = 10,
+        Moon = 11,
+        JewelBlade = 12,
+        PosessedMoon = 13,
+        DemonMoon = 14
+    }
+    public byte raggenfall_state = (byte)Raggenfall.NotStarted;
+
 
     
 

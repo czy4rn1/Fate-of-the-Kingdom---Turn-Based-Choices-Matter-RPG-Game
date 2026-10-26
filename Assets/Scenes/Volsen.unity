@@ -10394,6 +10394,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 12, y: -4, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 11
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: -11, y: -3, z: 0}
     second:
       serializedVersion: 2
@@ -15622,7 +15632,7 @@ Tilemap:
       m_Flags: 0
   m_TileAssetArray:
   - serializedVersion: 2
-    m_RefCount: 230
+    m_RefCount: 231
     m_Data: {fileID: 11400000, guid: b02c1b9efdeb5984bb74de13590001d3, type: 2}
   - serializedVersion: 2
     m_RefCount: 7
@@ -15701,14 +15711,14 @@ Tilemap:
     m_RefCount: 7
     m_Data: {fileID: 406050542300158276, guid: a01cd266f91f6a240b9924780073d4eb, type: 3}
   - serializedVersion: 2
-    m_RefCount: 230
+    m_RefCount: 231
     m_Data: {fileID: 2744182052830071792, guid: 2abada3e740552b48a40d74500673660, type: 3}
   - serializedVersion: 2
     m_RefCount: 5
     m_Data: {fileID: 4037839368582429390, guid: a01cd266f91f6a240b9924780073d4eb, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 2
-    m_RefCount: 721
+    m_RefCount: 722
     m_Data:
       e00: 1
       e01: 0
@@ -15728,7 +15738,7 @@ Tilemap:
       e33: 1
   m_TileColorArray:
   - serializedVersion: 2
-    m_RefCount: 721
+    m_RefCount: 722
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -16738,6 +16748,7 @@ MonoBehaviour:
   moveSpeed: 5
   isControllable: 1
   isRoadToRaggenfall: 0
+  movement: {x: 0, y: 0}
   spriteRenderer: {fileID: 0}
   characterAnimation: {fileID: 1022761617}
   dialogueManager: {fileID: 817633178}
@@ -19514,6 +19525,7 @@ MonoBehaviour:
   ponterCaptured: 0
   lavaEntryCutscenePlayed: 0
   ahorgis_state: 0
+  raggenfall_state: 0
 --- !u!4 &1355906288
 Transform:
   m_ObjectHideFlags: 0

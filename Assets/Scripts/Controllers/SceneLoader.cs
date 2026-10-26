@@ -7,6 +7,7 @@ public class SceneLoader : MonoBehaviour
     public string sceneName;
     public BlackoutManager blackoutManager;
     public bool dontLoadOnTrigger;
+    Player player;
     
     public void LoadScene(string sceneName)
     {
@@ -17,13 +18,15 @@ public class SceneLoader : MonoBehaviour
     {
         if (dontLoadOnTrigger) return;
         if (collision.CompareTag("Player")) {
+            player = collision.GetComponent<Player>();
             StartCoroutine(LoadArea());
         }
     }
 
     public IEnumerator LoadArea()
     {
-        yield return blackoutManager.Fade(false);
+        if (player != null) player.isControllable = false;
+        yield return StartCoroutine(blackoutManager.Fade(false));
         LoadScene(sceneName);
     }
 }

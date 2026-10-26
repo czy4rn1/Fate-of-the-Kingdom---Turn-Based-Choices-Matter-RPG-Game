@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public bool isControllable = true;
     public bool isRoadToRaggenfall = false;
     private Rigidbody2D rb;
-    private Vector2 movement;
+    public Vector2 movement;
     public SpriteRenderer spriteRenderer;
     public CharacterAnimation characterAnimation;
     public DialogueManager dialogueManager;

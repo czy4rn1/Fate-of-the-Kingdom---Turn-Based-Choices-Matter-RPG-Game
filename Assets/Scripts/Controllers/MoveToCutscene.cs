@@ -21,13 +21,17 @@ public class MoveToCutscene : MonoBehaviour
         while (Vector2.Distance(player.transform.position, targetPosition.position) > 0.05f)
         {
             player.characterAnimation.isRunning = true;
+            if(character != null) character.isRunning = true;
             player.transform.position = Vector2.MoveTowards(player.transform.position, targetPosition.position, moveSpeed * Time.deltaTime);
             yield return null;
         }
         player.transform.position = targetPosition.position;
         player.characterAnimation.isRunning = false;
-        dialogueManager.timelineDirector = cutscene;
-        cutscene.Play();
+        if (character != null) character.isRunning = false;
+        if (cutscene!=null){
+            dialogueManager.timelineDirector = cutscene;
+            cutscene.Play();
+        }
     }
 
     public IEnumerator MoveForDialogue(bool exit, bool vertical = false)

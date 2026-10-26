@@ -14,11 +14,12 @@ public class CameraController : MonoBehaviour
     public bool onlyHorizontal = false;
 
     public Transform player;
+    private Player playerScript;
     private Vector3 vel = Vector3.zero;
-    Vector3 curPosition;
 
     void Start()
     {
+        playerScript = player.GetComponent<Player>();
         CalculateBorders();
     }
 
@@ -55,6 +56,9 @@ public class CameraController : MonoBehaviour
             Vector3 targetPosition = player.position + offset;
             targetPosition.z = transform.position.z;
             if (onlyHorizontal) targetPosition.x = player.position.x - 4f;
+            if (playerScript != null && playerScript.enableClimb) {
+                targetPosition.y = playerScript.movement.y >= 0f ? player.position.y + 4.5f : player.position.y -4.5f;
+            }
             float clampedX = Mathf.Clamp(targetPosition.x, minX, maxX);
             float clampedY = Mathf.Clamp(targetPosition.y, minY, maxY);
             Vector3 clampedPosition = new Vector3(clampedX, clampedY, targetPosition.z);

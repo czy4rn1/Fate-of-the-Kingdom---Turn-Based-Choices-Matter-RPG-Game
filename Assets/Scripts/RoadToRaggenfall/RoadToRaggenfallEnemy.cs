@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class RoadToRaggenfallEnemy : MonoBehaviour
 {
@@ -23,7 +20,7 @@ public class RoadToRaggenfallEnemy : MonoBehaviour
     {
        movement.y = top ? 1f : -1f;
        movement.x = -1f; 
-       moveSpeed = UnityEngine.Random.Range(8,15);
+       moveSpeed = Random.Range(8,15);
        if (top)
         {
            while (transform.position.y < 7.57f) yield return null; 
@@ -53,8 +50,8 @@ public class RoadToRaggenfallEnemy : MonoBehaviour
         isDead = false;
         movement.y = 0f;
         movement.x = 1f;
-        moveSpeed = UnityEngine.Random.Range(3, 7);
-        transform.position = new Vector2(player.transform.position.x - UnityEngine.Random.Range(15,20), top ? -3.34f : -4.2f);
+        moveSpeed = Random.Range(3, 7);
+        transform.position = new Vector2(player.transform.position.x - Random.Range(15,20), top ? -3.34f : -5.42f);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)

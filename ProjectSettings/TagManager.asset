@@ -8,6 +8,8 @@ TagManager:
   - cursor2
   - enemy
   - Box
+  - Pnacza
+  - Rock
   layers:
   - Default
   - TransparentFX

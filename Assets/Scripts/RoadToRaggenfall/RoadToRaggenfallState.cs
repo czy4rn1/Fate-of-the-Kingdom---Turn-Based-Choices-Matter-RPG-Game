@@ -8,14 +8,34 @@ public class RoadToRaggenfallState : MonoBehaviour
     public BlackoutManager blackoutManager;
     public PlayDialogueLines dialoguePlayer;
     public Player player;
+    public CameraController cameraController;
     public bool miniGameStarted = false;
     public TextMeshProUGUI textMeshPro;
+    public GameObject Controls;
     public byte lives = 5;
+    public GameObject[] enemies = new GameObject[2];
+    private bool disableGame = false;
+    WaitTimer waitTimer = new WaitTimer();
+
+    string[] storyLines = {"!<NAME>!: There are hoards of monsters coming our way!", 
+        "!<NAME>!: We have to get rid of them or avoid them!",
+        "In this section you have to attack enemies at the right time or avoid them to survive!", "Don't let them get you more than 5 times!"};
+
     void Start()
-    {      
+    {   
+        if (WorldState.Instance.currentLevel == "RaggenfallPeak")
+        {
+            player.transform.position = new Vector2(-5f, player.transform.position.y);
+            cameraController.transform.position = new Vector3(-5f, 0f, -10f);
+            Controls.SetActive(false);
+            enemies[0].SetActive(false);
+            enemies[1].SetActive(false);
+            disableGame = true;
+        } 
         WorldState.Instance.currentLevel = "RoadToRaggenfall";
         textMeshPro.text += $"\nLIVES LEFT: {lives}";
-        StartCoroutine(StartMiniGame());
+        StartCoroutine(blackoutManager.Fade(true));
+        if (!disableGame) StartCoroutine(StartMiniGame());
     }
 
     void Update()
@@ -26,29 +46,19 @@ public class RoadToRaggenfallState : MonoBehaviour
 
     IEnumerator Lose()
     {
-        StartCoroutine(blackoutManager.Fade(false));
-        while (blackoutManager.curAlpha < 1f) yield return null;
+        yield return StartCoroutine(blackoutManager.Fade(false));
         StopAllCoroutines();
         SceneManager.LoadScene("RoadToRaggenfall");
     }
 
-    public IEnumerator StartMiniGame()
+    IEnumerator StartMiniGame()
     {
-        player.isControllable = false;
-        StartCoroutine(blackoutManager.Fade(true));
-        while (blackoutManager.curAlpha > 0f) yield return null;
-        string[] storyLines = {$"{PlayerData.Instance.playerName}: There are hoards of monsters coming our way!", 
-        $"{PlayerData.Instance.playerName}: We have to get rid of them or avoid them! There is no going back!",
-        "In this section you have to attack enemies at the right time or avoid them to survive!", "Don't let them get you more than 5 times!"};       
-        
-        StartCoroutine(dialoguePlayer.PlayDialogue(WorldState.Instance.roadtorag_instructions ? storyLines : 
-        new[] {$"{PlayerData.Instance.playerName}: There are hoards of monsters coming our way!"}, CloseDialogue));
-        WorldState.Instance.roadtorag_instructions = false;
-    }
-
-    public void CloseDialogue(int nothing)
-    {
+        player.isControllable = false;  
+        yield return StartCoroutine(waitTimer.Wait(2f));
+        if (WorldState.Instance.roadtorag_instructions) yield return StartCoroutine(dialoguePlayer.PlayDialogue(storyLines));
+        else yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {"!<NAME>!: There are hoards of monsters coming our way!"}));
         player.isControllable = true;
         miniGameStarted = true;
+        WorldState.Instance.roadtorag_instructions = false;
     }
 }

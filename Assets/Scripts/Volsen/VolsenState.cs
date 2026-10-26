@@ -19,6 +19,10 @@ public class VolsenState : MonoBehaviour
             cameraController.transform.position = new Vector3(8f, -10.94225f, -10f);
         }
         else if (WorldState.Instance.currentLevel == "VolsenInn") player.transform.position = new Vector2(0f, 2f);
+        else if (WorldState.Instance.currentLevel == "RoadToRaggenfall") {
+            player.transform.position = new Vector2(-18.61f, -8.22f);
+            cameraController.transform.position = new Vector3(-10.21f, -8.22f, -10f);
+        }
         else player.transform.position = new Vector2(0f, 0f);
         WorldState.Instance.currentLevel = "Volsen";
         if (WorldState.Instance.ponterQuestStarted && !WorldState.Instance.fireFixing && WorldState.Instance.castleFire)

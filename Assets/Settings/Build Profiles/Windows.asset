@@ -68,6 +68,9 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/Ahorgis.unity
     m_guid: 701d4f32c23abd34da271eae570d05b1
+  - m_enabled: 1
+    m_path: Assets/Scenes/RaggenfallPeak.unity
+    m_guid: 86ff69f4d2bcabb41bb1fff22268dd94
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

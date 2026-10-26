@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639188697840092079
+  platformSettingsDirtyTick: 639286482179386640
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -129,7 +129,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: sword
     originalName: 
-    pivot: {x: 0.70000005, y: -0.13095239}
+    pivot: {x: 0.64, y: -0.53225803}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,8 +137,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 60
-      height: 84
+      width: 50
+      height: 62
     spriteID: 4f8a71b91cd0e0d48b75451c29f0afc9
     spriteBone: []
     spriteOutline: []
@@ -167,10 +167,10 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 22
-        y: 11
-        width: 60
-        height: 84
+        x: 32
+        y: 33
+        width: 50
+        height: 62
       spriteId: 4f8a71b91cd0e0d48b75451c29f0afc9
     linkedCells: []
     tileCells: []
@@ -218,4 +218,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}
-  previousTextureSize: {x: 128, y: 128}
+  previousTextureSize: {x: 64, y: 128}
