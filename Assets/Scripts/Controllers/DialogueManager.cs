@@ -12,6 +12,7 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
     public TextMeshProUGUI dialogueText;
     private float currentPanelScale = 0f;
     public float scaleFactor;
+    WaitTimer waitTimer = new WaitTimer();
     
     private bool fastForward = false;
     public bool isWaitingForPlayer = false;
@@ -179,8 +180,8 @@ public class DialogueManager : MonoBehaviour, INotificationReceiver
         for(int i=0; i<text.Length; i++)
         {
             dialogueText.text += text[i];
-            if (!fastForward) yield return new WaitForSeconds(0.03f);
-            else yield return new WaitForSeconds(0.001f);
+            if (!fastForward) yield return waitTimer.Wait(0.03f);
+            else yield return waitTimer.Wait(0.001f);
         }
         fastForward = false;
         isWaitingForPlayer = true;

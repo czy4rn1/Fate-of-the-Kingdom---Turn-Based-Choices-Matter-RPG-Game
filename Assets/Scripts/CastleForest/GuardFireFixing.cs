@@ -35,7 +35,10 @@ public class GuardFireFixing : MonoBehaviour
 
     IEnumerator FireFixing()
     {
-        if (!introPlayed) yield return StartCoroutine(dialoguePlayer.PlayDialogue(dialogueLines));
+        if (!introPlayed) {
+            yield return StartCoroutine(dialoguePlayer.PlayDialogue(dialogueLines));
+            introPlayed = true;
+        }
         dialoguePlayer.PlayCommand("Ursus: Are you ready to go?\n1. Let's go\n2. Not yet", 2, OnChosenCommand);
     }
 
@@ -44,6 +47,6 @@ public class GuardFireFixing : MonoBehaviour
         yield return StartCoroutine(moveToCutscene.Move());
         while (cutscene.gameObject.activeInHierarchy) yield return null;
         yield return StartCoroutine(blackoutManager.Fade(false));
-        SceneManager.LoadScene("VolsenFire");
+        SceneManager.LoadScene("FallOfVolsen");
     }
 }

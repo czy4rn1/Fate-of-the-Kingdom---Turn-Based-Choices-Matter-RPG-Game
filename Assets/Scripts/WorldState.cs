@@ -112,6 +112,8 @@ public class WorldState : MonoBehaviour
     }
     public byte raggenfall_state = (byte)Raggenfall.NotStarted;
 
+    public bool VolsenFell = false;
+
 
     
 

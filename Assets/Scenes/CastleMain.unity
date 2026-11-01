@@ -249,6 +249,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimation
   animator: {fileID: 27722834}
   isRunning: 0
+  isJumping: 0
+  isClimbing: 0
+  climbSpeed: 0.2
 --- !u!1 &33160927
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,6 +287,8 @@ MonoBehaviour:
   escapedThroughCave: 0
   jewelBladeObtained: 0
   castleFire: 0
+  playerPosessed: 0
+  posessedColor: {r: 0, g: 0, b: 0, a: 0}
   kilmor_intro_ended: 0
   kilmor_questStarted: 0
   kilmor_questEnded: 0
@@ -291,6 +296,7 @@ MonoBehaviour:
   attackedKilmor: 0
   ignoredKilmor: 0
   savedChildren: 0
+  kilmor_dead: 0
   redGemObtained: 0
   golemsHaveGem: 0
   golemEncounterEnded: 0
@@ -298,6 +304,40 @@ MonoBehaviour:
   fish_questEnded: 0
   fish_willHelp: 0
   fish_killed: 0
+  venardRemorse: 0
+  venardKilled: 0
+  venardEncounterEnded: 0
+  ponterQuestStarted: 0
+  ponterQuestEnded: 0
+  ponterInfoObtained: 0
+  ponterInfoFromForgan: 0
+  askSellerAboutJewelBlade: 0
+  learnedAboutHellsGarden: 0
+  fireFixing: 0
+  raggenfall: 0
+  castle: 0
+  mayhemIsland: 0
+  blossomGarden: 0
+  roadtorag_instructions: 1
+  mayhem_state: 0
+  gardenEntrancePlayed: 0
+  gardenerSummoned: 0
+  vaseMoved: 0
+  treeGameEnded: 0
+  gardenerIntroPlayed: 0
+  gardenerChoiceMade: 0
+  gardenerJoins: 0
+  ponterDead: 0
+  playerEnslaved: 0
+  gardenerStandard: 0
+  appleCutscenePlayed: 0
+  appleTaken: 0
+  blossomDarkness: 0
+  disableTrees: 0
+  ponterCaptured: 0
+  lavaEntryCutscenePlayed: 0
+  ahorgis_state: 0
+  raggenfall_state: 0
 --- !u!4 &33160929
 Transform:
   m_ObjectHideFlags: 0
@@ -767,6 +807,7 @@ MonoBehaviour:
   interactIcon: {fileID: 0}
   isPlayerNearby: 0
   allowIcon: 0
+  player: {fileID: 0}
 --- !u!114 &274140743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2578,6 +2619,7 @@ MonoBehaviour:
   interactIcon: {fileID: 1604314821}
   isPlayerNearby: 0
   allowIcon: 1
+  player: {fileID: 0}
 --- !u!61 &496752890
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2615,9 +2657,9 @@ BoxCollider2D:
   m_Offset: {x: -0.21875, y: 0.96875}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.70000005, y: -0.13095239}
-    oldSize: {x: 1.875, y: 2.625}
-    newSize: {x: 1.875, y: 2.625}
+    pivot: {x: 0.64, y: -0.53225803}
+    oldSize: {x: 1.5625, y: 1.9375}
+    newSize: {x: 1.5625, y: 1.9375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -3942,6 +3984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
   sceneName: CastleForest
   blackoutManager: {fileID: 137095780}
+  dontLoadOnTrigger: 0
 --- !u!61 &1059038727
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4094,6 +4137,7 @@ MonoBehaviour:
   cursor: {fileID: 85336840}
   dialogueActive: 1
   cutsceneEnded: 1
+  lineConfirmed: 0
 --- !u!95 &1175560458
 Animator:
   serializedVersion: 7
@@ -12024,7 +12068,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 16
+      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -12040,7 +12084,7 @@ Tilemap:
       - {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       - {fileID: -8620789011913242613, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
       m_AnimationSpeed: 2
-      m_AnimationTimeOffset: 21.540558
+      m_AnimationTimeOffset: 58.638794
       m_Flags: 0
   m_TileAssetArray:
   - serializedVersion: 2
@@ -12147,10 +12191,10 @@ Tilemap:
     m_RefCount: 0
     m_Data: {fileID: 1556182531084663342, guid: d3e25ea3401dc184b8274a00f1becd8a, type: 3}
   - serializedVersion: 2
-    m_RefCount: 1
+    m_RefCount: 0
     m_Data: {fileID: 7472606250025977695, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
   - serializedVersion: 2
-    m_RefCount: 0
+    m_RefCount: 1
     m_Data: {fileID: -3945480283909424540, guid: b9768345165d14445a1d8bf61e402f2d, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 2
@@ -12548,6 +12592,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimation
   animator: {fileID: 1550112244}
   isRunning: 0
+  isJumping: 0
+  isClimbing: 0
+  climbSpeed: 0.2
 --- !u!1 &1553002388
 GameObject:
   m_ObjectHideFlags: 0
@@ -13172,7 +13219,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1757703066}
   - component: {fileID: 1757703068}
-  - component: {fileID: 1757703067}
   m_Layer: 0
   m_Name: right
   m_TagString: Untagged
@@ -13195,20 +13241,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 679726551}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1757703067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1757703065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0b44081cf1bab4ebfb7f6dc2771e44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
-  sceneName: None
-  blackoutManager: {fileID: 137095780}
 --- !u!61 &1757703068
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14118,8 +14150,13 @@ MonoBehaviour:
   moveSpeed: 5
   isControllable: 1
   isRoadToRaggenfall: 0
+  movement: {x: 0, y: 0}
+  spriteRenderer: {fileID: 0}
   characterAnimation: {fileID: 2042473083}
   dialogueManager: {fileID: 1175560457}
+  boxCollider2D: {fileID: 0}
+  enableJump: 0
+  enableClimb: 0
 --- !u!61 &2042473076
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14385,6 +14422,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimation
   animator: {fileID: 2042473078}
   isRunning: 0
+  isJumping: 0
+  isClimbing: 0
+  climbSpeed: 0.2
 --- !u!1 &2105715642
 GameObject:
   m_ObjectHideFlags: 0
