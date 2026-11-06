@@ -6,7 +6,7 @@ public class Portal : MonoBehaviour
 {
     public bool visible = false;
     private bool curVisible = false;
-    private float curAlpha = 0f;
+    public float curAlpha = 0f;
     public SpriteRenderer spriteRenderer;
     public Tilemap tilemap;
     public float showSpeed = 0.01f;

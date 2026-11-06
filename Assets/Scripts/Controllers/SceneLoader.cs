@@ -25,6 +25,15 @@ public class SceneLoader : MonoBehaviour
 
     public IEnumerator LoadArea()
     {
+        if (WorldState.Instance.deserter_state > (byte)WorldState.Deserter.NotStarted) {
+            if (sceneName == "Volsen" && WorldState.Instance.currentLevel == "Forest") sceneName = "Deserter";
+        }
+        if (WorldState.Instance.ahorgis_state == (byte)WorldState.Ahorgis.Flood) {
+            if (sceneName == "Volsen" && WorldState.Instance.currentLevel == "Forest") sceneName = "MayhemIsland";
+            else if (sceneName == "Volsen" && WorldState.Instance.currentLevel == "MayhemIsland") sceneName = "Forest";
+        }
+        
+        if (blackoutManager.curAlpha != 0f) yield break;
         if (player != null) player.isControllable = false;
         yield return StartCoroutine(blackoutManager.Fade(false));
         LoadScene(sceneName);

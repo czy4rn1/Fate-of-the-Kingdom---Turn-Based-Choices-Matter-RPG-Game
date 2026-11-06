@@ -74,6 +74,9 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/FallOfVolsen.unity
     m_guid: 60579096e42e9be40972c266fa98c9e8
+  - m_enabled: 1
+    m_path: Assets/Scenes/Deserter.unity
+    m_guid: 0f7fcc2465dc8e74e97ce498879c7a46
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

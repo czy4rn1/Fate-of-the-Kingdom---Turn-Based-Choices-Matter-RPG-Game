@@ -114,6 +114,16 @@ public class WorldState : MonoBehaviour
 
     public bool VolsenFell = false;
 
+    public enum Deserter : byte
+    {
+        NotStarted = 0,
+        MetDeserter = 10,
+        ChoiceMade = 20,
+        JoinedDeserter = 21,
+        KilledDeserter = 22
+    }
+    public byte deserter_state = (byte)Deserter.NotStarted;
+
 
     
 
