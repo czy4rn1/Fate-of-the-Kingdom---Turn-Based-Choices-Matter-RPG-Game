@@ -33,7 +33,7 @@ public class FallingRock : MonoBehaviour
     void Update()
     {
         rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
-        if (rb.position.y <= player.transform.position.y - 7f) {
+        if (rb.position.y <= player.transform.position.y - 20f) {
             ResetPosition();
             if (coroutine != null) StopCoroutine(coroutine);          
             coroutine = StartCoroutine(StartMoving());

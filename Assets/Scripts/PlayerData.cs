@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,18 +5,12 @@ public class PlayerData : MonoBehaviour
 {
     public static PlayerData Instance {get; private set;}
     public string playerName;
-    public byte strength;
-    public byte intelligence;
-    public byte persuasion;
-    public byte dexterity;
-    public byte vitality;
-    public byte defense;
-
-    public int exp = 0;
-    public int allExp = 0;
-    public byte lvl = 1;
-    public byte lvl_wall = 200;
-    public int expToNextLvl = 200;
+    public short strength;
+    public short intelligence;
+    public short persuasion;
+    public short dexterity;
+    public short vitality;
+    public short defense;
 
     public List<Item> playerItems;
     public List<Equipment> equipment;
@@ -58,7 +51,8 @@ public class PlayerData : MonoBehaviour
             if (existingItem.count<=0) playerItems.Remove(existingItem);
         }
     }
-    public IEnumerator AddExperience(int experience)
+    
+    /*public IEnumerator AddExperience(int experience)
     {
         while(experience > 0)
         {
@@ -72,7 +66,7 @@ public class PlayerData : MonoBehaviour
             }
             yield return null; 
         }
-    }
+    }*/
 
     public void AddEquipment(string name, string type, byte[] stats)
     {

@@ -1,94 +1,79 @@
+using System.Collections;
 using UnityEngine;
 
 public class Chest : MonoBehaviour
 {
     public string chest_id;
     private bool isOpen = false;
-    private bool isPlayerNearby = false;
     private SpriteRenderer spriteRenderer;
     public Sprite openChestSprite;
-    public Player player;
-
-    public DialogueManager dialogueManager;
 
     public string item;
     public int amount;
 
     public string equipment;
     public string type;
-    public byte[] stats = new byte[6];
-
-    public GameObject interactIcon;
+    public byte[] stats = new byte[4];
+    InitInteraction initInteraction;
+    public PlayDialogueLines dialoguePlayer;
+    public string[] possibleItems = {"DEX Up", "STR Up", "INT Up", "PER Up"};
 
     void Start()
     {
+        initInteraction = GetComponent<InitInteraction>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if (interactIcon != null)
-        {
-            interactIcon.SetActive(false);
-        }
         if (WorldState.Instance.IsChestOpen(chest_id)) setOpenChest();
     }
 
     void Update()
     {
-        if (isPlayerNearby && !isOpen && Input.GetKeyDown(KeyCode.F) && player.isControllable)
+        if (!isOpen && initInteraction.Interaction())
         {
-            player.isControllable = false;
-            OpenChest();
+            StartCoroutine(OpenChest());
         }
     }
-    void OpenChest()
+    IEnumerator OpenChest()
     {
         isOpen = true;
         WorldState.Instance.MarkChestOpen(chest_id);
         spriteRenderer.sprite = openChestSprite;
-        if (interactIcon != null)
-        {
-            interactIcon.SetActive(false);
-        }
         if (item != "NULL")
         {
-            dialogueManager.ShowDialogue($"Found x{amount} of {item}!", true, 0, true, CloseDialogue);
-            PlayerData.Instance.AddItem(item, amount);
+            if (item == "Stat Up") {
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {$"Found x{amount} of {item}!"}));
+                string choices = "Which stat do you wish to upgrade?\n1. Dexterity\n2. Strength\n3. Intelligence\n4. Persuasion";
+                dialoguePlayer.PlayCommand(choices, 4, OnChosenCommand);
+            }
+            else
+            {
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {$"Found x{amount} of {item}!"}));
+                PlayerData.Instance.AddItem(item, amount);
+            }
         }
         else
         {
-            dialogueManager.ShowDialogue($"Found {type}: {equipment}!", true, 0, true, CloseDialogue);
+            yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {$"Found {type}: {equipment}!"}, initInteraction.CloseInteraction));
             PlayerData.Instance.AddEquipment(equipment, type, stats);
         }
-        //Debug.Log("Player opened a chest");
+        initInteraction.EnableInteraction(false);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    void OnChosenCommand(int command)
     {
-        if (isOpen) return;
-        if (collision.CompareTag("Player")) {
-            isPlayerNearby = true;
-            if (interactIcon != null && player.isControllable)
-            {
-                interactIcon.SetActive(true);
-            }
-        }
+        item = possibleItems[command];
+        PlayerData.Instance.AddItem(item, amount);
+        StartCoroutine(informPlayer());
     }
-    private void OnTriggerExit2D(Collider2D collision)
+
+    IEnumerator informPlayer()
     {
-        if (collision.CompareTag("Player")) {
-            isPlayerNearby = false;
-            if (interactIcon != null)
-            {
-                interactIcon.SetActive(false);
-            }
-        }
-    }
-    public void CloseDialogue(int nothing)
-    {
-        player.isControllable = true;
+        yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {$"Obtained x{amount} of {item}!"}, initInteraction.CloseInteraction));
     }
 
     private void setOpenChest()
     {
         isOpen = true;
-
+        initInteraction.EnableInteraction(false);
         spriteRenderer.sprite = openChestSprite;
     }
 }

@@ -57,7 +57,8 @@ public class CameraController : MonoBehaviour
             targetPosition.z = transform.position.z;
             if (onlyHorizontal) targetPosition.x = player.position.x - 4f;
             if (playerScript != null && playerScript.enableClimb) {
-                targetPosition.y = playerScript.movement.y >= 0f ? player.position.y + 4.5f : player.position.y -4.5f;
+                if (playerScript.movement.y > 0f) targetPosition.y = player.position.y + 4.5f;
+                else if (playerScript.movement.y < 0f) targetPosition.y = player.position.y - 4.5f;
             }
             float clampedX = Mathf.Clamp(targetPosition.x, minX, maxX);
             float clampedY = Mathf.Clamp(targetPosition.y, minY, maxY);

@@ -21,19 +21,32 @@ public class MenuPanel : MonoBehaviour
     public TMP_Text[] itemActionButtons;
     public float itemActionCursorOffset;
     int chosenItem = -10;
+    int chosenEq = -10;
     WaitTimer waitTimer = new WaitTimer();
     public TMP_Text infoText;
     Coroutine coroutine;
+    public string[] itemNames = {"Stat Boost", "DEX Up", "STR Up", "INT Up", "PER Up"};
+    public string[] ogItemButtonsText = new string[5];
+    string[] mainButtonsText = new string[5];
+    public string[] equipmentNames = new string[5];
 
     enum buttons : byte
     {
         Main = 0,
         Items = 1,
         Equipment = 2,
+        Stats = 3
     }
     void Awake()
     {
-        PlayerData.Instance.AddItem("DEX Up", 2);
+        for (int i=0; i<mainButtons.Length; i++)
+        {
+            mainButtonsText[i] = mainButtons[i].text;
+        }
+        for (int i=0; i<itemButtons.Length; i++)
+        {
+            ogItemButtonsText[i] = itemButtons[i].text;
+        }
         cursorPos = 0;
         menuType = (byte)buttons.Main;
         panelActive = false;
@@ -45,7 +58,7 @@ public class MenuPanel : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (!panelActive && player.isControllable) ActivateMenu();
+            if (!panelActive && player.isControllable && player.movement.x == 0f && player.movement.y == 0f) ActivateMenu();
             else if (panelActive && !player.isControllable) DeactivateMenu();
         }
         if (panelActive) {
@@ -53,11 +66,10 @@ public class MenuPanel : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 if (menuType == (byte)buttons.Main) MainMenuAction();
-                else if (menuType == (byte)buttons.Items) ItemAction();
+                else if (menuType == (byte)buttons.Items || menuType == (byte)buttons.Equipment) ItemAction();
             }
             if (Input.GetKeyDown(KeyCode.LeftShift) && menuType != (byte)buttons.Main) {
-                menuType = (byte)buttons.Main;
-                cursorPos = 0;
+                ActivateMenu();
             }
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) cursorInput = 1f;
             else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) cursorInput = -1f;
@@ -68,51 +80,95 @@ public class MenuPanel : MonoBehaviour
 
     void MainMenuAction()
     {
-        if (cursorPos + 1 == (byte)buttons.Items || cursorPos + 1 == (byte)buttons.Equipment) {
+        if (cursorPos + 1 == (byte)buttons.Items || cursorPos + 1 == (byte)buttons.Equipment || cursorPos + 1 == (byte)buttons.Stats) {
             menuType = (byte)(cursorPos+1);
             ChangeCursorPos(true);
         }
-        else if (cursorPos + 1 == 3) cursorPos = cursorPos; // add Saving
-        else if (cursorPos + 1 == 4) Application.Quit();
+        else if (cursorPos + 1 == 4) cursorPos = cursorPos; // add Saving
+        else if (cursorPos + 1 == 5) Application.Quit();
 
     }
 
     void ItemAction()
     {
-        if (mainCursorActive) {
+        if (menuType == (byte)buttons.Items) {
+            Item item = null;
+            if (mainCursorActive) {
             chosenItem = cursorPos;
+            item = PlayerData.Instance.playerItems.Find(o => o.itemName == itemNames[chosenItem]);
+            if (item == null) return;
             mainCursorActive = false;
             cursor.SetActive(false);
+            itemActionButtons[0].text = "Use";
+            itemActionButtons[1].text = "Leave";
             panels[1].SetActive(true);
             ChangeCursorPos(true);  
-        }
-        else
-        {
-            if (cursorPos == 0)
+            }
+            else
             {
-                Item item = null;
-                string itemName = "";
-                if (chosenItem == 0) itemName = "Stat Boost";
-                else if (chosenItem == 1) itemName = "DEX Up";
-                else if (chosenItem == 2) itemName = "STR Up";
-                else if (chosenItem == 3) itemName = "INT Up";
-                else if (chosenItem == 4) itemName = "PER Up";
-                item = PlayerData.Instance.playerItems.Find(o => o.itemName == itemName);
-                if (item != null)
+                if (cursorPos == 0)
                 {
-                    string info = item.Use();
-                    if(coroutine != null) StopCoroutine(coroutine);
-                    coroutine = StartCoroutine(ShowInfo(info));
+                    item = PlayerData.Instance.playerItems.Find(o => o.itemName == itemNames[chosenItem]);
+                    if (item != null)
+                    {
+                        string info = item.Use();
+                        if(coroutine != null) StopCoroutine(coroutine);
+                        coroutine = StartCoroutine(ShowInfo(info));
+                        infoText.fontSize = 3;
+                    }
+                    else return;
+                }
+                if (cursorPos == 1)
+                {
+                    ChangeCursorPos(true);
+                    mainCursorActive = true;
+                    cursor.SetActive(true);
+                    ChangeCursorPos(true);
+                    panels[1].SetActive(false);
+                    panels[2].SetActive(false);
                 }
             }
-            if (cursorPos == 1)
+        }
+        else if (menuType == (byte)buttons.Equipment)
+        {
+            if (mainCursorActive)
             {
+                chosenEq = cursorPos;
+                Equipment equipment = PlayerData.Instance.equipment.Find(o => o.name == equipmentNames[chosenEq]);
+                if (equipment != null) infoText.text = $"+{equipment.stats[0]} DEX\n+{equipment.stats[1]} STR\n+{equipment.stats[2]} INT\n+{equipment.stats[3]} PER\n";
+                else {
+                    infoText.text = "";
+                    return;
+                }
+                if (coroutine != null) StopCoroutine(coroutine);
+                mainCursorActive = false;
+                cursor.SetActive(false);
+                panels[1].SetActive(true);
+                itemActionButtons[0].text = "Equip";
+                itemActionButtons[1].text = "Unequip";
                 ChangeCursorPos(true);
-                mainCursorActive = true;
-                cursor.SetActive(true);
-                ChangeCursorPos(true);
-                panels[1].SetActive(false);
-                panels[2].SetActive(false);
+                panels[2].SetActive(true);
+                infoText.fontSize = 4; 
+            }
+            else
+            {
+                Equipment equipment = PlayerData.Instance.equipment.Find(o => o.name == equipmentNames[chosenEq]);
+                if (equipment != null) {
+                    if (cursorPos == 0)
+                    {                    
+                        string info = equipment.Equip();
+                        if(coroutine != null) StopCoroutine(coroutine);
+                        coroutine = StartCoroutine(ShowInfo(info));
+                    }
+                    else if (cursorPos == 1)
+                    {
+                        string info = equipment.Unequip();
+                        if(coroutine != null) StopCoroutine(coroutine);
+                        coroutine = StartCoroutine(ShowInfo(info));
+                    }
+                    infoText.fontSize = 3;
+                }
+                else return;               
             }
         }      
     }
@@ -143,7 +199,7 @@ public class MenuPanel : MonoBehaviour
                     cursorPos = Math.Clamp(cursorPos, 0, mainButtons.Length-1);
                     cursor.transform.localPosition = new Vector2(cursor.transform.localPosition.x, mainButtons[cursorPos].transform.localPosition.y - cursorOffset);
                 }
-                else if (menuType == (byte)buttons.Items)
+                else if (menuType == (byte)buttons.Items || menuType == (byte)buttons.Equipment)
                 {
                     cursorPos = Math.Clamp(cursorPos, 0, itemButtons.Length-1);
                     cursor.transform.localPosition = new Vector2(cursor.transform.localPosition.x, itemButtons[cursorPos].transform.localPosition.y + itemCursorOffet);
@@ -172,14 +228,31 @@ public class MenuPanel : MonoBehaviour
         }
         else
         {
-            ShowMainButtons(false);
             if (menuType == (byte)buttons.Items)
             {
+                ShowMainButtons(false);
                 ShowItemButtons(true);
             }
             else if (menuType == (byte)buttons.Equipment)
             {
-                ShowItemButtons(false);
+                ShowMainButtons(false);
+                Equipment equipment = null;
+                for (int i=0; i<equipmentNames.Length; i++)
+                {
+                    equipment = PlayerData.Instance.equipment.Find(o => o.name == equipmentNames[i]);
+                    if (equipment == null) itemButtons[i].text = "";
+                    else itemButtons[i].text = equipmentNames[i];
+                    foreach (var button in itemButtons) button.gameObject.SetActive(true);
+                }
+            }
+            else if (menuType == (byte)buttons.Stats)
+            {
+                cursor.SetActive(false);
+                mainButtons[0].text = $"Name: {PlayerData.Instance.playerName}";
+                mainButtons[1].text = $"DEX: {PlayerData.Instance.dexterity}";
+                mainButtons[2].text = $"STR: {PlayerData.Instance.strength}";
+                mainButtons[3].text = $"INT: {PlayerData.Instance.intelligence}";
+                mainButtons[4].text = $"PER: {PlayerData.Instance.persuasion}";
             }
         }
         
@@ -191,22 +264,19 @@ public class MenuPanel : MonoBehaviour
         {
             foreach (var button in itemButtons) button.gameObject.SetActive(show);
         }
-            else {string itemName = "";
+        else {
+            string itemName = "";
             for (int i=0; i<itemButtons.Length; i++)
             {
-                if (i == 0) itemName = "Stat Boost";
-                else if (i == 1) itemName = "DEX Up";
-                else if (i == 2) itemName = "STR Up";
-                else if (i == 3) itemName = "INT Up";
-                else if (i == 4) itemName = "PER Up";
+                itemName = itemNames[i];
                 Item item = PlayerData.Instance.playerItems.Find(o => o.itemName == itemName);
                 if (item != null) {
                     string amount = "";
                     if (item.count >= 10) amount = Math.Clamp(item.count, 10, 99).ToString();
                     else amount = $"0{item.count}";
-                    itemButtons[i].text = itemButtons[i].text.Substring(0, itemButtons[i].text.Length-2) + amount;
+                    itemButtons[i].text = ogItemButtonsText[i].Substring(0, ogItemButtonsText[i].Length-2) + amount;
                 }
-                else itemButtons[i].text = itemButtons[i].text.Substring(0, itemButtons[i].text.Length-2) + "00";
+                else itemButtons[i].text = ogItemButtonsText[i].Substring(0, ogItemButtonsText[i].Length-2) + "00";
                 itemButtons[i].gameObject.SetActive(show);
             }
         }
@@ -219,6 +289,10 @@ public class MenuPanel : MonoBehaviour
 
     void ActivateMenu()
     {
+        for (int i=0; i<mainButtons.Length; i++)
+        {
+            mainButtons[i].text = mainButtonsText[i];
+        }
         mainCursorActive = true;
         cursor.SetActive(true);
         panels[1].SetActive(false);
