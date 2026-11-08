@@ -66,18 +66,12 @@ public class Gardener : MonoBehaviour
             SetUpChoices();
             byte id = 0;
             List<DialogueChoice> finalChoices = new List<DialogueChoice>();
-            choices[0].id = id++;
-            finalChoices.Add(choices[0]);
-            choices[1].id = id++;
-            finalChoices.Add(choices[1]);
-            if (WorldState.Instance.gardenerSummoned) {
-                choices[2].id = id++;
-                finalChoices.Add(choices[2]);
+            for (int i=0; i<choices.Length; i++)
+            {
+                if (i == 2) if (!WorldState.Instance.gardenerSummoned) continue;
+                choices[i].id = id++;
+                finalChoices.Add(choices[i]);
             }
-            choices[3].id = id++;
-            finalChoices.Add(choices[3]);
-            choices[4].id = id++;
-            finalChoices.Add(choices[4]);
             dialoguePlayer.PlayCommand(introGeneral[introGeneral.Length-1], finalChoices, OnChosenCommand); 
         }
         else
