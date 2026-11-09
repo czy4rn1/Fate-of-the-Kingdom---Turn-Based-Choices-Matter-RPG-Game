@@ -11,6 +11,7 @@ public class PlayerData : MonoBehaviour
     public short dexterity;
     public short vitality;
     public short defense;
+    public short money = 0;
 
     public List<Item> playerItems;
     public List<Equipment> equipment;

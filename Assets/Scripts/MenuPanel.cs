@@ -99,6 +99,7 @@ public class MenuPanel : MonoBehaviour
             if (item == null) return;
             mainCursorActive = false;
             cursor.SetActive(false);
+            itemActionCursor.SetActive(true);
             itemActionButtons[0].text = "Use";
             itemActionButtons[1].text = "Leave";
             panels[1].SetActive(true);
@@ -137,7 +138,6 @@ public class MenuPanel : MonoBehaviour
                 Equipment equipment = PlayerData.Instance.equipment.Find(o => o.name == equipmentNames[chosenEq]);
                 if (equipment != null) infoText.text = $"+{equipment.stats[0]} DEX\n+{equipment.stats[1]} STR\n+{equipment.stats[2]} INT\n+{equipment.stats[3]} PER\n";
                 else {
-                    infoText.text = "";
                     return;
                 }
                 if (coroutine != null) StopCoroutine(coroutine);
@@ -307,6 +307,8 @@ public class MenuPanel : MonoBehaviour
     void DeactivateMenu()
     {
         panelActive = false;
+        foreach(var button in mainButtons) button.gameObject.SetActive(false);
+        foreach(var button in itemButtons) button.gameObject.SetActive(false);
         foreach(var panel in panels) panel.gameObject.SetActive(false);
         player.isControllable = true;
     }
