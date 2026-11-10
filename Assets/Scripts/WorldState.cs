@@ -16,20 +16,31 @@ public class WorldState : MonoBehaviour
     public Color posessedColor;
 
     // --- KILMOR QUEST ---
-    public bool kilmor_intro_ended = false;
-    public bool kilmor_questStarted = false;
-    public bool kilmor_questEnded = false;
-    public bool secretPathOpened = false;
-    public bool attackedKilmor = false;
-    public bool ignoredKilmor = false;
-    public bool savedChildren = false;
-    public bool kilmor_dead = false;
+
+    public enum Dungeon : byte
+    {
+        LevelIntroNotPlayed = 0,
+        IntroNotPlayed = 1,
+        QuestStarted = 10,
+        SecretPathOpened = 20,
+        QuestEnded = 30,
+        Attacked = 31,
+        Ignored = 32,
+        Saved = 33,
+        Dead = 34
+    }
+
+    public byte dungeon_state = (byte)Dungeon.LevelIntroNotPlayed;
     // --------------------
 
     // --- FOREST ENCOUNTER ---
-    public bool redGemObtained = false;
-    public bool golemsHaveGem = false;
-    public bool golemEncounterEnded = false;
+    public enum Forest : byte
+    {
+        NotStarted = 0,
+        PickedGem = 10,
+        LostGem = 12
+    }
+    public byte forest_state = (byte)Forest.NotStarted;
     // ------------------------
 
     // -- FISHERMAN ---

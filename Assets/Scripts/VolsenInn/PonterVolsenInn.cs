@@ -188,7 +188,7 @@ public class PonterVolsenInn : MonoBehaviour
             finalstoryChoices.Add(storyChoices[1]);
             id++;
         } 
-        if (WorldState.Instance.savedChildren)
+        if (WorldState.Instance.dungeon_state == (byte)WorldState.Dungeon.Saved)
         {
             storyChoices[2].id = id;
             finalstoryChoices.Add(storyChoices[2]);

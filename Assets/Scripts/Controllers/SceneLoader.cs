@@ -35,6 +35,7 @@ public class SceneLoader : MonoBehaviour
         
         if (blackoutManager.curAlpha != 0f) yield break;
         if (player != null) player.isControllable = false;
+        player.StopMoving();
         yield return StartCoroutine(blackoutManager.Fade(false));
         LoadScene(sceneName);
     }

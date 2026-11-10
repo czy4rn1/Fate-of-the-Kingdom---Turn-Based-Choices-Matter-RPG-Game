@@ -8,6 +8,7 @@ public class CastleMainPaths : MonoBehaviour
     public PlayableDirector entryScene;
     public PlayableDirector playableDirector;
     public DialogueManager dialogueManager;
+    public BlackoutManager blackoutManager;
     bool ended = false;
 
     void Start()
@@ -15,12 +16,15 @@ public class CastleMainPaths : MonoBehaviour
         if (WorldState.Instance.keyStolen)
         {
             defaultEscape.SetActive(false);
+            Destroy(defaultEscape);
             keyStolenPath.SetActive(true);
         }
         else {
             defaultEscape.SetActive(true);
             keyStolenPath.SetActive(false);
+            Destroy(keyStolenPath);
         }
+        StartCoroutine(blackoutManager.Fade(true));
     }
 
     void Update()

@@ -16,34 +16,29 @@ public class OpenHiddenPath : MonoBehaviour
     void Update()
     {
         if (!playing) {
-            if (WorldState.Instance.kilmor_questStarted)
+            if (WorldState.Instance.dungeon_state >= (byte)WorldState.Dungeon.QuestStarted)
             {
                 if (lever.flipped && button.pressed && !dialogueManager.dialogueActive)
                 {
                     if (button.startCutscene && lever.startCutscene) {
                         playing = true;
-                        WorldState.Instance.secretPathOpened = true;
-                        StartCoroutine(PlayBlackoutCutscene());      
+                        WorldState.Instance.dungeon_state = (byte)WorldState.Dungeon.SecretPathOpened;
+                        StartCoroutine(PlayCutscene());      
                     }        
                 }
             }
         }
     }
 
-    IEnumerator PlayBlackoutCutscene()
-    {
-        yield return blackoutManager.Fade(false);
-        yield return null;
-        yield return new WaitForSeconds(2f);
-        yield return PlayCutscene();
-    }
-
     IEnumerator PlayCutscene()
     {
         if (playableDirector != null)
         {
+            yield return StartCoroutine(blackoutManager.Fade(false));
+            player.isControllable = false;
             dialogueManager.timelineDirector = playableDirector;
             playableDirector.Play();
+            StartCoroutine(blackoutManager.Fade(true));
             while (playableDirector.state == PlayState.Playing) yield return null;
             playableDirector = null;
         }

@@ -47,6 +47,9 @@ public class MenuPanel : MonoBehaviour
         {
             ogItemButtonsText[i] = itemButtons[i].text;
         }
+        GameObject obj = transform.Find("MainPanel").transform.Find("mainButtons").gameObject;
+        if (obj != null) obj.transform.localPosition = new Vector2(0f, 0.015f);
+        itemCursorOffet = -0.07f;
         cursorPos = 0;
         menuType = (byte)buttons.Main;
         panelActive = false;

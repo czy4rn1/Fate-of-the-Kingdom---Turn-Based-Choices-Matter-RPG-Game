@@ -14,7 +14,7 @@ public class PickUp : MonoBehaviour
 
     void Start()
     {
-        if (itemName=="Red Gem" && (WorldState.Instance.redGemObtained || WorldState.Instance.golemsHaveGem)) gameObject.SetActive(false);
+        if (itemName=="Red Gem" && WorldState.Instance.forest_state > (byte)WorldState.Forest.NotStarted) Destroy(gameObject);
     }
 
     void Update()
@@ -42,7 +42,7 @@ public class PickUp : MonoBehaviour
             else if (itemType == "Item")
             {
                 PlayerData.Instance.AddItem(itemName, 1);
-                if (itemName == "Red Gem") WorldState.Instance.redGemObtained = true;
+                if (itemName == "Red Gem") WorldState.Instance.forest_state = (byte)WorldState.Forest.PickedGem;
                 
             }
             gameObject.SetActive(false);

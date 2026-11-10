@@ -5,7 +5,6 @@ using UnityEngine.Playables;
 public class GolemEncounter : MonoBehaviour
 {
     public Player player;
-    public DialogueManager dialogueManager;
     private bool introEnded = false;
     public PlayableDirector introScene;
     public PlayableDirector golemsLeave;
@@ -16,11 +15,20 @@ public class GolemEncounter : MonoBehaviour
     public byte req_dex;
     private bool cutsceneActive = false;
     public CameraController cameraController;
+    public PlayDialogueLines dialoguePlayer;
+
+    void Start()
+    {
+        if (WorldState.Instance.forest_state > (byte)WorldState.Forest.NotStarted)
+        {
+            Close();
+        }
+    }
 
     void Update()
     {
         if (!introEnded) {
-            if (WorldState.Instance.redGemObtained && !dialogueManager.dialogueActive)
+            if (WorldState.Instance.forest_state == (byte)WorldState.Forest.PickedGem && !dialoguePlayer.dialogueManager.dialogueActive)
             {
                 player.isControllable = false;  
                 if (introScene != null && !cutsceneActive) {
@@ -35,8 +43,7 @@ public class GolemEncounter : MonoBehaviour
     {
         if (command == 0)
         {
-            WorldState.Instance.redGemObtained = false;
-            WorldState.Instance.golemsHaveGem = true;
+            WorldState.Instance.forest_state = (byte)WorldState.Forest.LostGem;
             PlayerData.Instance.RemoveItem("Red Gem");
             string[] lines = {"Removed Red Gem from Inventory", "Big Golem: Thank you a lot. We really appreciate that.", "Big Golem: See you soon, stranger. Haha!"};
             StartCoroutine(PlayDialogueGolemsLeave(lines));
@@ -50,92 +57,60 @@ public class GolemEncounter : MonoBehaviour
             }
             else
             {
-                WorldState.Instance.redGemObtained = false;
-                WorldState.Instance.golemsHaveGem = true;
+                WorldState.Instance.forest_state = (byte)WorldState.Forest.LostGem;
                 StartCoroutine(DexCutscene(dex_fail));
             }
         }
-        else if (command == 2)
-        {
-            StartCoroutine(HideAndDisable());
-        }
-    }
-
-    IEnumerator HideAndDisable()
-    {
-        player.isControllable = true;
-        yield return StartCoroutine(dialogueManager.HideShowPanel("hide"));
-        yield return new WaitForSeconds(0.2f);
-        smallGolem.SetActive(false);
-        gameObject.SetActive(false);
     }
 
     IEnumerator PlayIntro()
     {
-       blackoutManager.SetFade(false);
-       while (blackoutManager.curAlpha < 1f) yield return null;
-       dialogueManager.timelineDirector = introScene;
-       introScene.Play();  
-       while (!dialogueManager.cutsceneEnded) yield return null;
-       dialogueManager.cutsceneEnded = false;
-       dialogueManager.ShowDialogue("Big Golem: Please, give us the gem back. It's very important.\n" + 
+       yield return StartCoroutine(blackoutManager.Fade(false));
+       dialoguePlayer.dialogueManager.timelineDirector = introScene;
+       introScene.Play();
+       StartCoroutine(blackoutManager.Fade(true));  
+       while (!dialoguePlayer.dialogueManager.cutsceneEnded) yield return null;
+       dialoguePlayer.dialogueManager.cutsceneEnded = false;
+       dialoguePlayer.PlayCommand("Big Golem: Please, give us the gem back. It's very important.\n" + 
                     "1. Do as they say\n" +
-                    $"2. [DEX {PlayerData.Instance.dexterity}/{req_dex}] Escape\n"+
-                    "3. Fight them", false, 3, false, OnChosenCommand);
+                    $"2. [DEX {PlayerData.Instance.dexterity}/{req_dex}] Escape\n", 2, OnChosenCommand);
        introEnded = true;
-       WorldState.Instance.golemEncounterEnded = true;
     }
 
     IEnumerator DexCutscene(PlayableDirector cutscene)
     {
         if (cutscene != null)
         {
-            yield return StartCoroutine(dialogueManager.HideShowPanel("hide"));
-            yield return new WaitForSeconds(0.2f);
-            dialogueManager.timelineDirector = cutscene;
+            dialoguePlayer.dialogueManager.timelineDirector = cutscene;
             cutscene.Play();
-            while(!dialogueManager.cutsceneEnded) yield return null;
-            dialogueManager.cutsceneEnded = false;
+            while(!dialoguePlayer.dialogueManager.cutsceneEnded) yield return null;
+            dialoguePlayer.dialogueManager.cutsceneEnded = false;
             cameraController.followPlayer = true;
             player.isControllable = true;
-            smallGolem.SetActive(false);
-            gameObject.SetActive(false);
         }
-    }
-
-    public void CloseDialogue(int nothing)
-    {
-        player.isControllable = true;
+        Close();
     }
 
     public IEnumerator PlayDialogueGolemsLeave(string[] dialogueLines) 
     {
-        yield return StartCoroutine(PlayDialogue(dialogueLines));
-        yield return StartCoroutine(GolemsLeave());
-        player.isControllable = true;
-        cameraController.followPlayer = true;
-    }
-
-    public IEnumerator GolemsLeave()
-    {
+        yield return StartCoroutine(dialoguePlayer.PlayDialogue(dialogueLines));
         if (golemsLeave != null)
         {
             golemsLeave.Play();
             while(golemsLeave.state == PlayState.Playing) yield return null;
-            golemsLeave = null;
         }
+        player.isControllable = true;
+        cameraController.followPlayer = true;
+        Close();
     }
-    
-    public IEnumerator PlayDialogue(string[] dialogueLines)
+
+    void Close()
     {
-        for(int i=0; i<dialogueLines.Length; i++)
-            {
-                bool last = false;
-                if (i == dialogueLines.Length-1) last = true;
-                dialogueManager.ShowDialogue(dialogueLines[i], true, 0, last, last ? CloseDialogue : null);
-                yield return null;
-                while (!dialogueManager.isWaitingForPlayer) yield return null;
-                while(dialogueManager.isWaitingForPlayer) yield return null; 
-            }    
+        Destroy(introScene.gameObject);
+        Destroy(golemsLeave.gameObject);
+        Destroy(dex_success.gameObject);
+        Destroy(dex_fail.gameObject);
+        Destroy(smallGolem);
+        Destroy(gameObject);
     }
 }

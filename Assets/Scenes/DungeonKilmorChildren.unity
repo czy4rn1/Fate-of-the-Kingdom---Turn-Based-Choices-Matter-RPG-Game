@@ -1432,6 +1432,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: portal
       objectReference: {fileID: 0}
+    - target: {fileID: -2253911629886400664, guid: aeb16301e88758a46aaaf0d2fad1058f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: aeb16301e88758a46aaaf0d2fad1058f, type: 3}
       propertyPath: m_SortingLayer
       value: 5
@@ -1508,11 +1512,6 @@ Transform:
 --- !u!1 &308218750 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2253911629886400664, guid: aeb16301e88758a46aaaf0d2fad1058f, type: 3}
-  m_PrefabInstance: {fileID: 308218748}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &308218752 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1160356261127867848, guid: aeb16301e88758a46aaaf0d2fad1058f, type: 3}
   m_PrefabInstance: {fileID: 308218748}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &308218753
@@ -1645,6 +1644,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: portal2
       objectReference: {fileID: 0}
+    - target: {fileID: -2253911629886400664, guid: aeb16301e88758a46aaaf0d2fad1058f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1160356261127867848, guid: aeb16301e88758a46aaaf0d2fad1058f, type: 3}
       propertyPath: m_Controller
       value: 
@@ -1725,11 +1728,6 @@ Transform:
 --- !u!1 &366861325 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2253911629886400664, guid: aeb16301e88758a46aaaf0d2fad1058f, type: 3}
-  m_PrefabInstance: {fileID: 366861323}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &366861326 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1160356261127867848, guid: aeb16301e88758a46aaaf0d2fad1058f, type: 3}
   m_PrefabInstance: {fileID: 366861323}
   m_PrefabAsset: {fileID: 0}
 --- !u!212 &366861327 stripped
@@ -2326,7 +2324,7 @@ Transform:
   m_GameObject: {fileID: 458020340}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.13, y: -4.73, z: 0}
+  m_LocalPosition: {x: -2.13, y: -12.360001, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2515,12 +2513,10 @@ PlayableDirector:
     value: {fileID: 21867352}
   - key: {fileID: -6028678684049689998, guid: 911a0aa1a50c64c4d834c61efda92ff8, type: 2}
     value: {fileID: 1745933570}
-  - key: {fileID: 3425046564357559169, guid: 911a0aa1a50c64c4d834c61efda92ff8, type: 2}
-    value: {fileID: 308218752}
-  - key: {fileID: 2780190612925715546, guid: 911a0aa1a50c64c4d834c61efda92ff8, type: 2}
-    value: {fileID: 1501511313}
   - key: {fileID: 5972082604100244283, guid: 911a0aa1a50c64c4d834c61efda92ff8, type: 2}
     value: {fileID: 458020341}
+  - key: {fileID: -835780478809449350, guid: 911a0aa1a50c64c4d834c61efda92ff8, type: 2}
+    value: {fileID: 1492049757}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &614487474
@@ -2730,7 +2726,7 @@ Transform:
   m_GameObject: {fileID: 806938515}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -7.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2746,7 +2742,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: dd4ca21119d961c4c928eb26ea47eb73, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 0
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -6219,12 +6215,12 @@ PlayableDirector:
     value: {fileID: 1547581008}
   - key: {fileID: 3538921735319586624, guid: a3d0007816f9c1840bbb564e62a23bb5, type: 2}
     value: {fileID: 1582208076}
-  - key: {fileID: 2008964305367443655, guid: a3d0007816f9c1840bbb564e62a23bb5, type: 2}
-    value: {fileID: 366861326}
   - key: {fileID: -3439018290826809387, guid: a3d0007816f9c1840bbb564e62a23bb5, type: 2}
     value: {fileID: 458020340}
   - key: {fileID: -2325435482511457658, guid: a3d0007816f9c1840bbb564e62a23bb5, type: 2}
     value: {fileID: 458020341}
+  - key: {fileID: 6829439858503026450, guid: a3d0007816f9c1840bbb564e62a23bb5, type: 2}
+    value: {fileID: 1492049757}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &1283165277
@@ -6560,7 +6556,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Rat Kilmor: Thank you so much!'
+  m_text: 'Ras & Pimm: B'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3c0d04639ae3602489e934b501497d7e, type: 2}
   m_sharedMaterial: {fileID: 6603050329504320869, guid: 3c0d04639ae3602489e934b501497d7e, type: 2}
@@ -6654,6 +6650,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1492049756}
+  - component: {fileID: 1492049757}
   m_Layer: 0
   m_Name: Monsters
   m_TagString: Untagged
@@ -6683,6 +6680,28 @@ Transform:
   - {fileID: 42862866}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1492049757
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492049755}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1493898310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6759,6 +6778,10 @@ PrefabInstance:
     - target: {fileID: -2253911629886400664, guid: aeb16301e88758a46aaaf0d2fad1058f, type: 3}
       propertyPath: m_Name
       value: portal1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2253911629886400664, guid: aeb16301e88758a46aaaf0d2fad1058f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: aeb16301e88758a46aaaf0d2fad1058f, type: 3}
       propertyPath: m_SortingLayer
@@ -6856,11 +6879,6 @@ MonoBehaviour:
   tilemap: {fileID: 0}
   showSpeed: 0.01
   tilemapType: 0
---- !u!95 &1501511313 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1160356261127867848, guid: aeb16301e88758a46aaaf0d2fad1058f, type: 3}
-  m_PrefabInstance: {fileID: 1501511308}
-  m_PrefabAsset: {fileID: 0}
 --- !u!212 &1501511314 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3626916397498700004, guid: aeb16301e88758a46aaaf0d2fad1058f, type: 3}
@@ -7422,7 +7440,7 @@ Transform:
   m_GameObject: {fileID: 1582208076}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.08, y: -4.99, z: 0}
+  m_LocalPosition: {x: 4.08, y: -12.62, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7546,6 +7564,7 @@ MonoBehaviour:
   dexterity: 0
   vitality: 0
   defense: 0
+  money: 0
 --- !u!4 &1590516538
 Transform:
   m_ObjectHideFlags: 0
@@ -8489,11 +8508,11 @@ MonoBehaviour:
   backgroundPanel: {fileID: 1634771070}
   dialogueText: {fileID: 1413014687}
   scaleFactor: 5
-  isWaitingForPlayer: 1
-  timelineDirector: {fileID: 806938517}
+  isWaitingForPlayer: 0
+  timelineDirector: {fileID: 0}
   cursor: {fileID: 333692525}
   dialogueActive: 1
-  cutsceneEnded: 0
+  cutsceneEnded: 1
   lineConfirmed: 0
 --- !u!95 &1800988165
 Animator:
@@ -9467,17 +9486,8 @@ MonoBehaviour:
   castleFire: 0
   playerPosessed: 0
   posessedColor: {r: 0, g: 0, b: 0, a: 0}
-  kilmor_intro_ended: 0
-  kilmor_questStarted: 0
-  kilmor_questEnded: 0
-  secretPathOpened: 0
-  attackedKilmor: 0
-  ignoredKilmor: 0
-  savedChildren: 0
-  kilmor_dead: 0
-  redGemObtained: 0
-  golemsHaveGem: 0
-  golemEncounterEnded: 0
+  dungeon_state: 0
+  forest_state: 0
   fish_questStarted: 0
   fish_questEnded: 0
   fish_willHelp: 0
@@ -11135,7 +11145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2135454387
 RectTransform:
   m_ObjectHideFlags: 0

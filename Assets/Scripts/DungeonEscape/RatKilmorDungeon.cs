@@ -23,29 +23,30 @@ public class RatKilmorDungeon : MonoBehaviour
 
     void Start()
     {
-        if (WorldState.Instance.savedChildren)
+        if (WorldState.Instance.dungeon_state == (byte)WorldState.Dungeon.Saved)
         {
             foreach (GameObject kid in kids) kid.SetActive(true);
         }
-        if (WorldState.Instance.kilmor_questStarted && !WorldState.Instance.kilmor_questEnded) gameObject.transform.parent.transform.position = new Vector2(16.67f, 10.56f);
-        if (WorldState.Instance.kilmor_dead || WorldState.Instance.attackedKilmor) gameObject.SetActive(false);
+        if (WorldState.Instance.dungeon_state >= (byte)WorldState.Dungeon.QuestStarted 
+        &&  WorldState.Instance.dungeon_state < (byte)WorldState.Dungeon.QuestEnded) gameObject.transform.parent.transform.position = new Vector2(16.67f, 10.56f);
+        if (WorldState.Instance.dungeon_state == (byte)WorldState.Dungeon.Dead || WorldState.Instance.dungeon_state == (byte)WorldState.Dungeon.Attacked) Destroy(gameObject);
     }
     void Update()
     {
         if (initInteraction.Interaction())
         {
-            if (!WorldState.Instance.kilmor_intro_ended) {
+            if (WorldState.Instance.dungeon_state == (byte)WorldState.Dungeon.IntroNotPlayed) {
                 StartCoroutine(dialoguePlayer.PlayDialogue(introDialogues, initInteraction.CloseInteraction));
-                WorldState.Instance.kilmor_intro_ended = true;
+                WorldState.Instance.dungeon_state = 5;
             }
             else
             {
-                if (!WorldState.Instance.kilmor_questStarted) dialoguePlayer.PlayCommand(questCommands, 3, OnCommandSelected);
+                if (WorldState.Instance.dungeon_state < (byte)WorldState.Dungeon.QuestStarted) dialoguePlayer.PlayCommand(questCommands, 3, OnCommandSelected);
                 else
                 {
-                    if (!WorldState.Instance.kilmor_questEnded)
+                    if (WorldState.Instance.dungeon_state < (byte)WorldState.Dungeon.QuestEnded)
                     {
-                        if (!WorldState.Instance.secretPathOpened) {
+                        if (WorldState.Instance.dungeon_state < (byte)WorldState.Dungeon.SecretPathOpened) {
                             string[] dialogueLines = {"Rat Kilmor: I think this is the place. I can still smell them.",
                             "Rat Kilmor: However I don't see any pathways that could lead us any further."};
                             StartCoroutine(dialoguePlayer.PlayDialogue(dialogueLines, initInteraction.CloseInteraction));
@@ -58,7 +59,7 @@ public class RatKilmorDungeon : MonoBehaviour
                     }
                     else
                     {
-                        if (WorldState.Instance.savedChildren)
+                        if (WorldState.Instance.dungeon_state == (byte)WorldState.Dungeon.Saved)
                         {
                             if (!WorldState.Instance.blossomGarden)
                             {
@@ -82,14 +83,13 @@ public class RatKilmorDungeon : MonoBehaviour
     {
         if (command == 0)
         {
-           WorldState.Instance.kilmor_questStarted = true;
+           WorldState.Instance.dungeon_state = (byte)WorldState.Dungeon.QuestStarted;
            string[] dialogues = {"Rat Kilmor: Thank you so much, !<NAME>!!", "Rat Kilmor: All right, follow me."};
            StartCoroutine(PlayDialogueSupportKilmor(dialogues, true));
         }
         else if (command == 1)
         {
-            WorldState.Instance.kilmor_questStarted = true;
-            WorldState.Instance.attackedKilmor = true; 
+            WorldState.Instance.dungeon_state = (byte)WorldState.Dungeon.Attacked;
             string[] dialogues = {"Rat Kilmor: What? What are you talking about?", 
             "!<NAME>!: You're standing in my way, and I don't care about your children.",
             "!<NAME>!: However I feel like you might be in posession of items I might find useful in my crusade...",

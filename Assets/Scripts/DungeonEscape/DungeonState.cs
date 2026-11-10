@@ -11,7 +11,7 @@ public class DungeonState : MonoBehaviour
     void Start()
     {
         if (WorldState.Instance.currentLevel == "Beach" || WorldState.Instance.currentLevel == "KilmorQuest" || WorldState.Instance.currentLevel == "DungeonLava") {
-            openingCutscene.gameObject.SetActive(false);
+            Destroy(openingCutscene.gameObject);
             dialogueManager.timelineDirector = null;
             if (WorldState.Instance.currentLevel == "Beach") {
                 player.transform.position = new Vector2(58.94843f, 1.065027f);
@@ -28,10 +28,18 @@ public class DungeonState : MonoBehaviour
                 cameraController.transform.position = new Vector3(42.02f, -4.66f, -10f);
             }
         }
-        else
+        else if (WorldState.Instance.currentLevel == "DungeonEscape")
         {
-            dialogueManager.timelineDirector = openingCutscene;
-            openingCutscene.Play();
+            player.transform.position = new Vector2(9.86f, 12.85f);
+            cameraController.transform.position = new Vector3(9.86f, 12.85f, -10f);
+        }
+        else {
+            if (WorldState.Instance.dungeon_state == (byte)WorldState.Dungeon.LevelIntroNotPlayed) {
+                cameraController.followPlayer = false;
+                dialogueManager.timelineDirector = openingCutscene;
+                openingCutscene.Play();
+                WorldState.Instance.dungeon_state = (byte)WorldState.Dungeon.IntroNotPlayed;
+            }
         }
         WorldState.Instance.currentLevel = "DungeonEscape";        
         StartCoroutine(blackoutManager.Fade(true));

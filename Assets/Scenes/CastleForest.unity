@@ -2131,7 +2131,7 @@ MonoBehaviour:
   learnedAboutHellsGarden: 0
   fireFixing: 0
   raggenfall: 0
-  castle: 1
+  castle: 0
   mayhemIsland: 0
   blossomGarden: 0
   roadtorag_instructions: 1
@@ -3330,7 +3330,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.09338818, y: 0.2660831}
+  m_Offset: {x: -0.08096957, y: 0.4667828}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: -0.036585364}
@@ -3340,7 +3340,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.24173607, y: 0.5009162}
+  m_Size: {x: 0.5904518, y: 0.9023156}
   m_EdgeRadius: 0
 --- !u!1001 &428395118
 PrefabInstance:
@@ -4068,7 +4068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: fc2239044795d4a4db2139f029c276d4, type: 3}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: fc2239044795d4a4db2139f029c276d4, type: 3}
       propertyPath: m_SortingLayerID
@@ -4176,7 +4176,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.44}
+  m_Offset: {x: 0, y: 0.43520972}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.558952, y: -0.032051284}
@@ -4186,7 +4186,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8, y: 0.5}
+  m_Size: {x: 0.8, y: 0.50958055}
   m_EdgeRadius: 0
 --- !u!1 &560360158
 GameObject:
@@ -5776,6 +5776,7 @@ MonoBehaviour:
   dexterity: 0
   vitality: 0
   defense: 0
+  money: 0
 --- !u!4 &820700040
 Transform:
   m_ObjectHideFlags: 0
@@ -10324,11 +10325,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: fc2239044795d4a4db2139f029c276d4, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: fc2239044795d4a4db2139f029c276d4, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: fc2239044795d4a4db2139f029c276d4, type: 3}
       propertyPath: m_SortingLayerID
@@ -28778,7 +28779,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 2}
+  m_Offset: {x: 0, y: 2.0398717}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -28788,7 +28789,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 60, y: 1}
+  m_Size: {x: 60, y: 0.89163446}
   m_EdgeRadius: 0
 --- !u!1001 &2125246405
 PrefabInstance:

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -9,21 +10,33 @@ public class DefaultEscape : MonoBehaviour
     public Character character;
     private bool cutsceneStarted = false;
     public DialogueManager dialogueManager;
+    public BlackoutManager blackoutManager;
+
+    void Start()
+    {
+        StartCoroutine(blackoutManager.Fade(true));
+    }
 
     void Update()
     {
         if (startRunning) {
-            waitTimer -= Time.deltaTime;
+            if (waitTimer > 0) waitTimer -= Time.deltaTime;
             if (!WorldState.Instance.keyStolen && waitTimer <= 0)
             {
                 if(character!=null && !cutsceneStarted && character.wait) {
-                    dialogueManager.timelineDirector = playableDirector;
-                    playableDirector.Play();
-                    cutsceneStarted = true;
-                }
-                
+                    StartCoroutine(Ponter());
+                }             
             }
         }
+    }
+
+    IEnumerator Ponter()
+    {
+        cutsceneStarted = true;
+        yield return StartCoroutine(blackoutManager.Fade(false));       
+        dialogueManager.timelineDirector = playableDirector;
+        playableDirector.Play();
+        StartCoroutine(blackoutManager.Fade(true));
     }
 
     public void StartCutscene(bool x)

@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.SceneManagement;
 
 public class ChoiceStolenKey : MonoBehaviour
 {
@@ -11,18 +10,14 @@ public class ChoiceStolenKey : MonoBehaviour
     public byte req_str = 20;
     public byte req_dex = 17;
     public byte req_dex2 = 16;
-    public PlayableDirector failedOutcome;
-    public PlayableDirector str_success;
-    public PlayableDirector dex_success;
-    public PlayableDirector dex2_success;
-    public PlayableDirector str_fail;
     public GameObject[] guards;
     public CameraController cameraController;
     public PlayableDirector guardsRunning;
+    public PlayableDirector[] cutscenes = new PlayableDirector[6]; // str_suc, dex_suc, dex2_suc, str_fail, fail, attack
 
     void Start()
     {
-        player.isControllable = false;
+        player.isControllable = false;    
     }
 
     void Update()
@@ -37,7 +32,11 @@ public class ChoiceStolenKey : MonoBehaviour
                 "4. Attack them with your bare hands", 
                 false, 4, true, OnChosenCommand);
             }
-            }   
+            foreach(var cut in cutscenes) {
+                if (cut != null) return;
+            }
+            Destroy(gameObject);
+        }   
     }
 
     public void OnChosenCommand(int command)
@@ -45,59 +44,20 @@ public class ChoiceStolenKey : MonoBehaviour
         choiceEnded = true;
         if (command == 0)
         {
-            if (PlayerData.Instance.strength >= req_str)
-            {
-                dialogueManager.timelineDirector = str_success;
-                str_success.Play();
-                str_success = null;
-            }
-            else
-            {
-                dialogueManager.timelineDirector = str_fail;
-                str_fail.Play();
-                str_fail = null;
-                //SceneManager.LoadScene("CombatCastle", LoadSceneMode.Additive);
-            }
+            StartCoroutine(StrengthCheck());
         }
         else if (command == 1)
         {
-            if (PlayerData.Instance.dexterity >= req_dex)
-            {
-                StartCoroutine(DexSuccess());
-            }
-            else
-            {
-                dialogueManager.timelineDirector = failedOutcome;
-                failedOutcome.Play();
-                failedOutcome = null;
-                //SceneManager.LoadScene("CombatCastle", LoadSceneMode.Additive);
-            }
+            StartCoroutine(DexCheck());
         }
         else if (command == 2)
         {
-            if (PlayerData.Instance.dexterity >= req_dex2)
-            {
-                WorldState.Instance.castleFire = true;
-                dialogueManager.timelineDirector = dex2_success;
-                dex2_success.Play();
-                dex2_success = null;
-            }
-            else
-            {
-                dialogueManager.timelineDirector = failedOutcome;
-                failedOutcome.Play();
-                failedOutcome = null;
-                //SceneManager.LoadScene("CombatCastle", LoadSceneMode.Additive);
-            }
+            StartCoroutine(Dex2Check());
         }
         else if (command == 3)
         {
-            //SceneManager.LoadScene("CombatCastle", LoadSceneMode.Additive);
+            StartCoroutine(Attack());
         }
-        //foreach (GameObject gob in guards)
-        //{
-        //    gob.SetActive(false);
-        //}
     }
 
     public void CloseDialogue(int nothing)
@@ -105,29 +65,74 @@ public class ChoiceStolenKey : MonoBehaviour
         player.isControllable = true;
     }
 
-    private IEnumerator DexSuccess()
+    IEnumerator Attack()
     {
-        dialogueManager.cutsceneEnded = false;
-        dialogueManager.timelineDirector = dex_success;
-        if (dex_success != null)
-        {
-            dex_success.Play();
+        dialogueManager.timelineDirector = cutscenes[5];
+        cutscenes[5].Play();
+        while (dialogueManager.timelineDirector != null) yield return null;
+        ChoiceEnded();
+    }
+
+    private IEnumerator DexCheck()
+    {
+        if (PlayerData.Instance.dexterity >=  req_dex) {
+            dialogueManager.cutsceneEnded = false;
+            dialogueManager.timelineDirector = cutscenes[1];
+            cutscenes[1].Play();
+            while (cutscenes[1].gameObject.activeInHierarchy) yield return null;
+            dialogueManager.ShowDialogue("Obtained x2 of DEX Up!", true, 0, true, CloseDialogue);
+            PlayerData.Instance.AddItem("DEX Up", 2);
+            cameraController.followPlayer = true;
         }
-        while (!dialogueManager.cutsceneEnded) yield return null;
-        dialogueManager.cutsceneEnded = false;
-        dex_success = null;
-        PlayerData.Instance.AddItem("Potion", 5);
-        dialogueManager.ShowDialogue("Found x5 of Potion", true, 0, true, CloseDialogue);
-        cameraController.followPlayer = true;
+        else
+        {
+            dialogueManager.timelineDirector = cutscenes[4];
+            cutscenes[4].Play();
+        }
+        while (dialogueManager.timelineDirector != null) yield return null;
+        ChoiceEnded();
+    }
+
+    private IEnumerator Dex2Check()
+    {
+        if (PlayerData.Instance.dexterity >= req_dex2)
+            {
+                WorldState.Instance.castleFire = true;
+                dialogueManager.timelineDirector = cutscenes[2];
+                cutscenes[2].Play();
+            }
+            else
+            {
+                dialogueManager.timelineDirector = cutscenes[4];
+                cutscenes[4].Play();
+            }
+            while (dialogueManager.timelineDirector != null) yield return null;
+            ChoiceEnded();
+    }
+
+    IEnumerator StrengthCheck()
+    {
+        if (PlayerData.Instance.strength >= req_str)
+        {
+            dialogueManager.timelineDirector = cutscenes[0];
+            cutscenes[0].Play();
+            while(cutscenes[0].gameObject.activeInHierarchy) yield return null;
+            dialogueManager.ShowDialogue("Obtained x2 of Stat Boost!", true, 0, true, CloseDialogue);
+            PlayerData.Instance.AddItem("Stat Boost", 2);
+        }
+        else
+        {
+            dialogueManager.timelineDirector = cutscenes[3];
+            cutscenes[3].Play();
+        }
+        while (dialogueManager.timelineDirector != null) yield return null;
         ChoiceEnded();
     }
 
     private void ChoiceEnded()
     {
-        str_success = null;
-        dex_success = null;
-        dex2_success = null;
-        failedOutcome = null;
-        gameObject.SetActive(false);
+        foreach(var cut in cutscenes) {
+            Destroy(cut.gameObject);
+        }
     }
 }

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Creation : MonoBehaviour
 {
-    private byte[] attributes = new byte[6];
-    public TextMeshProUGUI[] categories = new TextMeshProUGUI[6];
+    private byte[] attributes = new byte[4];
+    public TextMeshProUGUI[] categories = new TextMeshProUGUI[4];
     public TextMeshProUGUI pointsLeftText;
     public GameObject cursor;
     public GameObject confirmCursor;
@@ -76,8 +76,6 @@ public class Creation : MonoBehaviour
                         PlayerData.Instance.intelligence = attributes[1];
                         PlayerData.Instance.persuasion = attributes[2];
                         PlayerData.Instance.dexterity = attributes[3];
-                        PlayerData.Instance.vitality = attributes[4];
-                        PlayerData.Instance.defense = attributes[5];
                         oct.UnloadNextScene("CreatorScene");
                     }
                 }
@@ -125,13 +123,13 @@ public class Creation : MonoBehaviour
         if(!confirmCursorActive) {
             if (moveUp)
             {
-                if (cursorPos == 0) cursorPos = 5;
+                if (cursorPos == 0) cursorPos = 3;
                 else cursorPos--;
             }
             else if (!moveUp)
             {
 
-                if (cursorPos == 5) cursorPos = 0;
+                if (cursorPos == 3) cursorPos = 0;
                 else cursorPos++;
 
             }

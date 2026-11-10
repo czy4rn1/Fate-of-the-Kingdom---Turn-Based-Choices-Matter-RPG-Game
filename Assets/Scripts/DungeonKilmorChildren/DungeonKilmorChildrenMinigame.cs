@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -29,7 +28,14 @@ public class DungeonKilmorChildrenMinigame : MonoBehaviour
     void Start()
     {
         WorldState.Instance.currentLevel = "KilmorQuest";
-        StartCoroutine(blackoutManager.Fade(true));
+        StartCoroutine(StartScene());
+    }
+
+    IEnumerator StartScene()
+    {
+        yield return StartCoroutine(blackoutManager.Fade(true));
+        dialogueManager.timelineDirector = startCutscene;
+        startCutscene.Play();
         bottomBorder.gameObject.SetActive(false);
     }
 
@@ -77,8 +83,7 @@ public class DungeonKilmorChildrenMinigame : MonoBehaviour
                 foreach (GameObject rat in rats) rat.SetActive(true);
                 moveToSuccessCutscene.StartCutscene();
                 gameEnded = true;
-                WorldState.Instance.savedChildren = true;
-                WorldState.Instance.kilmor_questEnded = true;
+                WorldState.Instance.dungeon_state = (byte)WorldState.Dungeon.Saved;
             }
         }
         else
@@ -96,8 +101,7 @@ public class DungeonKilmorChildrenMinigame : MonoBehaviour
     IEnumerator LoseAndLoad()
     {
         moveToFailureCutscene.StartCutscene();
-        WorldState.Instance.kilmor_questEnded = true;
-        WorldState.Instance.kilmor_dead = true;
+        WorldState.Instance.dungeon_state = (byte)WorldState.Dungeon.Dead;
         gameEnded = true;
         while (failCutscene.gameObject.activeInHierarchy) yield return null;
         StartCoroutine(blackoutManager.Fade(false));

@@ -1378,7 +1378,7 @@ MonoBehaviour:
   m_Name: Dialogue Marker
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
   m_Time: 1.5666666666666667
-  text: 'Goblin 1: Whoops! Daddy''s here!'
+  text: 'Gargoyle 1: Whoops! Daddy''s here!'
   isItLast: 0
 --- !u!114 &1349065407907991567
 MonoBehaviour:
@@ -1393,7 +1393,7 @@ MonoBehaviour:
   m_Name: Dialogue Marker
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
   m_Time: 1.5
-  text: 'Rat Kilmor: Goblins!'
+  text: 'Rat Kilmor: Gargoyles!'
   isItLast: 0
 --- !u!114 &1544816894811564880
 MonoBehaviour:
@@ -2056,7 +2056,7 @@ MonoBehaviour:
   m_Name: Dialogue Marker
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
   m_Time: 1.6
-  text: 'Goblin 1: Alright, look. They''re right here, can''t you see them?'
+  text: 'Gargoyle 1: Alright, look. They''re right here, can''t you see them?'
   isItLast: 0
 --- !u!114 &5959327549154353957
 MonoBehaviour:
@@ -2086,7 +2086,7 @@ MonoBehaviour:
   m_Name: Dialogue Marker
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMarker
   m_Time: 1.6666666666666667
-  text: 'Goblin 2: Ras... They don''t know how the boxes work...'
+  text: 'Gargoyle 2: Ras... They don''t know how the boxes work...'
   isItLast: 0
 --- !u!114 &6331991643945955840
 MonoBehaviour:

@@ -17766,7 +17766,7 @@ MonoBehaviour:
   - {fileID: 1813565136}
   - {fileID: 1984251402}
   infoText: {fileID: 1234704715}
-  cursorOffset: 0.05
+  cursorOffset: -0.07
   cursor: {fileID: 1393109473}
   actionCursor: {fileID: 762983317}
   actionCursorOffset: -0.07
