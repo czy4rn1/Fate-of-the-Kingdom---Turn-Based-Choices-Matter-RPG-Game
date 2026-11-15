@@ -27,9 +27,9 @@ public class PonterVolsenInn : MonoBehaviour
     void Start()
     {
         transform.position = new Vector2(-6.51f, -0.72f);
-        if (WorldState.Instance.ponterQuestEnded)
+        if (WorldState.Instance.ponter_state >= (byte)WorldState.Ponter.QuestEnded)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 
@@ -39,15 +39,15 @@ public class PonterVolsenInn : MonoBehaviour
         {
             player.isControllable = false;
             initInteraction.interactionActive = true;
-            if (!WorldState.Instance.ponterQuestStarted) {
+            if (WorldState.Instance.ponter_state < (byte)WorldState.Ponter.QuestStarted) {
                 StartCoroutine(dialoguePlayer.PlayDialogue(introLines, CloseDialogue));
-                WorldState.Instance.ponterQuestStarted = true;
+                WorldState.Instance.ponter_state = (byte)WorldState.Ponter.QuestStarted;
             }
             else
             {   
-                if (!WorldState.Instance.ponterQuestEnded) {
+                if (WorldState.Instance.ponter_state < (byte)WorldState.Ponter.QuestEnded) {
                 command = "";
-                    if (!WorldState.Instance.ponterInfoObtained && !WorldState.Instance.jewelBladeObtained)
+                    if (WorldState.Instance.ponter_state < (byte)WorldState.Ponter.InfoObtained && !WorldState.Instance.jewelBladeObtained)
                     {
                         StartCoroutine(dialoguePlayer.PlayDialogue(new []{"Ponter: Come back to me when you find out anything."}, CloseDialogue));
                     }
@@ -65,7 +65,7 @@ public class PonterVolsenInn : MonoBehaviour
 
                         List<DialogueChoice> finalDialogueChoices = new List<DialogueChoice>();
 
-                        if (WorldState.Instance.ponterInfoObtained)
+                        if (WorldState.Instance.ponter_state == (byte)WorldState.Ponter.InfoObtained)
                         {
                             dialogueChoices[0].id = id;
                             finalDialogueChoices.Add(dialogueChoices[0]);
@@ -125,16 +125,16 @@ public class PonterVolsenInn : MonoBehaviour
                switch (chosenPath)
                 {
                     case 0:
-                        WorldState.Instance.castle = true;
+                        WorldState.Instance.ponter_state = (byte)WorldState.Ponter.Castle;
                         break;
                     case 1:
-                        WorldState.Instance.mayhemIsland = true;
+                        WorldState.Instance.ponter_state = (byte)WorldState.Ponter.MayhemIsland;
                         break;
                     case 2:
-                        WorldState.Instance.blossomGarden = true;
+                        WorldState.Instance.ponter_state = (byte)WorldState.Ponter.BlossomGarden;
                         break;  
                     case 3:
-                        WorldState.Instance.raggenfall = true;
+                        WorldState.Instance.ponter_state = (byte)WorldState.Ponter.Raggenfall;
                         break;
                     default:
                         break;       
@@ -182,7 +182,7 @@ public class PonterVolsenInn : MonoBehaviour
             finalstoryChoices.Add(storyChoices[0]);
             id++;
         }
-        if (WorldState.Instance.fish_willHelp)
+        if (WorldState.Instance.fisher_state == (byte)WorldState.Fisher.willHelp)
         {
             storyChoices[1].id = id;
             finalstoryChoices.Add(storyChoices[1]);
@@ -226,20 +226,18 @@ public class PonterVolsenInn : MonoBehaviour
         chosenPath = choice;
         string[] choiceEnded = {"Ponter: It is settled, then.", "Ponter: Let's not waste any time, !<NAME>!.", "Ponter: We should move."};
         if (choice == 0)
-            StartCoroutine(dialoguePlayer.PlayDialogue(castleChoice, null));
+            yield return StartCoroutine(dialoguePlayer.PlayDialogue(castleChoice, null));
         else if (choice == 1)
-            StartCoroutine(dialoguePlayer.PlayDialogue(mayhemIslandChoice, null));
+            yield return StartCoroutine(dialoguePlayer.PlayDialogue(mayhemIslandChoice, null));
         else if (choice == 2)
-            StartCoroutine(dialoguePlayer.PlayDialogue(blossomGardenChoice, null));
+            yield return StartCoroutine(dialoguePlayer.PlayDialogue(blossomGardenChoice, null));
         else if (choice == 3)
-            StartCoroutine(dialoguePlayer.PlayDialogue(raggenfallChoice, null));
+            yield return StartCoroutine(dialoguePlayer.PlayDialogue(raggenfallChoice, null));
        
-        while (!dialoguePlayer.dialogueEnded) yield return null;
         dialoguePlayer.PlayCommand("Are you sure?\n1. Yes\n2. No", 2, OnChosenCommand);
         while (!dialoguePlayer.dialogueEnded) yield return null;
         if(!choosePathAgain) {
-            StartCoroutine(dialoguePlayer.PlayDialogue(choiceEnded, CloseDialogue));
-            WorldState.Instance.ponterQuestEnded = true;
+            yield return StartCoroutine(dialoguePlayer.PlayDialogue(choiceEnded, CloseDialogue));
         }
     }
 }

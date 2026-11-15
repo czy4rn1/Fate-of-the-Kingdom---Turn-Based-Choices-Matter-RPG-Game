@@ -27,7 +27,7 @@ public class DungeonKilmorChildrenMinigame : MonoBehaviour
 
     void Start()
     {
-        WorldState.Instance.currentLevel = "KilmorQuest";
+        WorldState.Instance.currentLevel = "DungeonKilmorChildren";
         StartCoroutine(StartScene());
     }
 

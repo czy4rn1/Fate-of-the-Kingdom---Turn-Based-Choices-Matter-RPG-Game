@@ -654,6 +654,7 @@ MonoBehaviour:
   dexterity: 0
   vitality: 0
   defense: 0
+  money: 0
 --- !u!4 &242714839
 Transform:
   m_ObjectHideFlags: 0
@@ -3075,6 +3076,7 @@ GameObject:
   - component: {fileID: 764483461}
   - component: {fileID: 764483470}
   - component: {fileID: 764483469}
+  - component: {fileID: 764483471}
   m_Layer: 0
   m_Name: Ponter
   m_TagString: Untagged
@@ -3097,7 +3099,7 @@ MonoBehaviour:
   interactIcon: {fileID: 1659338838}
   isPlayerNearby: 0
   allowIcon: 1
-  player: {fileID: 0}
+  player: {fileID: 1897328497}
 --- !u!114 &764483462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3342,7 +3344,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.34, y: -1.19, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 121282915}
@@ -3383,7 +3385,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.08673602}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3393,7 +3395,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5625, y: 1}
+  m_Size: {x: 0.5625, y: 1.173472}
   m_EdgeRadius: 0
 --- !u!61 &764483470
 BoxCollider2D:
@@ -3429,7 +3431,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.7539369, y: -0.100079894}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3439,8 +3441,23 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1.5}
+  m_Size: {x: 0.39952022, y: 1.7001598}
   m_EdgeRadius: 0
+--- !u!114 &764483471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764483460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a365274ed0919f4409bc486feb882ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SortOrder
+  sr: {fileID: 0}
+  offset: 0
+  isStatic: 1
 --- !u!4 &788012042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: adea625a7aa652c40a6db5c2fd1c3905, type: 3}
@@ -5189,35 +5206,16 @@ MonoBehaviour:
   castleFire: 0
   playerPosessed: 0
   posessedColor: {r: 0, g: 0, b: 0, a: 0}
-  kilmor_intro_ended: 0
-  kilmor_questStarted: 0
-  kilmor_questEnded: 0
-  secretPathOpened: 0
-  attackedKilmor: 0
-  ignoredKilmor: 0
-  savedChildren: 1
-  kilmor_dead: 0
-  redGemObtained: 0
-  golemsHaveGem: 0
-  golemEncounterEnded: 0
-  fish_questStarted: 0
-  fish_questEnded: 0
-  fish_willHelp: 1
-  fish_killed: 0
+  dungeon_state: 0
+  forest_state: 0
+  fisher_state: 0
   venardRemorse: 0
   venardKilled: 0
   venardEncounterEnded: 0
-  ponterQuestStarted: 1
-  ponterQuestEnded: 0
-  ponterInfoObtained: 1
-  ponterInfoFromForgan: 0
+  ponter_state: 0
   askSellerAboutJewelBlade: 0
   learnedAboutHellsGarden: 0
   fireFixing: 1
-  raggenfall: 0
-  castle: 0
-  mayhemIsland: 0
-  blossomGarden: 0
   roadtorag_instructions: 1
   mayhem_state: 0
   gardenEntrancePlayed: 0
@@ -6222,6 +6220,7 @@ GameObject:
   - component: {fileID: 1897328498}
   - component: {fileID: 1897328497}
   - component: {fileID: 1897328503}
+  - component: {fileID: 1897328504}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -6439,6 +6438,21 @@ MonoBehaviour:
   isJumping: 0
   isClimbing: 0
   climbSpeed: 0.2
+--- !u!114 &1897328504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897328496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a365274ed0919f4409bc486feb882ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SortOrder
+  sr: {fileID: 0}
+  offset: 0
+  isStatic: 0
 --- !u!1 &1918409457
 GameObject:
   m_ObjectHideFlags: 0

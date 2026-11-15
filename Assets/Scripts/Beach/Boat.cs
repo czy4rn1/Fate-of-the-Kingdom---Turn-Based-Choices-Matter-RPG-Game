@@ -20,8 +20,8 @@ public class Boat : MonoBehaviour
         if (WorldState.Instance.currentLevel == "Volsen")
         {
             sceneLoader = GetComponent<SceneLoader>();
-            if (!WorldState.Instance.fish_killed && !WorldState.Instance.fish_questEnded) gameObject.SetActive(false);
-            if (fisherman != null) if (WorldState.Instance.fish_killed) fisherman.SetActive(false);
+            if (WorldState.Instance.fisher_state < (byte)WorldState.Fisher.questEnded) Destroy(gameObject);
+            if (fisherman != null) if (WorldState.Instance.fisher_state == (byte)WorldState.Fisher.killed) Destroy(fisherman);
         }
     }
     void Update()
@@ -30,7 +30,7 @@ public class Boat : MonoBehaviour
         {
             if (WorldState.Instance.currentLevel == "Beach")
             {
-                if (WorldState.Instance.fish_killed || WorldState.Instance.fish_questEnded)
+                if (WorldState.Instance.fisher_state >= (byte)WorldState.Fisher.questEnded)
                 {
                     StartCoroutine(LoadTransition());
                 }
@@ -40,7 +40,7 @@ public class Boat : MonoBehaviour
             }
             else if (WorldState.Instance.currentLevel == "Volsen")
             {
-                if (WorldState.Instance.mayhemIsland && WorldState.Instance.fish_willHelp)
+                if (WorldState.Instance.ponter_state == (byte)WorldState.Ponter.MayhemIsland && WorldState.Instance.fisher_state == (byte)WorldState.Fisher.willHelp)
                 {
                     dialoguePlayer.PlayCommand("Fisherman: Where to, my friend?\n1. Go to Mayhem Island\n2. Go to the Beach\n3. Leave", 3, OnChosenCommand);
                 }

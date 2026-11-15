@@ -1,12 +1,10 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 
 public class VenardVolsen : MonoBehaviour
 {
     public Player player;
-    public PlayerDetection playerDetection;
     public PlayDialogueLines dialoguePlayer;
     public string[] introLines;
     public string[] standardLines;
@@ -15,11 +13,10 @@ public class VenardVolsen : MonoBehaviour
     public string[] disagreeLines;
     public string[] questNoEncounterNoRemorse;
     public string[] questRemorse;
-    public PlayableDirector venardKilled;
     public InitInteraction initInteraction;
     void Start()
     {
-        if (WorldState.Instance.venardKilled) gameObject.SetActive(false);
+        if (WorldState.Instance.ponter_state >= (byte)WorldState.Ponter.QuestEnded) Destroy(gameObject);
         if (WorldState.Instance.venardRemorse) ChangeStandardLines();
     }
 
@@ -28,15 +25,19 @@ public class VenardVolsen : MonoBehaviour
     {
         if (initInteraction.Interaction())
         {
-            if (!WorldState.Instance.ponterQuestStarted) {
-                if (!WorldState.Instance.venardEncounterEnded) {
+            if (WorldState.Instance.ponter_state < (byte)WorldState.Ponter.QuestStarted) {
+                if (!WorldState.Instance.venardEncounterEnded && !WorldState.Instance.venardIntro) {
                     StartCoroutine(Interaction());
+                    WorldState.Instance.venardIntro = true;
+                }
+                else if (!WorldState.Instance.venardEncounterEnded && WorldState.Instance.venardIntro){
+                    dialoguePlayer.PlayCommand(commands, 3, OnCommandSelected);
                 }
                 else StartCoroutine(dialoguePlayer.PlayDialogue(standardLines, initInteraction.CloseInteraction));
             }
             else
             {
-                if (!WorldState.Instance.ponterQuestEnded)
+                if (WorldState.Instance.ponter_state < (byte)WorldState.Ponter.QuestEnded)
                 {
                     if (!WorldState.Instance.venardEncounterEnded)
                     {
@@ -65,26 +66,24 @@ public class VenardVolsen : MonoBehaviour
         {
             case 0:
                 StartCoroutine(dialoguePlayer.PlayDialogue(agreeLines, initInteraction.CloseInteraction));
+                WorldState.Instance.venardEncounterEnded = true;
                 break;
             case 1:
                 WorldState.Instance.venardRemorse = true;
                 StartCoroutine(dialoguePlayer.PlayDialogue(disagreeLines, initInteraction.CloseInteraction));
                 ChangeStandardLines();
+                WorldState.Instance.venardEncounterEnded = true;
                 break;
             case 2:
-                WorldState.Instance.venardKilled = true;
-                if (venardKilled != null) venardKilled.Play();
-                break;  
+                initInteraction.CloseInteraction(0);
+                break;
             default: break;          
         }
-        initInteraction.interactionActive = false;
-        WorldState.Instance.venardEncounterEnded = true;
     }
 
     public IEnumerator Interaction()
     {
-        StartCoroutine(dialoguePlayer.PlayDialogue(introLines, null));
-        while (!dialoguePlayer.dialogueEnded) yield return null;
+        yield return StartCoroutine(dialoguePlayer.PlayDialogue(introLines, null));
         dialoguePlayer.PlayCommand(commands, 3, OnCommandSelected);
     }
 

@@ -11,14 +11,16 @@ public class CollectFishes : MonoBehaviour
     }
     void Update()
     {
-        if (WorldState.Instance.fish_questStarted)
+        if (WorldState.Instance.fisher_state == (byte)WorldState.Fisher.questStarted)
         {
             if (!fishesSpawned) {
                 fishesSpawned = true;
                 SpawnFish();
             }
         }
-        if (WorldState.Instance.fish_questEnded) gameObject.SetActive(false);   
+        if (WorldState.Instance.fisher_state >= (byte)WorldState.Fisher.questEnded) {
+            Destroy(gameObject);
+        }
     }
 
     void SpawnFish()

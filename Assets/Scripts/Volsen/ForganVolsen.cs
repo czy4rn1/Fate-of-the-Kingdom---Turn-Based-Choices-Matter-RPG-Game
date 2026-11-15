@@ -10,18 +10,19 @@ public class ForganVolsen : MonoBehaviour
 
     void Start()
     {
-        if (WorldState.Instance.ponterQuestStarted) talkingNPC.enabled = false;
+        if (WorldState.Instance.ponter_state >= (byte)WorldState.Ponter.QuestStarted) talkingNPC.enabled = false;
     }
 
     void Update()
     {
         if (initInteraction.Interaction())
         {
-            if (WorldState.Instance.ponterQuestStarted && !WorldState.Instance.ponterQuestEnded)
+            if (WorldState.Instance.ponter_state >= (byte)WorldState.Ponter.QuestStarted &&
+                WorldState.Instance.ponter_state < (byte)WorldState.Ponter.QuestEnded)
             {
-                if (!WorldState.Instance.ponterInfoFromForgan) {
+                if (WorldState.Instance.ponter_state < (byte)WorldState.Ponter.InfoFromForgan) {
                     StartCoroutine(dialoguePlayer.PlayDialogue(ponterQuestLines, initInteraction.CloseInteraction));
-                    WorldState.Instance.ponterInfoFromForgan = true;
+                    WorldState.Instance.ponter_state = (byte)WorldState.Ponter.InfoFromForgan;
                 }
                 else
                 {

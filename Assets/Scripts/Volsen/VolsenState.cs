@@ -25,12 +25,12 @@ public class VolsenState : MonoBehaviour
         }
         else player.transform.position = new Vector2(0f, 0f);
         WorldState.Instance.currentLevel = "Volsen";
-        if (WorldState.Instance.ponterQuestStarted && !WorldState.Instance.fireFixing && WorldState.Instance.castleFire)
+        if (WorldState.Instance.ponter_state >= (byte)WorldState.Ponter.QuestStarted && !WorldState.Instance.fireFixing && WorldState.Instance.castleFire)
         {
             guardLookingForWorkers.Play();
             WorldState.Instance.fireFixing = true;
         }
-        if (!WorldState.Instance.raggenfall) roadToRaggenfall.enabled = false;
+        if (WorldState.Instance.ponter_state < (byte)WorldState.Ponter.Raggenfall) roadToRaggenfall.enabled = false;
         StartCoroutine(blackoutManager.Fade(true));
     }
 

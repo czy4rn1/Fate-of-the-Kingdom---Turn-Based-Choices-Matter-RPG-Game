@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class TerraVolsen : MonoBehaviour
@@ -9,19 +10,26 @@ public class TerraVolsen : MonoBehaviour
     private bool botheringTerra = false;
     void Start()
     {
-        if (!WorldState.Instance.ponterQuestStarted || WorldState.Instance.ponterQuestEnded) gameObject.SetActive(false);
+        if (WorldState.Instance.ponter_state < (byte)WorldState.Ponter.QuestStarted ||
+            WorldState.Instance.ponter_state > (byte)WorldState.Ponter.QuestEnded) Destroy(gameObject);
     }
 
     void Update()
     {
         if (initInteraction.Interaction())
         {
-            if (!WorldState.Instance.ponterInfoObtained)
+            StartCoroutine(Dialogue());
+        }
+    }
+
+    IEnumerator Dialogue()
+    {
+        if (WorldState.Instance.ponter_state < (byte)WorldState.Ponter.InfoObtained)
             {
-                if (WorldState.Instance.ponterInfoFromForgan)
+                if (WorldState.Instance.ponter_state >= (byte)WorldState.Ponter.InfoFromForgan)
                 {
-                    StartCoroutine(dialoguePlayer.PlayDialogue(ponterQuestLines, initInteraction.CloseInteraction));
-                    WorldState.Instance.ponterInfoObtained = true;
+                    yield return StartCoroutine(dialoguePlayer.PlayDialogue(ponterQuestLines, initInteraction.CloseInteraction));
+                    WorldState.Instance.ponter_state = (byte)WorldState.Ponter.InfoObtained;
                 }
                 else
                 {
@@ -32,11 +40,11 @@ public class TerraVolsen : MonoBehaviour
                         "Terra: You come here again with a nothing business and I'll feed crocodiles with you!",
                         "Terra: You hear me?!",
                         "!<NAME>!: I'm sorry..."};
-                        StartCoroutine(dialoguePlayer.PlayDialogue(lines, initInteraction.CloseInteraction));
+                        yield return StartCoroutine(dialoguePlayer.PlayDialogue(lines, initInteraction.CloseInteraction));
                         botheringTerra = true;
                     } else
                     {
-                        StartCoroutine(dialoguePlayer.PlayDialogue(new[] {"Terra: Stop bothering me!"}, initInteraction.CloseInteraction));
+                        yield return StartCoroutine(dialoguePlayer.PlayDialogue(new[] {"Terra: Stop bothering me!"}, initInteraction.CloseInteraction));
                     }
                 }
             }
@@ -44,8 +52,7 @@ public class TerraVolsen : MonoBehaviour
             {
                 string[] lines = {"Terra: Don't forget to return it, you little rascal!",
                 "Terra: And come back if you want something else to read!"};
-                StartCoroutine(dialoguePlayer.PlayDialogue(lines, initInteraction.CloseInteraction));
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(lines, initInteraction.CloseInteraction));
             }
-        }
     }
 }

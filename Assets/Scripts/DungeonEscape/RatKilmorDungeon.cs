@@ -61,7 +61,7 @@ public class RatKilmorDungeon : MonoBehaviour
                     {
                         if (WorldState.Instance.dungeon_state == (byte)WorldState.Dungeon.Saved)
                         {
-                            if (!WorldState.Instance.blossomGarden)
+                            if (WorldState.Instance.ponter_state == (byte)WorldState.Ponter.BlossomGarden)
                             {
                                 StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {"Rat Kilmor: Thank you so much for saving my children. Come back if you need help from me."}, initInteraction.CloseInteraction));
                             }

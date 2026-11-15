@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MenuPanel : MonoBehaviour
 {
@@ -59,6 +60,7 @@ public class MenuPanel : MonoBehaviour
     
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F7)) SaveSystem.Load();
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (!panelActive && player.isControllable && player.movement.x == 0f && player.movement.y == 0f) ActivateMenu();
@@ -87,7 +89,11 @@ public class MenuPanel : MonoBehaviour
             menuType = (byte)(cursorPos+1);
             ChangeCursorPos(true);
         }
-        else if (cursorPos + 1 == 4) cursorPos = cursorPos; // add Saving
+        else if (cursorPos + 1 == 4) {
+            bool ok = SaveSystem.Save();
+            if (coroutine != null) StopCoroutine(coroutine);
+            coroutine = StartCoroutine(ShowInfo(ok ? "Game saved!" : "Save failed!"));
+        }
         else if (cursorPos + 1 == 5) Application.Quit();
 
     }

@@ -13,6 +13,7 @@ public class WorldState : MonoBehaviour
     public bool castleFire = false;
 
     public bool playerPosessed = false;
+    public bool ponterCaptured = false;
     public Color posessedColor;
 
     // --- KILMOR QUEST ---
@@ -44,29 +45,41 @@ public class WorldState : MonoBehaviour
     // ------------------------
 
     // -- FISHERMAN ---
-    public bool fish_questStarted = false;
-    public bool fish_questEnded = false;
-    public bool fish_willHelp = false;
-    public bool fish_killed = false;
+
+    public enum Fisher : byte
+    {
+        introNotPlayed = 0,
+        questStarted = 10,
+        questEnded = 20,
+        willHelp = 21,
+        killed = 22
+    }
+    public byte fisher_state = 0;
     // ----------------
 
     // -- VOLSEN ------
+    public bool venardIntro = false;
     public bool venardRemorse = false;
-    public bool venardKilled = false;
     public bool venardEncounterEnded = false;
 
     // -- VOLSEN INN -------
-    public bool ponterQuestStarted = false;
-    public bool ponterQuestEnded = false;
-    public bool ponterInfoObtained = false;
-    public bool ponterInfoFromForgan = false;
+
+    public enum Ponter : byte
+    {
+        NotStarted = 0,
+        QuestStarted = 10,
+        InfoFromForgan = 20,
+        InfoObtained = 30,
+        QuestEnded = 40,
+        Raggenfall = 41,
+        Castle = 42,
+        MayhemIsland = 43,
+        BlossomGarden = 44
+    }
+    public byte ponter_state = 0;
     public bool askSellerAboutJewelBlade = false;
     public bool learnedAboutHellsGarden = false;
     public bool fireFixing = false;
-    public bool raggenfall = false;
-    public bool castle = false;
-    public bool mayhemIsland = false;
-    public bool blossomGarden = false;
 
     public bool roadtorag_instructions = true;
 
@@ -80,7 +93,8 @@ public class WorldState : MonoBehaviour
     }
     public byte mayhem_state = (byte)Mayhem.NotEntered;
 
-    // -- BLOSSOM GARDEN -- 
+    // -- BLOSSOM GARDEN --
+
     public bool gardenEntrancePlayed = false;
     public bool gardenerSummoned = false;
     public bool vaseMoved = false;
@@ -95,7 +109,7 @@ public class WorldState : MonoBehaviour
     public bool appleTaken = false;
     public bool blossomDarkness = false;
     public bool disableTrees = false;
-    public bool ponterCaptured = false;
+    
 
     // -- DUNGEON LAVA --
     public bool lavaEntryCutscenePlayed = false;
@@ -140,6 +154,10 @@ public class WorldState : MonoBehaviour
 
     void Awake()
     {
+        posessedColor.r = 0.104f;
+        posessedColor.g = 0.932f;
+        posessedColor.b = 0.816f;
+        posessedColor.a = 1f;
         if (Instance == null)
         {
             Instance = this;
@@ -158,5 +176,12 @@ public class WorldState : MonoBehaviour
     public bool IsChestOpen(string chest_id)
     {
         return openChests.Contains(chest_id);
+    }
+
+    public IEnumerable<string> OpenChestIds => openChests;
+    public void RestoreChests(List<string> ids)
+    {
+        openChests.Clear();
+        if (ids != null) foreach(string id in ids) openChests.Add(id);
     }
 }

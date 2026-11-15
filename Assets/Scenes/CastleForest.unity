@@ -2104,36 +2104,18 @@ MonoBehaviour:
   jewelBladeObtained: 0
   castleFire: 0
   playerPosessed: 0
+  ponterCaptured: 0
   posessedColor: {r: 0, g: 0, b: 0, a: 0}
-  kilmor_intro_ended: 0
-  kilmor_questStarted: 0
-  kilmor_questEnded: 0
-  secretPathOpened: 0
-  attackedKilmor: 0
-  ignoredKilmor: 0
-  savedChildren: 0
-  kilmor_dead: 0
-  redGemObtained: 0
-  golemsHaveGem: 0
-  golemEncounterEnded: 0
-  fish_questStarted: 0
-  fish_questEnded: 0
-  fish_willHelp: 0
-  fish_killed: 0
+  dungeon_state: 0
+  forest_state: 0
+  fisher_state: 0
   venardRemorse: 0
   venardKilled: 0
   venardEncounterEnded: 0
-  ponterQuestStarted: 0
-  ponterQuestEnded: 0
-  ponterInfoObtained: 0
-  ponterInfoFromForgan: 0
+  ponter_state: 0
   askSellerAboutJewelBlade: 0
   learnedAboutHellsGarden: 0
   fireFixing: 0
-  raggenfall: 0
-  castle: 0
-  mayhemIsland: 0
-  blossomGarden: 0
   roadtorag_instructions: 1
   mayhem_state: 0
   gardenEntrancePlayed: 0
@@ -2150,7 +2132,6 @@ MonoBehaviour:
   appleTaken: 0
   blossomDarkness: 0
   disableTrees: 0
-  ponterCaptured: 0
   lavaEntryCutscenePlayed: 0
   ahorgis_state: 0
   raggenfall_state: 0
@@ -9533,7 +9514,7 @@ Transform:
   m_GameObject: {fileID: 1344914780}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.17, y: 0.02, z: 0}
+  m_LocalPosition: {x: -6.42, y: -12.3, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

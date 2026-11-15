@@ -6,116 +6,92 @@ public class FisherMan : MonoBehaviour
     public PlayerDetection playerDetection;
     public Player player;
     public string[] introDialouge;
-    private bool introEnded = false;
     public byte req_per;
     public CollectFishes collectFishes;
     public InitInteraction initInteraction;
     public PlayDialogueLines dialoguePlayer;
+    public string[] perSuccess;
+    public string[] perFail;
+    public string[] standardEnd;
     
     void Start()
     {
-        if (WorldState.Instance.fish_killed) gameObject.SetActive(false);
+        if (WorldState.Instance.fisher_state == (byte)WorldState.Fisher.killed) Destroy(gameObject);
     }
     
     void Update()
     {
-        if (WorldState.Instance.fish_killed) gameObject.SetActive(false);
+        if (WorldState.Instance.fisher_state == (byte)WorldState.Fisher.killed) Destroy(gameObject);
         if (initInteraction.Interaction()) {
-            if (!introEnded && !WorldState.Instance.fish_questStarted) {
-                StartCoroutine(dialoguePlayer.PlayDialogue(introDialouge, initInteraction.CloseInteraction));
-                introEnded = true;
-            }
-            else {
-                if (!WorldState.Instance.fish_questStarted) {
-                    string command = "Would you help a poor old bastard like me?\n" +
-                    "1. Sure, I'll do it for you.\n" +
-                    $"2. [PER {PlayerData.Instance.persuasion}/{req_per}] Do you realize what's on the line?\n" +
-                    "3. Attack him\n" +
-                    "4. I have to think about it";
-                    dialoguePlayer.PlayCommand(command, 4, OnCommandSelected);
-                }
-                else if (WorldState.Instance.fish_questStarted && !WorldState.Instance.fish_questEnded)
-                {
-                    if (collectFishes.fishes_collected < 7) {
-                        string fishes = collectFishes.fishes_collected == 1 ? "fish" : "fishes";
-                        string text = $"Fisherman: You've collected {collectFishes.fishes_collected} {fishes}! {7-collectFishes.fishes_collected} more to go!";
-                        dialoguePlayer.PlayDialogue(new[] {text}, initInteraction.CloseInteraction);
-                    }
-                    else
-                    {
-                        string[] dialogueLines = {"Fisherman: Ohohoh, thank you so much! You have no idea how much easier you made my next week.", 
-                        "Fisherman: Very well, I's time for me to keep my end of the bargain now.",
-                        "Fisherman: Get in the boat, whenever you're ready.",
-                        "Fisherman: Oh, and one more thing. Please take this. You'll have more use of this than me, anyway.",
-                        "Obtained x1 of DEX Up",
-                        "Fisherman: Feel free to come back any time. You'll always be welcome here."};
-                        StartCoroutine(dialoguePlayer.PlayDialogue(dialogueLines, initInteraction.CloseInteraction));
-                        PlayerData.Instance.AddItem("DEX Up");
-                        WorldState.Instance.fish_questEnded = true;
-                    }
-                }
-                else if (WorldState.Instance.fish_questStarted && WorldState.Instance.fish_questEnded)
-                {
-                    StartCoroutine(dialoguePlayer.PlayDialogue(new[] {"Fisherman: Get in the boat, whenever you're ready."},initInteraction.CloseInteraction));
-                }
-            }
-            
+            StartCoroutine(Dialogue());
         } 
     }
 
     public void OnCommandSelected(int command) {
         if (command == 0) {
-            WorldState.Instance.fish_questStarted = true;
+            WorldState.Instance.fisher_state = (byte)WorldState.Fisher.questStarted;
             StartCoroutine(dialoguePlayer.PlayDialogue(new[] {"Fisherman: Alrighty, then! I'll be waiting for you right here."},initInteraction.CloseInteraction));
         }
         else if (command == 1) {
             if (PlayerData.Instance.persuasion >= req_per)
             {
-               string[] dialogueLines = {"!<NAME>!: Please, listen to me. You might not realize it, because you've left the civilization years ago, but we've entered the dark ages",
-               "!<NAME>!: I haven't introduced myself to you. My name is !<NAME>!, and for the last year I've been a part of a rebellion.",
-               "!<NAME>!: Our mission is to overthrow Lord Magnus. Under his dynasty many of my friends have died, been captured or executed by his battalion.",
-               "!<NAME>!: With each month his army is growing bigger and stronger, and we were not certain, how he convinces people to join him.",
-               "!<NAME>!: Even a couple of former members of the rebellion have joined his army. One of them was my best friend.",
-               "!<NAME>!: I have just escaped his jail, and I managed to have a closer look at his knights.",
-               "!<NAME>!: Every single one of them had black eyes, some of them were worshipping him like a god. Their movements were unnatural, and many times it looked like they were fighting themselves from the inside.",
-               "!<NAME>!: I am certain he is a user of the Devil Magic, and I have to stop him before he brings Apocalypse on all of us.",
-               "!<NAME>!: And that includes you, as well.",
-               "!<NAME>!: So please, let's not delay my mission any further, and please transport me to Vilson.",
-               "Fisherman: I-uh... I see... I'm really sorry, I didn't know things got this bad up there...",
-               "Fisherman: I left when my son was convinced to join Magnus' army. It happened 3 years ago...",
-               "Fisherman: We had an awful fight - many epithets thrown at each other, and then it turned into a brawl.",
-               "Fisherman: He beat me up pretty badly.",
-               "Fisherman: It broke my heart, but that day I considered my son dead.",
-               "Fisherman: I decided to leave the town. Heartbroken, weak and lost of any hope.",
-               "Fisherman: I know that I'm an old man and my help isn't much worth, but I'd like to help you in any way I can.",
-               "Fisherman: Do you think it'd be possible to bring my son back?",
-               "!<NAME>!: Currently with the knowledge I have, I am not able to answer this question, but my goal is to save as many people as possible.",
-               "!<NAME>!: I'll do everything I can to bring your son back.",
-               "Fisherman: Thank you, !<NAME>!. Get in the boat, whenever you're ready."
-               }; 
-               WorldState.Instance.fish_questStarted = WorldState.Instance.fish_questEnded = WorldState.Instance.fish_willHelp = true;
-               StartCoroutine(dialoguePlayer.PlayDialogue(dialogueLines, initInteraction.CloseInteraction));
+               WorldState.Instance.fisher_state = (byte)WorldState.Fisher.willHelp;
+               StartCoroutine(dialoguePlayer.PlayDialogue(perSuccess, initInteraction.CloseInteraction));
             }
             else
             {
-               string[] dialogueLines = {"!<NAME>!: Look, I don't have time for this.",
-               "!<NAME>!: I'm on a very important mission, and I have to get to Vilson as soon as possible.",
-               "!<NAME>!: Just quit talking, get on the boat and transport me there.",
-               "Fisherman: Yeah sure, bud. And I'm the king of Atlantis! Now get me some fish, please."}; 
-               StartCoroutine(dialoguePlayer.PlayDialogue(dialogueLines, initInteraction.CloseInteraction));
+               StartCoroutine(dialoguePlayer.PlayDialogue(perFail, initInteraction.CloseInteraction));
             }
         }
         else if (command == 2) {
-            WorldState.Instance.fish_questStarted = true;
-            WorldState.Instance.fish_questEnded = true;
-            WorldState.Instance.fish_killed = true;
-            string[] dialogueLines = {"!<NAME>!: You could have made it easy on yourself, but you've chosen otherwise.", "!<NAME>!: That's on you, old man"}; 
-            StartCoroutine(dialoguePlayer.PlayDialogue(dialogueLines, initInteraction.CloseInteraction));
+            StartCoroutine(KillFisher());   
         }
         else if (command == 3)
         {
             StartCoroutine(dialoguePlayer.PlayDialogue(new[] {"Fisherman: Well, I'm not going anywhere! You'll find me here."}, initInteraction.CloseInteraction));
         }
+    }
+
+    IEnumerator KillFisher()
+    {
+        string[] dialogueLines = {"!<NAME>!: You could have made it easy on yourself, but you've chosen otherwise.", "!<NAME>!: That's on you, old man"}; 
+        yield return StartCoroutine(dialoguePlayer.PlayDialogue(dialogueLines, initInteraction.CloseInteraction));
+        WorldState.Instance.fisher_state = (byte)WorldState.Fisher.killed;
+    }
+
+    IEnumerator Dialogue()
+    {
+        if (WorldState.Instance.fisher_state == (byte)WorldState.Fisher.introNotPlayed) {
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(introDialouge));
+                WorldState.Instance.fisher_state = 5;
+            }
+        if (WorldState.Instance.fisher_state < (byte)WorldState.Fisher.questStarted) {
+            string command = "Would you help a poor old bastard like me?\n" +
+            "1. Sure, I'll do it for you.\n" +
+            $"2. [PER {PlayerData.Instance.persuasion}/{req_per}] Do you realize what's on the line?\n" +
+            "3. Attack him\n" +
+            "4. I have to think about it";
+            dialoguePlayer.PlayCommand(command, 4, OnCommandSelected);
+        }
+        else if (WorldState.Instance.fisher_state < (byte)WorldState.Fisher.questEnded)
+        {
+            if (collectFishes.fishes_collected < 7) {
+                string fishes = collectFishes.fishes_collected == 1 ? "fish" : "fishes";
+                string text = $"Fisherman: You've collected {collectFishes.fishes_collected} {fishes}! {7-collectFishes.fishes_collected} more to go!";
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(new[] {text}, initInteraction.CloseInteraction));
+            }
+            else
+            {
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(standardEnd, initInteraction.CloseInteraction));
+                PlayerData.Instance.AddItem("DEX Up");
+                WorldState.Instance.fisher_state = (byte)WorldState.Fisher.questEnded;
+            }
+        }
+        else if (WorldState.Instance.fisher_state >= (byte)WorldState.Fisher.questEnded)
+        {
+            yield return StartCoroutine(dialoguePlayer.PlayDialogue(new[] {"Fisherman: Get in the boat, whenever you're ready."},initInteraction.CloseInteraction));
+        }
+
     }
 
 }

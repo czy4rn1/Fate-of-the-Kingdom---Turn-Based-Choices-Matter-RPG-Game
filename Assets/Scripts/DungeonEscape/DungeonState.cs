@@ -17,7 +17,7 @@ public class DungeonState : MonoBehaviour
                 player.transform.position = new Vector2(58.94843f, 1.065027f);
                 cameraController.transform.position = new Vector3(51.90147f, 1.065027f, -10f);
             }
-            else if (WorldState.Instance.currentLevel == "KilmorQuest")
+            else if (WorldState.Instance.currentLevel == "DungeonKilmorChildren")
             {
                 player.transform.position = new Vector2(17.74f, 10.64f);
                 cameraController.transform.position = new Vector3(17.74f, 10.64f, -10f);

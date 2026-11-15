@@ -548,7 +548,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 3505b70dc0b75bc4498ee669c29c2b5e, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -747,16 +747,11 @@ MonoBehaviour:
   escapedThroughCave: 0
   jewelBladeObtained: 0
   castleFire: 0
-  kilmor_intro_ended: 0
-  kilmor_questStarted: 0
-  kilmor_questEnded: 0
-  secretPathOpened: 0
-  attackedKilmor: 0
-  ignoredKilmor: 0
-  savedChildren: 0
-  redGemObtained: 0
-  golemsHaveGem: 0
-  golemEncounterEnded: 0
+  playerPosessed: 0
+  posessedColor: {r: 0, g: 0, b: 0, a: 0}
+  dungeon_state: 0
+  forest_state: 0
+  fisher_state: 0
   fish_questStarted: 0
   fish_questEnded: 0
   fish_willHelp: 0
@@ -771,10 +766,32 @@ MonoBehaviour:
   askSellerAboutJewelBlade: 0
   learnedAboutHellsGarden: 0
   fireFixing: 0
-  roggenfall: 0
+  raggenfall: 0
   castle: 0
   mayhemIsland: 0
   blossomGarden: 0
+  roadtorag_instructions: 1
+  mayhem_state: 0
+  gardenEntrancePlayed: 0
+  gardenerSummoned: 0
+  vaseMoved: 0
+  treeGameEnded: 0
+  gardenerIntroPlayed: 0
+  gardenerChoiceMade: 0
+  gardenerJoins: 0
+  ponterDead: 0
+  playerEnslaved: 0
+  gardenerStandard: 0
+  appleCutscenePlayed: 0
+  appleTaken: 0
+  blossomDarkness: 0
+  disableTrees: 0
+  ponterCaptured: 0
+  lavaEntryCutscenePlayed: 0
+  ahorgis_state: 0
+  raggenfall_state: 0
+  VolsenFell: 0
+  deserter_state: 0
 --- !u!4 &664373093
 Transform:
   m_ObjectHideFlags: 0
@@ -1118,11 +1135,7 @@ MonoBehaviour:
   dexterity: 0
   vitality: 0
   defense: 0
-  exp: 0
-  allExp: 0
-  lvl: 1
-  lvl_wall: 200
-  expToNextLvl: 200
+  money: 0
 --- !u!4 &1005921035
 Transform:
   m_ObjectHideFlags: 0

@@ -2869,6 +2869,88 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: 4a44e23492d6a874991489287653210f, type: 3}
   m_PrefabInstance: {fileID: 281690003}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &293003811
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1937121224}
+    m_Modifications:
+    - target: {fileID: -2253911629886400664, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_Name
+      value: playershadow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_SortingOrder
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1072056499
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.827
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.067
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: -8435245712485981826, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+--- !u!4 &293003812 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
+  m_PrefabInstance: {fileID: 293003811}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &306452454
 GameObject:
   m_ObjectHideFlags: 0
@@ -5464,7 +5546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 1.03
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 812a04605fd44c741b4641da7e0beb48, type: 3}
       propertyPath: m_LocalPosition.z
@@ -21081,40 +21163,21 @@ MonoBehaviour:
   guardRanAway: 0
   escapedThroughCave: 0
   jewelBladeObtained: 0
-  castleFire: 0
+  castleFire: 1
   playerPosessed: 0
+  ponterCaptured: 0
   posessedColor: {r: 0, g: 0, b: 0, a: 0}
-  kilmor_intro_ended: 0
-  kilmor_questStarted: 0
-  kilmor_questEnded: 0
-  secretPathOpened: 0
-  attackedKilmor: 0
-  ignoredKilmor: 0
-  savedChildren: 0
-  kilmor_dead: 0
-  redGemObtained: 0
-  golemsHaveGem: 0
-  golemEncounterEnded: 0
-  fish_questStarted: 0
-  fish_questEnded: 1
-  fish_willHelp: 1
-  fish_killed: 0
+  dungeon_state: 0
+  forest_state: 0
+  fisher_state: 0
   venardRemorse: 0
-  venardKilled: 0
   venardEncounterEnded: 0
-  ponterQuestStarted: 1
-  ponterQuestEnded: 0
-  ponterInfoObtained: 0
-  ponterInfoFromForgan: 0
+  ponter_state: 0
   askSellerAboutJewelBlade: 0
   learnedAboutHellsGarden: 0
   fireFixing: 0
-  raggenfall: 0
-  castle: 0
-  mayhemIsland: 1
-  blossomGarden: 0
   roadtorag_instructions: 1
-  mayhem_state: 10
+  mayhem_state: 0
   gardenEntrancePlayed: 0
   gardenerSummoned: 0
   vaseMoved: 0
@@ -21129,7 +21192,6 @@ MonoBehaviour:
   appleTaken: 0
   blossomDarkness: 0
   disableTrees: 0
-  ponterCaptured: 0
   lavaEntryCutscenePlayed: 0
   ahorgis_state: 0
   raggenfall_state: 0
@@ -24644,6 +24706,7 @@ GameObject:
   - component: {fileID: 1937121229}
   - component: {fileID: 1937121228}
   - component: {fileID: 1937121230}
+  - component: {fileID: 1937121231}
   m_Layer: 0
   m_Name: Venard
   m_TagString: Untagged
@@ -24700,12 +24763,12 @@ SpriteRenderer:
   m_SortingLayer: 5
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2549595046606831259, guid: 9d5534c8400898349b533f123023941d, type: 3}
+  m_Sprite: {fileID: 6267107295216335333, guid: 7ab25f228a3e04540bfe39460176f2ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.65625, y: 1}
+  m_Size: {x: 0.5625, y: 0.96875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -24719,11 +24782,12 @@ Transform:
   m_GameObject: {fileID: 1937121221}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.1, y: 1.41, z: 0}
+  m_LocalPosition: {x: -17.1, y: 0.73, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 587660823}
+  - {fileID: 293003812}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1937121225
@@ -24755,7 +24819,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   player: {fileID: 1022761611}
-  playerDetection: {fileID: 1937121225}
   dialoguePlayer: {fileID: 1416833190}
   introLines:
   - 'Venard: Now look who''s back on his feet!'
@@ -24788,7 +24851,7 @@ MonoBehaviour:
   - 'Venard: What are you still doing here?'
   - 'Venard: Go and kill more of your men.'
   commands: "Venard: Your methods disgust me. \\n1. I... haven't considered that\u2026
-    \\n2. You're the one that's weak. \\n3. I'm tired of your nonsense."
+    \\n2. You're the one that's weak. \\n3. Leave"
   agreeLines:
   - '!<NAME>!: I''ve made mistakes in my life, and many have died because of me.'
   - '!<NAME>!: I never thought of my comrades as weak, but... You''re right.'
@@ -24822,7 +24885,6 @@ MonoBehaviour:
   questRemorse:
   - 'Venard: Just leave me alone...'
   - 'Venard: Whatever you need, I can''t help you.'
-  venardKilled: {fileID: 0}
   initInteraction: {fileID: 1937121230}
 --- !u!61 &1937121228
 BoxCollider2D:
@@ -24858,17 +24920,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.47168162}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.65625, y: 1}
-    newSize: {x: 0.65625, y: 1}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 0.5625, y: 0.96875}
+    newSize: {x: 0.5625, y: 0.96875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.65625, y: 1}
+  m_Size: {x: 0.65625, y: 0.99165124}
   m_EdgeRadius: 0
 --- !u!61 &1937121229
 BoxCollider2D:
@@ -24904,17 +24966,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.73882926, y: 0.5092491}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.65625, y: 1}
-    newSize: {x: 0.65625, y: 1}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 0.5625, y: 0.96875}
+    newSize: {x: 0.5625, y: 0.96875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1.5}
+  m_Size: {x: 0.34047955, y: 0.999099}
   m_EdgeRadius: 0
 --- !u!114 &1937121230
 MonoBehaviour:
@@ -24932,6 +24994,28 @@ MonoBehaviour:
   player: {fileID: 1022761611}
   playerDetection: {fileID: 1937121225}
   interactionActive: 0
+--- !u!95 &1937121231
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937121221}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: -6015828172346003098, guid: 7ab25f228a3e04540bfe39460176f2ab, type: 3}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1946316173 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2253911629886400664, guid: ecc194b35efc9ef49845677ad1aa5b0e, type: 3}

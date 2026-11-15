@@ -15,12 +15,12 @@ public class Merchant : MonoBehaviour
 
     void Start()
     {
-        if (WorldState.Instance.ponterQuestStarted) talkingNPC.enabled = false;
+        if (WorldState.Instance.ponter_state >= (byte)WorldState.Ponter.QuestStarted) talkingNPC.enabled = false;
     }
 
     void Update()
     {
-        if (WorldState.Instance.ponterQuestStarted)
+        if (WorldState.Instance.ponter_state >= (byte)WorldState.Ponter.QuestStarted)
         {
             if (initInteraction.Interaction())
             {
@@ -41,7 +41,7 @@ public class Merchant : MonoBehaviour
                 {
                     dialogueChoices[0]
                 };
-                if (!WorldState.Instance.ponterQuestEnded)
+                if (WorldState.Instance.ponter_state < (byte)WorldState.Ponter.QuestEnded)
                 {
                     for (int i=1; i<3; i++)
                     {
@@ -72,27 +72,23 @@ public class Merchant : MonoBehaviour
                 }
                 else if (i == 1)
                 {
-                    StartCoroutine(dialoguePlayer.PlayDialogue(jewelBladeLines, CloseDialogue));
+                    StartCoroutine(dialoguePlayer.PlayDialogue(jewelBladeLines, initInteraction.CloseInteraction));
                     WorldState.Instance.learnedAboutHellsGarden = true;
                 }
                 else if (i == 2) {
                     string[] ponterQuestLines = {"Merchant: Me? Not exactly.", 
                     "Merchant: I do, sometimes, collect items that happen to be enchanted with magic, but I never dwelled deeper into it.",
                     "Merchant: You'll have to ask someone else."};
-                    StartCoroutine(dialoguePlayer.PlayDialogue(ponterQuestLines, CloseDialogue));
+                    StartCoroutine(dialoguePlayer.PlayDialogue(ponterQuestLines, initInteraction.CloseInteraction));
                 }
                 else if (i == 3)
                 {
                     StartCoroutine(dialogueManager.HideShowPanel("hide"));
-                    CloseDialogue(0);
+                    initInteraction.CloseInteraction(0);
                 }
             break;
             }
         }
     }
-    public void CloseDialogue(int nothing)
-    {
-        player.isControllable = true;
-        initInteraction.interactionActive = false;
-    }
+    
 }

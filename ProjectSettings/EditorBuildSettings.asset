@@ -14,5 +14,56 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CreatorScene.unity
     guid: d42628deaae90a342b4c7e98a2928858
+  - enabled: 1
+    path: Assets/Scenes/Ahorgis.unity
+    guid: 701d4f32c23abd34da271eae570d05b1
+  - enabled: 1
+    path: Assets/Scenes/Beach.unity
+    guid: 9bdae3f357be25546aea4c1ab4d4b733
+  - enabled: 1
+    path: Assets/Scenes/BlossomGarden.unity
+    guid: 1cca567ebe0c37d4d89a7561a03d3ac6
+  - enabled: 1
+    path: Assets/Scenes/BoatTransition.unity
+    guid: 6b7691f1020a89f4b977d86a7781fc67
+  - enabled: 1
+    path: Assets/Scenes/CastleForest.unity
+    guid: 8bd9e5c078bbb324facbf2fd54c7433e
+  - enabled: 1
+    path: Assets/Scenes/CastleMain.unity
+    guid: 2fa4dfd5559f70945b0f2fac984007a2
+  - enabled: 1
+    path: Assets/Scenes/Deserter.unity
+    guid: 0f7fcc2465dc8e74e97ce498879c7a46
+  - enabled: 1
+    path: Assets/Scenes/DungeonEscape.unity
+    guid: c98346a1a7badf44da38cdaa298775cf
+  - enabled: 1
+    path: Assets/Scenes/DungeonKilmorChildren.unity
+    guid: 093194a1e00e8f8419e7fc43e8300042
+  - enabled: 1
+    path: Assets/Scenes/DungeonLava.unity
+    guid: ad91b5e3f096f384ca63cc4efe135abb
+  - enabled: 1
+    path: Assets/Scenes/FallOfVolsen.unity
+    guid: 60579096e42e9be40972c266fa98c9e8
+  - enabled: 1
+    path: Assets/Scenes/Forest.unity
+    guid: 1140ece351ffd374fab30daf6afcdbd1
+  - enabled: 1
+    path: Assets/Scenes/MayhemIsland.unity
+    guid: e937e21ccfa357b49ae8f131e0656d66
+  - enabled: 1
+    path: Assets/Scenes/RaggenfallPeak.unity
+    guid: 86ff69f4d2bcabb41bb1fff22268dd94
+  - enabled: 1
+    path: Assets/Scenes/RoadToRaggenfall.unity
+    guid: 63c23e00ce7c0d14791f1f4746297f65
+  - enabled: 1
+    path: Assets/Scenes/Volsen.unity
+    guid: 6934d920313478c4d895f5c5696865bf
+  - enabled: 1
+    path: Assets/Scenes/VolsenInn.unity
+    guid: 8d5efb29c7b6f2e43944b0128d19b7b1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
