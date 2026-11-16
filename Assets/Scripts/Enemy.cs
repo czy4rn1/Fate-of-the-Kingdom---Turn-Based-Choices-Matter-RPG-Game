@@ -13,7 +13,10 @@ public class Enemy : MonoBehaviour
     public bool dmgCalculated = false;
     public void Action()
     {
-        if (stop) dmg = 0;
+        if (stop) {
+            dmg = 0;
+            stop = false;
+        }
         else {
             float standardMul = UnityEngine.Random.Range(0.5f, 0.8f);
             float superMul = UnityEngine.Random.Range(1f, 1.4f);

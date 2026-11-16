@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Combat : MonoBehaviour
 {
@@ -21,11 +22,12 @@ public class Combat : MonoBehaviour
     float cursorInput = 0f;
     public float cursorOffset;
     byte availableMagic = 0;
-    bool playerTurn = false;
+    bool playerTurn = true;
     public TMP_Text[] allHP = new TMP_Text[4];
     public TMP_Text[] Player_enemiesHP = new TMP_Text[4];
     public short[] hp = {100, 100, 100, 100};
     Color dmgColor = new Color(255, 0, 0, 160);
+    bool playerBusy = false;
     enum Menu : byte
     {
         Main = 0,
@@ -52,11 +54,14 @@ public class Combat : MonoBehaviour
     byte bonusAttack = 0;
     byte bonusMagic = 0;
     bool extraTurn = false;
+    bool battleEnding = false;
+    bool gameOver = false;
 
     public float[] location = new float[2];
 
     void Awake()
     {
+        playerTurn = true;
         HideAllPanels();
     }
 
@@ -64,18 +69,19 @@ public class Combat : MonoBehaviour
     {
         if (combatActive)
         {
-            if (!playerTurn && enemyCoroutine == null)
+            if (!playerTurn && enemyCoroutine == null && blackoutManager.curAlpha == 0f)
             {
                 enemyCoroutine = StartCoroutine(EnemiesAction());
             }
-            if (Input.GetKeyDown(KeyCode.F) && playerTurn) StartCoroutine(Action());
-            if (Input.GetKeyDown(KeyCode.LeftShift)) OnlyMain();
+            if (Input.GetKeyDown(KeyCode.F) && playerTurn && !playerBusy) StartCoroutine(Action());
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !playerBusy) OnlyMain();
             if (coroutine == null && enemyCoroutine == null) {
-                if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && playerTurn) cursorInput = 1f;
-                else if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && playerTurn) cursorInput = -1f;
+                if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && playerTurn && !playerBusy) cursorInput = 1f;
+                else if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && playerTurn && !playerBusy) cursorInput = -1f;
                 else cursorInput = 0f;
             }
-            if (menuType == (byte)Menu.Item || menuType == (byte)Menu.Magic) cursors[0].SetActive(false);
+            else cursorInput = 0f;
+            if (menuType == (byte)Menu.Item || menuType == (byte)Menu.Magic || battleEnding) cursors[0].SetActive(false);
             else cursors[0].SetActive(true);
             ChangeCursorPos();
             DrawHP();
@@ -109,10 +115,15 @@ public class Combat : MonoBehaviour
             }
             else {
                 StartCoroutine(AttackPlayer(e.dmg));
-                coroutine = StartCoroutine(ShowInfo($"{e.enemyName} dealt {e.dmg} damage to {PlayerData.Instance.playerName}!"));
+                if (!battleEnding) coroutine = StartCoroutine(ShowInfo($"{e.enemyName} dealt {e.dmg} damage to {PlayerData.Instance.playerName}!"));
             }
             e.dmg = 0;
             yield return StartCoroutine(waitTimer.Wait(2f));
+            if (gameOver) {
+                enemyCoroutine = null;
+                playerTurn = false;
+                yield break;
+            }
         }
         playerTurn = true;
         enemyCoroutine = null;
@@ -123,7 +134,11 @@ public class Combat : MonoBehaviour
         hp[0] -= dmg;
         Color ogPlayerColor = player.GetComponent<SpriteRenderer>().color;
         player.GetComponent<SpriteRenderer>().color = dmgColor;
-        if (hp[0] <= 0) GameOver();
+        if (hp[0] <= 0) {
+            player.GetComponent<SpriteRenderer>().color = ogPlayerColor;
+            GameOver();
+            yield break;
+        }
         yield return StartCoroutine(waitTimer.Wait(1f));
         player.GetComponent<SpriteRenderer>().color = ogPlayerColor;
     }
@@ -134,10 +149,11 @@ public class Combat : MonoBehaviour
         Color ogEnemyColor = enemies[pos].GetComponent<SpriteRenderer>().color;
         enemies[pos].GetComponent<SpriteRenderer>().color = dmgColor;
         if (hp[pos+1] <= 0) {
-            Destroy(enemies[pos].gameObject);
+            Enemy dead = enemies[pos];
+            enemies[pos] = null;
+            Destroy(dead.gameObject);
             TargetEnemy(false);
             ChangeCursorPos();
-            CheckIfWon();
         }
         yield return StartCoroutine(waitTimer.Wait(1f));
         if (enemies[pos] != null) enemies[pos].GetComponent<SpriteRenderer>().color = ogEnemyColor;
@@ -147,7 +163,25 @@ public class Combat : MonoBehaviour
 
     void GameOver()
     {
+        if (battleEnding) return;
+        battleEnding = true;
+        gameOver = true;
+        playerBusy = true;
+        combatActive = false;
+        StopAllCoroutines();
+        HideAllPanels();
+        cursors[0].SetActive(false);
+        cursors[3].SetActive(false);
+        player.gameObject.SetActive(false);
+        StartCoroutine(Reload());
         
+    }
+
+    IEnumerator Reload()
+    {
+        yield return coroutine = StartCoroutine(ShowInfo("You Died"));
+        yield return StartCoroutine(blackoutManager.Fade(false));
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     IEnumerator Action()
@@ -163,18 +197,23 @@ public class Combat : MonoBehaviour
                     }
                     else if (cursorPos == 1)
                     {
-                        playerAction = (byte)PlayerAction.Magic;
-                        ShowMagicPanel();
+                        if (PlayerData.Instance.intelligence >= 10) {
+                            playerAction = (byte)PlayerAction.Magic;
+                            ShowMagicPanel();
+                        }
                     }
                     else if (cursorPos == 2)
                     {
                         ShowItemPanel();
                     }
-                    else if (cursorPos == 3) StartCoroutine(EndBattle());
+                    else if (cursorPos == 3) {
+                        playerBusy = true;
+                        StartCoroutine(EndBattle());
+                    }
                     break;
                 case (byte)Menu.Item:
                     Item curItem = PlayerData.Instance.playerItems.Find(o => o.itemName == possibleItems[cursorPos]);
-                    if (curItem != null) UseItem(cursorPos);
+                    if (curItem != null) StartCoroutine(UseItem(cursorPos));
                     else yield break;
                     break;
                 case (byte)Menu.Magic:
@@ -205,8 +244,9 @@ public class Combat : MonoBehaviour
                     yield return StartCoroutine(EndPlayerTurn());
                 }
                 else {
+                    string enemyName = enemies[cursorPos].enemyName;
                     StartCoroutine(AttackEnemy(dmg, cursorPos));
-                    coroutine = StartCoroutine(ShowInfo($"{PlayerData.Instance.playerName} dealt {dmg} damage to {enemies[cursorPos].enemyName}!"));
+                    coroutine = StartCoroutine(ShowInfo($"{PlayerData.Instance.playerName} dealt {dmg} damage to {enemyName}!"));
                     targeting = false;
                     cursors[3].SetActive(false);
                     yield return StartCoroutine(EndPlayerTurn());
@@ -216,16 +256,21 @@ public class Combat : MonoBehaviour
             {
                 byte dmg = CalculatePlayerDmg(true, chosenMagic);
                 if (bonusMagic > 0) bonusMagic = 0;
+                string enemyName = enemies[cursorPos].enemyName;
                 StartCoroutine(AttackEnemy(dmg, cursorPos));
-                coroutine = StartCoroutine(ShowInfo($"{PlayerData.Instance.playerName} dealt {dmg} to {enemies[cursorPos].enemyName}!"));
+                coroutine = StartCoroutine(ShowInfo($"{PlayerData.Instance.playerName} dealt {dmg} to {enemyName}!"));
                 targeting = false;
                 cursors[3].SetActive(false);
                 yield return StartCoroutine(EndPlayerTurn());
                 chosenMagic = 0;
             }
             OnlyMain();
+            if (!HasAliveEnemy()) {
+                playerBusy = true;
+                StartCoroutine(CheckIfWon());
+            }
         }
-        cursorPos = 0;
+        if (!targeting) cursorPos = 0;
     }
 
     void DrawHP()
@@ -245,13 +290,14 @@ public class Combat : MonoBehaviour
 
     void TargetEnemy(bool show)
     {
-        if (enemies[0] != null) cursorPos = 0;
-        else if (enemies[1] != null) cursorPos = 1;
-        else if (enemies[2] != null) cursorPos = 2;
-        else return;
         targeting = show;
         cursors[3].SetActive(show);
         panels[3].SetActive(false);
+        if (show)
+        {
+            cursorPos = FirstAlive();
+            cursorPos = Math.Clamp(cursorPos, 0, enemies.Length-1);
+        }
     }
 
     void ShowItemPanel()
@@ -260,7 +306,10 @@ public class Combat : MonoBehaviour
         for(int i=0; i<possibleItems.Length; i++)
         {
             Item curItem = PlayerData.Instance.playerItems.Find(o => o.itemName == possibleItems[i]);
-            if (curItem == null) continue;
+            if (curItem == null) {
+                items[i].text = "0"; 
+                continue;
+            }
             items[i].text = curItem.count.ToString();
         }
         cursorPos = 0;
@@ -294,6 +343,20 @@ public class Combat : MonoBehaviour
 
     public IEnumerator StartBattle()
     {
+        for(int i=0; i<hp.Length; i++)
+        {
+            hp[i] = 100;
+        }
+        int rand = UnityEngine.Random.Range(1, 101);
+        if (rand <= 50) playerTurn = true;
+        else playerTurn = false;
+        targeting = false;
+        extraTurn = false;
+        bonusAttack = 0;
+        bonusMagic = 0;
+        playerBusy = false;
+        gameOver = false;
+
         player.isControllable = false;
         player.StopMoving();
         player.GetComponent<CharacterAnimation>().isRunning = false;
@@ -314,7 +377,7 @@ public class Combat : MonoBehaviour
         StartCoroutine(blackoutManager.Fade(true));
         menuType = (byte)Menu.Main;
         combatActive = true;
-        playerTurn = true;
+        cursors[0].SetActive(true);
     }
 
     void HideAllPanels()
@@ -325,50 +388,75 @@ public class Combat : MonoBehaviour
 
     void ChangeCursorPos(bool reset = false) 
     {
-            int ogPos = cursorPos;
-            if (reset) cursorPos = 0;
-            else {
+        if (reset) cursorPos = 0;
+        else {
+            if (!targeting) {
                 if (cursorInput > 0) cursorPos--;
                 else if (cursorInput < 0) cursorPos++;
             }
-            if (!targeting) {
-                if (menuType == (byte)Menu.Main) {
-                    cursorPos = Math.Clamp(cursorPos, 0, mainButtons.Length-1);
-                    cursors[0].transform.localPosition = new Vector2(cursors[0].transform.localPosition.x, mainButtons[cursorPos].transform.localPosition.y - cursorOffset);
-                }
-                else if (menuType == (byte)Menu.Item) {
-                    cursorPos = Math.Clamp(cursorPos, 0, items.Length-1);
-                    cursors[1].transform.localPosition = new Vector2(cursors[1].transform.localPosition.x, items[cursorPos].transform.localPosition.y - cursorOffset);
-                }
-                else if (menuType == (byte)Menu.Magic) {
-                    cursorPos = Math.Clamp(cursorPos, 0, availableMagic-1);
-                    cursors[2].transform.localPosition = new Vector2(cursors[2].transform.localPosition.x, magic[cursorPos].transform.localPosition.y - cursorOffset);
-                }
+        }
+        if (!targeting) {
+            if (menuType == (byte)Menu.Main) {
+                cursorPos = Math.Clamp(cursorPos, 0, mainButtons.Length-1);
+                cursors[0].transform.localPosition = new Vector2(cursors[0].transform.localPosition.x, mainButtons[cursorPos].transform.localPosition.y - cursorOffset);
             }
-            else
+            else if (menuType == (byte)Menu.Item) {
+                cursorPos = Math.Clamp(cursorPos, 0, items.Length-1);
+                cursors[1].transform.localPosition = new Vector2(cursors[1].transform.localPosition.x, items[cursorPos].transform.localPosition.y - cursorOffset);
+            }
+            else if (menuType == (byte)Menu.Magic) {
+                cursorPos = Math.Clamp(cursorPos, 0, availableMagic-1);
+                cursors[2].transform.localPosition = new Vector2(cursors[2].transform.localPosition.x, magic[cursorPos].transform.localPosition.y - cursorOffset);
+            }
+        }
+        else
+        {
+            if (cursorInput != 0f)
             {
-                if (enemies[0] != null) cursorPos = 0;
-                else if (enemies[1] != null) cursorPos = 1;
-                else  cursorPos = 2;
-                cursorPos = Math.Clamp(cursorPos, 0, enemies.Length-1);
-                if (enemies[cursorPos] == null)
+                if (cursorInput > 0)
                 {
-                    if (cursorInput > 0) cursorPos--;
-                    else if (cursorInput < 0) cursorPos++;
-                    cursorPos = Math.Clamp(cursorPos, 0, enemies.Length-1);
-                    if (enemies[cursorPos] == null) cursorPos = ogPos;
+                    if (cursorPos == 0)
+                    {
+                        cursorPos = 0;
+                    }
+                    else if (cursorPos == 1)
+                    {
+                        if (enemies[0] != null) cursorPos = 0;
+                    }
+                    else if (cursorPos == 2)
+                    {
+                        if (enemies[1] != null) cursorPos = 1;
+                        else if (enemies[0] == null) cursorPos = 0;
+                    }
                 }
-                
-                if (enemies[cursorPos] != null) {
-                    cursors[3].transform.position = new Vector2(cursors[3].transform.position.x, enemies[cursorPos].transform.position.y - targetCursorOffset);
+                else if (cursorInput < 0)
+                {
+                    if (cursorPos == 0)
+                    {
+                        if (enemies[1] != null) cursorPos = 1;
+                        else if (enemies[2] != null) cursorPos = 2;
+                    }
+                    else if (cursorPos == 1)
+                    {
+                        if (enemies[2] != null) cursorPos = 2;
+                    }
+                    else if (cursorPos == 2)
+                    {
+                        cursorPos = 2;
+                    }
                 }
             }
+            cursorPos = Math.Clamp(cursorPos, 0, enemies.Length-1);
+            if (enemies[cursorPos] != null)
+            {
+                cursors[3].transform.position = new Vector2(cursors[3].transform.position.x, enemies[cursorPos].transform.position.y - targetCursorOffset);
+            }
+        }
     }
 
-    void CheckIfWon()
+    IEnumerator CheckIfWon()
     {
-        if (coroutine != null) StopCoroutine(coroutine);
-        foreach(var e in enemies) if (e!=null) return;
+        foreach(var e in enemies) if (e!=null) yield break;
         int dice = UnityEngine.Random.Range(1, 101);
         Debug.Log($"{dice}");
         if (dice <= 50)
@@ -395,6 +483,7 @@ public class Combat : MonoBehaviour
                 itName = "Potion";
             }
             PlayerData.Instance.AddItem(itName);
+            while (coroutine != null) yield return null;
             StartCoroutine(EndBattle(true, itName));
 
         }
@@ -402,6 +491,9 @@ public class Combat : MonoBehaviour
     }
     IEnumerator EndBattle(bool gotItem = false, string itName = null)
     {
+        battleEnding = true;
+        playerBusy = true;
+        cursors[0].SetActive(false);
         if (gotItem) yield return StartCoroutine(ShowInfo($"Obtained x1 of {itName}"));
         yield return StartCoroutine(blackoutManager.Fade(false));
         combatActive = false;
@@ -412,6 +504,9 @@ public class Combat : MonoBehaviour
         player.isControllable = true;
         yield return StartCoroutine(waitTimer.Wait(1f));
         StartCoroutine(blackoutManager.Fade(true));
+        playerBusy = false;
+        battleEnding = false;
+        gameOver = false;
     }
 
     byte CalculatePlayerDmg(bool magic = false, int spell = 0)
@@ -455,36 +550,56 @@ public class Combat : MonoBehaviour
 
     IEnumerator EndPlayerTurn()
     {
+        playerBusy = true;
         yield return StartCoroutine(waitTimer.Wait(2f));
         if (!extraTurn) playerTurn = false;
         else extraTurn = false;
+        playerBusy = false;
         
     }
-    void UseItem(int num)
+    IEnumerator UseItem(int num)
     {
         if (coroutine != null) StopCoroutine(coroutine);
+        OnlyMain();
         if (num == 0)
         {
             hp[0] = (byte)Math.Clamp(hp[0]+10,0, 100);
             StartCoroutine(ShowInfo($"Added 10HP to {PlayerData.Instance.playerName}"));
-            StartCoroutine(EndPlayerTurn());
+            yield return StartCoroutine(EndPlayerTurn());
         }
         else if (num == 1)
         {
             bonusAttack = 5;
-            StartCoroutine(ShowInfo($"Activated Attack Boost!"));
+            playerBusy = true;
+            yield return StartCoroutine(ShowInfo($"Activated Attack Boost!"));
+            playerBusy = false;
         }
         else if (num == 2)
         {
             bonusMagic = 5;
-            StartCoroutine(ShowInfo($"Activated Magic Boost!"));
+            playerBusy = true;
+            yield return StartCoroutine(ShowInfo($"Activated Magic Boost!"));
+            playerBusy = false;
         }
         else if (num == 3)
         {
             extraTurn = true;
-            StartCoroutine(ShowInfo($"Added extra turn to {PlayerData.Instance.playerName}"));
+            playerBusy = true;
+            yield return StartCoroutine(ShowInfo($"Added Extra Turn to {PlayerData.Instance.playerName}"));
+            playerBusy = false;
         }
         PlayerData.Instance.RemoveItem(possibleItems[num], 1);
-        OnlyMain();
+    }
+
+    int FirstAlive()
+    {
+        for (int i=0; i<enemies.Length; i++) if (enemies[i] != null) return i;
+        return 0;
+    }
+
+    bool HasAliveEnemy()
+    {
+        for (int i=0; i<enemies.Length; i++) if (enemies[i] != null) return true;
+        return false;
     }
 }
