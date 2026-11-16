@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Combat : MonoBehaviour
 {
+    public GameObject combatArena;
     public Player player;
     public CameraController cameraController;
     public BlackoutManager blackoutManager;
@@ -26,7 +27,7 @@ public class Combat : MonoBehaviour
     public TMP_Text[] allHP = new TMP_Text[4];
     public TMP_Text[] Player_enemiesHP = new TMP_Text[4];
     public short[] hp = {100, 100, 100, 100};
-    Color dmgColor = new Color(255, 0, 0, 160);
+    Color dmgColor = new Color(255, 0, 0, 255);
     bool playerBusy = false;
     enum Menu : byte
     {
@@ -61,6 +62,7 @@ public class Combat : MonoBehaviour
 
     void Awake()
     {
+        combatArena.SetActive(false);
         playerTurn = true;
         HideAllPanels();
     }
@@ -208,7 +210,18 @@ public class Combat : MonoBehaviour
                     }
                     else if (cursorPos == 3) {
                         playerBusy = true;
-                        StartCoroutine(EndBattle());
+                        int dice = UnityEngine.Random.Range(1,101);
+                        if (dice <= 33) {
+                            StartCoroutine(EndBattle());
+                            yield break;
+                        }
+                        else {
+                            cursorPos = 0;
+                            if (coroutine != null) StopCoroutine(coroutine);
+                            coroutine = StartCoroutine(ShowInfo("Escape failed!"));
+                        }
+                        yield return StartCoroutine(EndPlayerTurn());
+                        
                     }
                     break;
                 case (byte)Menu.Item:
@@ -362,15 +375,29 @@ public class Combat : MonoBehaviour
         player.GetComponent<CharacterAnimation>().isRunning = false;
         cameraController.followPlayer = false;
         yield return StartCoroutine(blackoutManager.Fade(false));
+        combatArena.SetActive(true);
         player.GetComponent<SpriteRenderer>().flipX = true;
         ogPlayerPos = player.transform.position;
         ogCameraPos = cameraController.transform.position;
-        player.transform.position = new Vector2(location[0] + 4f, location[1]+2f);
+        player.transform.position = new Vector2(location[0] + 4f, location[1]+0.8f);
         cameraController.transform.position = new Vector3(location[0], location[1], -10f);
-        for(int i=0; i<enemies.Length; i++)
+        switch (HowManyEnemies())
         {
-            if (enemies[i] != null) enemies[i].transform.position = new Vector2(location[0]-4f, location[1]+2f - i*1.5f);
+            case 1:
+            enemies[0].transform.position = new Vector2(location[0] - 4f, location[1]-0.25f);
+                break;
+            case 2:
+            enemies[0].transform.position = new Vector2(location[0]-4f, location[1] + 0.4f);
+            enemies[1].transform.position = new Vector2(location[0]-4f, location[1]-1.5f);
+                break;
+            case 3:
+            enemies[0].transform.position = new Vector2(location[0]-4f, location[1]+0.85f);
+            enemies[1].transform.position = new Vector2(location[0]+location[0], location[1]-0.5f);
+            enemies[2].transform.position = new Vector2(location[0]-4f, location[1]-2.4f);
+                break;
+            default: break;
         }
+        foreach (var e in enemies) if (e != null) e.gameObject.SetActive(true);
         yield return StartCoroutine(waitTimer.Wait(1f));
         panels[0].SetActive(true);
         panels[1].SetActive(true);
@@ -496,6 +523,8 @@ public class Combat : MonoBehaviour
         cursors[0].SetActive(false);
         if (gotItem) yield return StartCoroutine(ShowInfo($"Obtained x1 of {itName}"));
         yield return StartCoroutine(blackoutManager.Fade(false));
+        foreach (var e in enemies) if (e!=null) Destroy(e.gameObject);
+        combatArena.SetActive(false);
         combatActive = false;
         HideAllPanels();
         player.transform.position = ogPlayerPos;
@@ -601,5 +630,15 @@ public class Combat : MonoBehaviour
     {
         for (int i=0; i<enemies.Length; i++) if (enemies[i] != null) return true;
         return false;
+    }
+
+    int HowManyEnemies()
+    {
+        int count = 0;
+        for(int i=0; i<enemies.Length; i++)
+        {
+            if (enemies[i] != null) count++;
+        }
+        return count;
     }
 }
