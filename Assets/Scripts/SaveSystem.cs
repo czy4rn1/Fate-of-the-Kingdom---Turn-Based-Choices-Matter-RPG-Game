@@ -41,7 +41,7 @@ public class SaveSystem
             gardenerChoiceMade = w.gardenerChoiceMade, gardenerJoins = w.gardenerJoins, ponterDead = w.ponterDead, playerEnslaved = w.playerEnslaved, gardenerStandard = w.gardenerStandard, appleCutscenePlayed = w.appleCutscenePlayed,
             appleTaken = w.appleTaken, blossomDarkness = w.blossomDarkness, disableTrees = w.disableTrees, lavaEntryCutscenePlayed = w.lavaEntryCutscenePlayed,
             dungeon_state = w.dungeon_state, forest_state = w.forest_state, fisher_state = w.fisher_state, ponter_state = w.ponter_state, mayhem_state = w.mayhem_state, ahorgis_state = w.ahorgis_state, raggenfall_state = w.raggenfall_state,
-            deserter_state = w.deserter_state, openChests = new List<string>(w.OpenChestIds)
+            killedGaren = w.killedGaren, deserter_state = w.deserter_state, openChests = new List<string>(w.OpenChestIds)
         };
     }
 
@@ -96,7 +96,7 @@ public class SaveSystem
         w.playerEnslaved = s.playerEnslaved; w.gardenerStandard = s.gardenerStandard; w.appleCutscenePlayed = s.appleCutscenePlayed; w.appleTaken = s.appleTaken; w.blossomDarkness = s.blossomDarkness; w.disableTrees = s.disableTrees;
         w.lavaEntryCutscenePlayed = s.lavaEntryCutscenePlayed;
         w.dungeon_state = s.dungeon_state; w.forest_state = s.forest_state; w.fisher_state = s.fisher_state; w.ponter_state = s.ponter_state; w.mayhem_state = s.mayhem_state; w.ahorgis_state = s.ahorgis_state;
-        w.raggenfall_state = s.raggenfall_state; w.deserter_state = s.deserter_state;
+        w.raggenfall_state = s.raggenfall_state; w.deserter_state = s.deserter_state; w.killedGaren = s.killedGaren;
         w.RestoreChests(s.openChests);
 
         var p = PlayerData.Instance;

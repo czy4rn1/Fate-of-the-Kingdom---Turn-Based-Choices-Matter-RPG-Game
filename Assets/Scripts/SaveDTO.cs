@@ -15,7 +15,7 @@ public class WorldDTO
     public bool keyStolen, guardRanAway, escapedThroughCave, jewelBladeObtained, castleFire, playerPosessed, ponterCaptured;
     public bool venardRemorse, venardIntro, venardEncounterEnded, askSellerAboutJewelBlade, learnedAboutHellsGarden, fireFixing, roadtorag_instructions, VolsenFell;
     public bool gardenEntrancePlayed, gardenerSummoned, vaseMoved, treeGameEnded, gardenerIntroPlayed, gardenerChoiceMade, gardenerJoins, ponterDead, playerEnslaved;
-    public bool gardenerStandard, appleCutscenePlayed, appleTaken, blossomDarkness, disableTrees, lavaEntryCutscenePlayed;
+    public bool gardenerStandard, appleCutscenePlayed, appleTaken, blossomDarkness, disableTrees, lavaEntryCutscenePlayed, killedGaren;
     public float posessedR, posessedG, posessedB, posessedA;
     public byte dungeon_state, forest_state, fisher_state, ponter_state, mayhem_state, ahorgis_state, raggenfall_state, deserter_state;
     public List<string> openChests = new List<string>();

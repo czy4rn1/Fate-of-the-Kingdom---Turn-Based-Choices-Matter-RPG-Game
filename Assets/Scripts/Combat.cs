@@ -29,6 +29,7 @@ public class Combat : MonoBehaviour
     public short[] hp = {100, 100, 100, 100};
     Color dmgColor = new Color(255, 0, 0, 255);
     bool playerBusy = false;
+    public bool disableEscape = false;
     enum Menu : byte
     {
         Main = 0,
@@ -131,7 +132,7 @@ public class Combat : MonoBehaviour
         enemyCoroutine = null;
     }
 
-    IEnumerator AttackPlayer(byte dmg)
+    IEnumerator AttackPlayer(short dmg)
     {
         hp[0] -= dmg;
         Color ogPlayerColor = player.GetComponent<SpriteRenderer>().color;
@@ -145,7 +146,7 @@ public class Combat : MonoBehaviour
         player.GetComponent<SpriteRenderer>().color = ogPlayerColor;
     }
 
-    IEnumerator AttackEnemy(byte dmg, int pos)
+    IEnumerator AttackEnemy(short dmg, int pos)
     {
         hp[pos+1] -= dmg;
         Color ogEnemyColor = enemies[pos].GetComponent<SpriteRenderer>().color;
@@ -153,7 +154,11 @@ public class Combat : MonoBehaviour
         if (hp[pos+1] <= 0) {
             Enemy dead = enemies[pos];
             enemies[pos] = null;
-            Destroy(dead.gameObject);
+            if (dead.enemyName != "Garen") Destroy(dead.gameObject);
+            else
+            {
+                dead.GetComponent<SpriteRenderer>().color = ogEnemyColor;
+            }
             TargetEnemy(false);
             ChangeCursorPos();
         }
@@ -210,18 +215,27 @@ public class Combat : MonoBehaviour
                     }
                     else if (cursorPos == 3) {
                         playerBusy = true;
-                        int dice = UnityEngine.Random.Range(1,101);
-                        if (dice <= 33) {
-                            StartCoroutine(EndBattle());
-                            yield break;
-                        }
-                        else {
+                        if (disableEscape)
+                        {
+                            playerBusy = false;
                             cursorPos = 0;
                             if (coroutine != null) StopCoroutine(coroutine);
-                            coroutine = StartCoroutine(ShowInfo("Escape failed!"));
+                            coroutine = StartCoroutine(ShowInfo("Cant's escape this battle!"));
                         }
-                        yield return StartCoroutine(EndPlayerTurn());
-                        
+                        else
+                        {
+                            int dice = UnityEngine.Random.Range(1,101);
+                            if (dice <= 33) {
+                                StartCoroutine(EndBattle());
+                                yield break;
+                            }
+                            else {
+                                cursorPos = 0;
+                                if (coroutine != null) StopCoroutine(coroutine);
+                                coroutine = StartCoroutine(ShowInfo("Escape failed!"));
+                            }
+                            yield return StartCoroutine(EndPlayerTurn());
+                        }    
                     }
                     break;
                 case (byte)Menu.Item:
@@ -241,9 +255,10 @@ public class Combat : MonoBehaviour
         {
             if (coroutine != null) StopCoroutine(coroutine);
             if (playerAction == (byte)PlayerAction.Attack) {
-                byte dmg = CalculatePlayerDmg(cursorPos);
+                short dmg = CalculatePlayerDmg(cursorPos);
                 if (bonusAttack > 0) bonusAttack = 0;
                 if (dmg == 0) {
+                    cursorPos = 0;
                     coroutine = StartCoroutine(ShowInfo($"Miss from {PlayerData.Instance.playerName}!"));
                     targeting = false;
                     cursors[3].SetActive(false);
@@ -251,6 +266,7 @@ public class Combat : MonoBehaviour
                 }
                 else if (dmg == 255)
                 {
+                    cursorPos = 0;
                     coroutine = StartCoroutine(ShowInfo($"Critical miss from {PlayerData.Instance.playerName}!"));
                     targeting = false;
                     cursors[3].SetActive(false);
@@ -262,18 +278,20 @@ public class Combat : MonoBehaviour
                     coroutine = StartCoroutine(ShowInfo($"{PlayerData.Instance.playerName} dealt {dmg} damage to {enemyName}!"));
                     targeting = false;
                     cursors[3].SetActive(false);
+                    cursorPos = 0;
                     yield return StartCoroutine(EndPlayerTurn());
                 }
             }
             else if (playerAction == (byte)PlayerAction.Magic)
             {
-                byte dmg = CalculatePlayerDmg(cursorPos, true, chosenMagic);
+                short dmg = CalculatePlayerDmg(cursorPos, true, chosenMagic);
                 if (bonusMagic > 0) bonusMagic = 0;
                 string enemyName = enemies[cursorPos].enemyName;
                 StartCoroutine(AttackEnemy(dmg, cursorPos));
                 coroutine = StartCoroutine(ShowInfo($"{PlayerData.Instance.playerName} dealt {dmg} to {enemyName}!"));
                 targeting = false;
                 cursors[3].SetActive(false);
+                cursorPos = 0;
                 yield return StartCoroutine(EndPlayerTurn());
                 chosenMagic = 0;
             }
@@ -397,7 +415,12 @@ public class Combat : MonoBehaviour
                 break;
             default: break;
         }
-        foreach (var e in enemies) if (e != null) e.gameObject.SetActive(true);
+        foreach (var e in enemies) {
+            if (e != null) {
+                e.GetComponent<SpriteRenderer>().flipX = false;
+                e.gameObject.SetActive(true);
+            }
+        }
         yield return StartCoroutine(waitTimer.Wait(1f));
         panels[0].SetActive(true);
         panels[1].SetActive(true);
@@ -520,6 +543,7 @@ public class Combat : MonoBehaviour
     {
         battleEnding = true;
         playerBusy = true;
+        disableEscape = false;
         cursors[0].SetActive(false);
         if (gotItem) yield return StartCoroutine(ShowInfo($"Obtained x1 of {itName}"));
         yield return StartCoroutine(blackoutManager.Fade(false));
@@ -538,20 +562,23 @@ public class Combat : MonoBehaviour
         gameOver = false;
     }
 
-    byte CalculatePlayerDmg(int enemy, bool magic = false, int spell = 0)
+    short CalculatePlayerDmg(int enemy, bool magic = false, int spell = 0)
     {
-        byte dmg;
+        short dmg;
         int dice = UnityEngine.Random.Range(1,101);
         if (!magic) {
             if (dice <= 75)
             {
-                dmg = (byte)Math.Clamp(PlayerData.Instance.strength + bonusAttack, 0, 100);
-                dmg = (byte)(float)(dmg * ((float)(100.0f - enemies[enemy].stats[0])/100.0f));
+                dmg = (short)Math.Clamp(PlayerData.Instance.strength + bonusAttack, 0, 100);
+                Debug.Log($"{dmg}");
+                float divider = (100.0f - enemies[enemy].stats[0])/100.0f;
+                Debug.Log($"{divider}");
+                dmg = (short)Math.Round((float)(dmg*divider));
                 Debug.Log($"{dmg}");
             }
             else if (dice > 75 && dice <= 80)
             {
-                dmg = (byte)Math.Clamp((int)Math.Round((PlayerData.Instance.strength+bonusAttack)*1.5f), 0, 30);
+                dmg = (short)Math.Clamp((int)Math.Round((PlayerData.Instance.strength+bonusAttack)*1.5f), 0, 30);
             }
             else if (dice > 80 && dice <= 97) dmg = 0;
             else dmg = 255;
@@ -560,19 +587,19 @@ public class Combat : MonoBehaviour
         {
             if (spell == 0)
             {
-                dmg = (byte)Math.Clamp(PlayerData.Instance.intelligence + bonusMagic, 0, 30);
+                dmg = (short)Math.Clamp(PlayerData.Instance.intelligence + bonusMagic, 0, 30);
             }
             else if (spell == 1)
             {
-                dmg = (byte)Math.Clamp((int)Math.Round((PlayerData.Instance.intelligence+bonusMagic)*1.2f), 0, 30);
+                dmg = (short)Math.Clamp((int)Math.Round((PlayerData.Instance.intelligence+bonusMagic)*1.2f), 0, 30);
             }
             else if (spell == 2)
             {
-                dmg = (byte)Math.Clamp((int)Math.Round((PlayerData.Instance.intelligence+bonusMagic)*1.4f), 0, 30);
+                dmg = (short)Math.Clamp((int)Math.Round((PlayerData.Instance.intelligence+bonusMagic)*1.4f), 0, 30);
             }
             else if (spell == 3)
             {
-                dmg = (byte)Math.Clamp((int)Math.Round((PlayerData.Instance.intelligence+bonusMagic)*1.6f), 0, 30);
+                dmg = (short)Math.Clamp((int)Math.Round((PlayerData.Instance.intelligence+bonusMagic)*1.6f), 0, 30);
             }
             else dmg = 0;           
         }
@@ -600,14 +627,14 @@ public class Combat : MonoBehaviour
         }
         else if (num == 1)
         {
-            bonusAttack = 5;
+            bonusAttack = 10;
             playerBusy = true;
             yield return StartCoroutine(ShowInfo($"Activated Attack Boost!"));
             playerBusy = false;
         }
         else if (num == 2)
         {
-            bonusMagic = 5;
+            bonusMagic = 10;
             playerBusy = true;
             yield return StartCoroutine(ShowInfo($"Activated Magic Boost!"));
             playerBusy = false;

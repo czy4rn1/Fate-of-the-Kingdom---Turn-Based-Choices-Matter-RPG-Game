@@ -1,16 +1,16 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     WaitTimer waitTimer = new WaitTimer();
     public bool hasMagic = false;
-    public byte[] stats = new byte[2]; // str, int
-    public byte dmg = 0;
+    public short[] stats = new short[2]; // str, int
+    public short dmg = 0;
     public bool stop = false;
     public string enemyName = "";
     public bool dmgCalculated = false;
+    float divider = 0f;
     public void Action()
     {
         if (stop) {
@@ -27,17 +27,23 @@ public class Enemy : MonoBehaviour
                 {
                     dice = UnityEngine.Random.Range(1, 101);
                     if (dice <= 50) {
-                        dmg = (byte)Math.Round(stats[1]*standardMul);
-                        dmg = (byte)(float)(dmg * ((float)(100.0f - PlayerData.Instance.intelligence)/100.0f));
+                        dmg = (short)Math.Round(stats[1]*standardMul);
+                        divider = (100.0f - PlayerData.Instance.intelligence)/100.0f;
+                        Debug.Log($"{divider}");
+                        dmg = (short)Math.Round((float)(dmg*divider));
                     }
                     else {
-                        dmg = (byte)Math.Round(stats[0]*standardMul);
-                        dmg = (byte)(float)(dmg * ((float)(100.0f - PlayerData.Instance.strength)/100.0f));
+                        dmg = (short)Math.Round(stats[0]*standardMul);
+                        divider = (100.0f - PlayerData.Instance.strength)/100.0f;
+                        Debug.Log($"{divider}");
+                        dmg = (short)Math.Round((float)(dmg*divider));
                     }
                 }
                 else {
-                    dmg = (byte)Math.Round(stats[0]*standardMul);
-                    dmg = (byte)(float)(dmg * ((float)(100.0f - PlayerData.Instance.strength)/100.0f));
+                    dmg = (short)Math.Round(stats[0]*standardMul);
+                    divider = (100.0f - PlayerData.Instance.strength)/100.0f;
+                    Debug.Log($"{divider}");
+                    dmg = (short)Math.Round((float)(dmg*divider));
                 }
             }
             else if (dice > 75 && dice <= 80)
@@ -45,11 +51,11 @@ public class Enemy : MonoBehaviour
                 if (hasMagic)
                 {
                     dice = UnityEngine.Random.Range(1, 101);
-                    if (dice <= 50) dmg = (byte)Math.Round(stats[1]*superMul);
-                    else dmg = (byte)Math.Round(stats[0]*superMul);
+                    if (dice <= 50) dmg = (short)Math.Round(stats[1]*superMul);
+                    else dmg = (short)Math.Round(stats[0]*superMul);
                 }
                 else {
-                    dmg = (byte)Math.Round(stats[0]*superMul);
+                    dmg = (short)Math.Round(stats[0]*superMul);
                 }
             }
             else if (dice > 80 && dice <= 97) dmg = 0;

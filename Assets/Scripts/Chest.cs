@@ -10,7 +10,7 @@ public class Chest : MonoBehaviour
 
     public string item;
     public int amount;
-
+    public short money;
     public string equipment;
     public string type;
     public byte[] stats = new byte[4];
@@ -44,9 +44,14 @@ public class Chest : MonoBehaviour
                 string choices = "Which stat do you wish to upgrade?\n1. Dexterity\n2. Strength\n3. Intelligence\n4. Persuasion";
                 dialoguePlayer.PlayCommand(choices, 4, OnChosenCommand);
             }
+            else if (item == "Money")
+            {
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {$"Found {money} of Money!"}, initInteraction.CloseInteraction));
+                PlayerData.Instance.money += money;
+            }
             else
             {
-                yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {$"Found x{amount} of {item}!"}));
+                yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {$"Found x{amount} of {item}!"}, initInteraction.CloseInteraction));
                 PlayerData.Instance.AddItem(item, amount);
             }
         }

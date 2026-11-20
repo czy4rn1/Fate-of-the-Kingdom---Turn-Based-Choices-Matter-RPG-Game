@@ -6,6 +6,7 @@ public class kid : MonoBehaviour
     CharacterAnimation characterAnimation;
     InitInteraction initInteraction;
     public PlayDialogueLines dialoguePlayer;
+    public GameObject HellsMountain;
     public string[] dialogue;
     public string[] postDialogue;
     bool stop = false;
@@ -63,6 +64,7 @@ public class kid : MonoBehaviour
         {
             yield return StartCoroutine(dialoguePlayer.PlayDialogue(dialogue, initInteraction.CloseInteraction));
             WorldState.Instance.raggenfall_state = (byte)WorldState.Raggenfall.InfoFromKid;
+            HellsMountain.SetActive(true);
         }
         else yield return StartCoroutine(dialoguePlayer.PlayDialogue(postDialogue, initInteraction.CloseInteraction));
         stop = false;

@@ -23,6 +23,10 @@ public class VolsenState : MonoBehaviour
             player.transform.position = new Vector2(-18.61f, -8.22f);
             cameraController.transform.position = new Vector3(-10.21f, -8.22f, -10f);
         }
+        else if (WorldState.Instance.currentLevel == "HellsMountain") {
+            player.transform.position = new Vector2(16.37f, 1.42f);
+            cameraController.transform.position = new Vector3(10.21f, 1.42f, -10f);
+        }
         else player.transform.position = new Vector2(0f, 0f);
         WorldState.Instance.currentLevel = "Volsen";
         if (WorldState.Instance.ponter_state >= (byte)WorldState.Ponter.QuestStarted && !WorldState.Instance.fireFixing && WorldState.Instance.castleFire)
