@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CombatEnemy : MonoBehaviour
@@ -7,15 +8,21 @@ public class CombatEnemy : MonoBehaviour
 
     void Update()
     {
-        if (combat.combatActive) Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            combat.enemies = enemies;
-            StartCoroutine(combat.StartBattle());
+            StartCoroutine(StartCombat());
         }
+    }
+
+    IEnumerator StartCombat()
+    {
+        combat.enemies = enemies;
+        StartCoroutine(combat.StartBattle());
+        while (!combat.combatActive) yield return null;
+        Destroy(gameObject);
     }
 }

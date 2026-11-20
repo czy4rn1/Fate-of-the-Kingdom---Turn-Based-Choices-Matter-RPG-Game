@@ -26,11 +26,18 @@ public class Enemy : MonoBehaviour
                 if (hasMagic)
                 {
                     dice = UnityEngine.Random.Range(1, 101);
-                    if (dice <= 50) dmg = (byte)Math.Round(stats[1]*standardMul);
-                    else dmg = (byte)Math.Round(stats[0]*standardMul);
+                    if (dice <= 50) {
+                        dmg = (byte)Math.Round(stats[1]*standardMul);
+                        dmg = (byte)(float)(dmg * ((float)(100.0f - PlayerData.Instance.intelligence)/100.0f));
+                    }
+                    else {
+                        dmg = (byte)Math.Round(stats[0]*standardMul);
+                        dmg = (byte)(float)(dmg * ((float)(100.0f - PlayerData.Instance.strength)/100.0f));
+                    }
                 }
                 else {
                     dmg = (byte)Math.Round(stats[0]*standardMul);
+                    dmg = (byte)(float)(dmg * ((float)(100.0f - PlayerData.Instance.strength)/100.0f));
                 }
             }
             else if (dice > 75 && dice <= 80)

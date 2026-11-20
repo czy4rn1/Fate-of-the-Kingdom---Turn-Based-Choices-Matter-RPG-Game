@@ -133,7 +133,8 @@ public class WorldState : MonoBehaviour
         Moon = 11,
         JewelBlade = 12,
         PosessedMoon = 13,
-        DemonMoon = 14
+        DemonMoon = 14,
+        InfoFromKid = 15
     }
     public byte raggenfall_state = (byte)Raggenfall.NotStarted;
 

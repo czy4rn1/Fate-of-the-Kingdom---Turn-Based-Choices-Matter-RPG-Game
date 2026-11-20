@@ -241,7 +241,7 @@ public class Combat : MonoBehaviour
         {
             if (coroutine != null) StopCoroutine(coroutine);
             if (playerAction == (byte)PlayerAction.Attack) {
-                byte dmg = CalculatePlayerDmg();
+                byte dmg = CalculatePlayerDmg(cursorPos);
                 if (bonusAttack > 0) bonusAttack = 0;
                 if (dmg == 0) {
                     coroutine = StartCoroutine(ShowInfo($"Miss from {PlayerData.Instance.playerName}!"));
@@ -267,7 +267,7 @@ public class Combat : MonoBehaviour
             }
             else if (playerAction == (byte)PlayerAction.Magic)
             {
-                byte dmg = CalculatePlayerDmg(true, chosenMagic);
+                byte dmg = CalculatePlayerDmg(cursorPos, true, chosenMagic);
                 if (bonusMagic > 0) bonusMagic = 0;
                 string enemyName = enemies[cursorPos].enemyName;
                 StartCoroutine(AttackEnemy(dmg, cursorPos));
@@ -538,7 +538,7 @@ public class Combat : MonoBehaviour
         gameOver = false;
     }
 
-    byte CalculatePlayerDmg(bool magic = false, int spell = 0)
+    byte CalculatePlayerDmg(int enemy, bool magic = false, int spell = 0)
     {
         byte dmg;
         int dice = UnityEngine.Random.Range(1,101);
@@ -546,10 +546,12 @@ public class Combat : MonoBehaviour
             if (dice <= 75)
             {
                 dmg = (byte)Math.Clamp(PlayerData.Instance.strength + bonusAttack, 0, 100);
+                dmg = (byte)(float)(dmg * ((float)(100.0f - enemies[enemy].stats[0])/100.0f));
+                Debug.Log($"{dmg}");
             }
             else if (dice > 75 && dice <= 80)
             {
-                dmg = (byte)Math.Clamp((int)Math.Round((PlayerData.Instance.strength+bonusAttack)*1.5f), 0, 100);
+                dmg = (byte)Math.Clamp((int)Math.Round((PlayerData.Instance.strength+bonusAttack)*1.5f), 0, 30);
             }
             else if (dice > 80 && dice <= 97) dmg = 0;
             else dmg = 255;
@@ -558,19 +560,19 @@ public class Combat : MonoBehaviour
         {
             if (spell == 0)
             {
-                dmg = (byte)Math.Clamp(PlayerData.Instance.intelligence + bonusMagic, 0, 100);
+                dmg = (byte)Math.Clamp(PlayerData.Instance.intelligence + bonusMagic, 0, 30);
             }
             else if (spell == 1)
             {
-                dmg = (byte)Math.Clamp((int)Math.Round((PlayerData.Instance.intelligence+bonusMagic)*1.2f), 0, 100);
+                dmg = (byte)Math.Clamp((int)Math.Round((PlayerData.Instance.intelligence+bonusMagic)*1.2f), 0, 30);
             }
             else if (spell == 2)
             {
-                dmg = (byte)Math.Clamp((int)Math.Round((PlayerData.Instance.intelligence+bonusMagic)*1.4f), 0, 100);
+                dmg = (byte)Math.Clamp((int)Math.Round((PlayerData.Instance.intelligence+bonusMagic)*1.4f), 0, 30);
             }
             else if (spell == 3)
             {
-                dmg = (byte)Math.Clamp((int)Math.Round((PlayerData.Instance.intelligence+bonusMagic)*1.6f), 0, 100);
+                dmg = (byte)Math.Clamp((int)Math.Round((PlayerData.Instance.intelligence+bonusMagic)*1.6f), 0, 30);
             }
             else dmg = 0;           
         }
