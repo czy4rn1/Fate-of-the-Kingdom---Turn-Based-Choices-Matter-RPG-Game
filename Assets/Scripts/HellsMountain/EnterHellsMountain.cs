@@ -115,6 +115,7 @@ public class EnterHellsMountain : MonoBehaviour
         yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {"!<NAME>!: I'm not a killer. Get out of here before I change my mind", "Garen: Of course! I'm going! I'm so sorry and thank you!"}));
         garen.GetComponent<Portal>().visible = false;
         garenShadow.visible = false;
+        WorldState.Instance.sparedGaren = true;
         yield return StartCoroutine(waitTimer.Wait(2f));
         StartCoroutine(LoadMountain());
 

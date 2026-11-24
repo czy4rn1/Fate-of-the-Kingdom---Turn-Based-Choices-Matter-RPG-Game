@@ -402,7 +402,7 @@ public class Combat : MonoBehaviour
         switch (HowManyEnemies())
         {
             case 1:
-            enemies[0].transform.position = new Vector2(location[0] - 4f, location[1]-0.25f);
+            enemies[0].transform.position = new Vector2(location[0] - 4f, location[1]+0.8f);
                 break;
             case 2:
             enemies[0].transform.position = new Vector2(location[0]-4f, location[1] + 0.4f);

@@ -152,6 +152,15 @@ public class WorldState : MonoBehaviour
     }
     public byte deserter_state = (byte)Deserter.NotStarted;
 
+    public enum HellsGarden : byte
+    {
+        NotStarted = 0,
+        Standard = 10,
+        SecretPath = 20
+    }
+    public byte hellsGarden_state = (byte)HellsGarden.NotStarted; // ADD TO DTO
+    public bool sparedGaren = false; // ADD TO DTO
+
 
     
 
