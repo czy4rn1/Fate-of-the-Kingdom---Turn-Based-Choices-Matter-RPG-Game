@@ -24,6 +24,10 @@ public class HellsGardenState : MonoBehaviour
     {
         garenPresent = !WorldState.Instance.killedGaren && !WorldState.Instance.sparedGaren;
         if (!garenPresent) Destroy(garen);
+        else
+        {
+            if (WorldState.Instance.hellsGarden_state > (byte)WorldState.HellsGarden.NotStarted) garen.SetActive(false);
+        }
         if (WorldState.Instance.hellsGarden_state <= (byte)WorldState.HellsGarden.NotStarted)
         {
             secretPathObject.SetActive(true);

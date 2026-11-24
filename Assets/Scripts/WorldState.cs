@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WorldState : MonoBehaviour
@@ -156,10 +157,14 @@ public class WorldState : MonoBehaviour
     {
         NotStarted = 0,
         Standard = 10,
-        SecretPath = 20
+        SecretPath = 20,
+        Excalibur = 30
     }
     public byte hellsGarden_state = (byte)HellsGarden.NotStarted; // ADD TO DTO
     public bool sparedGaren = false; // ADD TO DTO
+    public bool destroyedWall = false; // ADD TO DTO
+    public bool tookKid = false; // ADD TO DTO
+    public bool kidIntro = false; // ADD TO DTO
 
 
     

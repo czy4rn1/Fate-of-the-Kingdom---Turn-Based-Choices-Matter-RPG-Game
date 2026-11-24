@@ -7358,6 +7358,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   blackoutManager: {fileID: 800797893}
+  player: {fileID: 1163092226}
+  cam: {fileID: 1598343521}
 --- !u!4 &618873030
 Transform:
   m_ObjectHideFlags: 0
@@ -7527,6 +7529,9 @@ MonoBehaviour:
   deserter_state: 0
   hellsGarden_state: 0
   sparedGaren: 0
+  destroyedWall: 0
+  tookKid: 0
+  kidIntro: 0
 --- !u!4 &625808883
 Transform:
   m_ObjectHideFlags: 0

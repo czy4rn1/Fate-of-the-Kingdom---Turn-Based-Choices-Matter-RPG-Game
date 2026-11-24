@@ -22,6 +22,11 @@ public class EnterHellsMountain : MonoBehaviour
     {
         garen.gameObject.SetActive(false);
         initInteraction = GetComponent<InitInteraction>();
+        if (WorldState.Instance.hellsGarden_state == (byte)WorldState.HellsGarden.Excalibur)
+        {
+            initInteraction.EnableInteraction(false);
+            enabled = false;
+        }
     }
 
     void Update()
@@ -125,7 +130,7 @@ public class EnterHellsMountain : MonoBehaviour
     {
         WorldState.Instance.raggenfall_state = (byte)WorldState.Raggenfall.EnteredMountain;
         yield return StartCoroutine(blackoutManager.Fade(false));
-        SceneManager.LoadScene("InsideHellsMountain");
+        SceneManager.LoadScene("HellsGarden");
     }
 
     IEnumerator Combat()

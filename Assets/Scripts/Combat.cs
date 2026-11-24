@@ -545,6 +545,7 @@ public class Combat : MonoBehaviour
         playerBusy = true;
         disableEscape = false;
         cursors[0].SetActive(false);
+        cursorPos = 0;
         if (gotItem) yield return StartCoroutine(ShowInfo($"Obtained x1 of {itName}"));
         yield return StartCoroutine(blackoutManager.Fade(false));
         foreach (var e in enemies) if (e!=null) Destroy(e.gameObject);
