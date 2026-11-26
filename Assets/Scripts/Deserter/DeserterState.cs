@@ -35,7 +35,7 @@ public class DeserterState : MonoBehaviour
         if (WorldState.Instance.deserter_state < (byte)WorldState.Deserter.ChoiceMade) sceneLoader.SetActive(false);
         else sceneLoader.SetActive(true);
         WorldState.Instance.currentLevel = "Deserter";
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 
     IEnumerator Intro()

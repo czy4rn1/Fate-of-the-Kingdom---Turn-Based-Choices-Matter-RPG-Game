@@ -33,7 +33,7 @@ public class DungeonKilmorChildrenMinigame : MonoBehaviour
 
     IEnumerator StartScene()
     {
-        yield return StartCoroutine(blackoutManager.Fade(true));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
         dialogueManager.timelineDirector = startCutscene;
         startCutscene.Play();
         bottomBorder.gameObject.SetActive(false);
@@ -104,7 +104,7 @@ public class DungeonKilmorChildrenMinigame : MonoBehaviour
         WorldState.Instance.dungeon_state = (byte)WorldState.Dungeon.Dead;
         gameEnded = true;
         while (failCutscene.gameObject.activeInHierarchy) yield return null;
-        StartCoroutine(blackoutManager.Fade(false));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         while (blackoutManager.curAlpha < 1f) yield return null;
         SceneManager.LoadScene("DungeonEscape");
     }

@@ -8,6 +8,7 @@ public class BlackoutManager : MonoBehaviour
     public Coroutine currentCoroutine;
     public float curAlpha = 0;
     public bool startBlack = true;
+    int fadeGeneration;
     WaitTimer waitTimer = new WaitTimer();
 
     void Start()
@@ -23,29 +24,32 @@ public class BlackoutManager : MonoBehaviour
 
     public IEnumerator Fade(bool fadeIn)
     {
+        int generation = ++fadeGeneration;
         if (canvasGroup == null) yield break;
         if (fadeIn)
         {
-            while (canvasGroup.alpha > 0f) {
+            while (canvasGroup.alpha > 0f && generation == fadeGeneration) {
                 canvasGroup.alpha -= fadeSpeed;
                 curAlpha = canvasGroup.alpha;
                 yield return waitTimer.Wait(fadeSpeed);
             }
+            if (generation != fadeGeneration) yield break;
             canvasGroup.alpha = 0f;
             curAlpha = canvasGroup.alpha;
         }
         else if (!fadeIn)
         {
-            while (canvasGroup.alpha < 1f)
+            while (canvasGroup.alpha < 1f && generation == fadeGeneration)
             {
                 canvasGroup.alpha += fadeSpeed;
                 curAlpha = canvasGroup.alpha;
                 yield return waitTimer.Wait(fadeSpeed);
             }
+            if (generation != fadeGeneration) yield break;
             canvasGroup.alpha = 1f;
             curAlpha = canvasGroup.alpha;
         }
-        currentCoroutine = null;
+        if (generation == fadeGeneration) currentCoroutine = null;
     }
 
     public void SetFade(bool x)

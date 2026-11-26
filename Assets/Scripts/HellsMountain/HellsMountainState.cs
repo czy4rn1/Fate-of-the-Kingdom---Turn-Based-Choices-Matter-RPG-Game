@@ -18,7 +18,7 @@ public class HellsMountainState : MonoBehaviour
             cam.transform.position = new Vector3(38.98f, 17.03f, -10f);
         }
         WorldState.Instance.currentLevel = "HellsMountain";
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 
     

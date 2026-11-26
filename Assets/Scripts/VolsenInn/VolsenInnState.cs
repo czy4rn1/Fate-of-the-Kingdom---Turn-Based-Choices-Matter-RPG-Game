@@ -6,6 +6,6 @@ public class VolsenInnState : MonoBehaviour
     void Start()
     {
         WorldState.Instance.currentLevel = "VolsenInn";
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 }

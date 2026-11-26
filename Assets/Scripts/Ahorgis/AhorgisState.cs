@@ -39,7 +39,7 @@ public class AhorgisState : MonoBehaviour
             bc.enabled = false;
             bridge.SetActive(true);
         }
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 
     IEnumerator Entrance()

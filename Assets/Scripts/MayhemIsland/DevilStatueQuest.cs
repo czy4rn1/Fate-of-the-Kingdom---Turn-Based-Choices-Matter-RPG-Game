@@ -88,9 +88,9 @@ public class DevilStatueQuest : MonoBehaviour
                     "!<NAME>!: Woah! You feel it?",
                     "Ponter: Yes, I do! Something big is happening!"
                 }));
-                yield return StartCoroutine(blackoutManager.Fade(false));
+                yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
                 cutscene.Play();
-                StartCoroutine(blackoutManager.Fade(true));
+                blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
                 while(cutscene.state == PlayState.Playing) yield return null;
                 yield return StartCoroutine(dialoguePlayer.PlayDialogue(unlockAtlantis));
 

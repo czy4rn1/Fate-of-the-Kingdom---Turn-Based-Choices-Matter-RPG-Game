@@ -114,7 +114,7 @@ public class Minigame : MonoBehaviour
         dialoguePlayer.dialogueManager.timelineDirector = soulTaking;
         soulTaking.Play();
         while (soulTaking.gameObject.activeInHierarchy) yield return null;
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         if (WorldState.Instance.deserter_state == (byte)WorldState.Deserter.JoinedDeserter) characters[0].transform.position = new Vector2(-4.46f, -0.18f);
         else if (WorldState.Instance.deserter_state == (byte)WorldState.Deserter.KilledDeserter)
         {
@@ -126,7 +126,7 @@ public class Minigame : MonoBehaviour
         characters[2].transform.position = new Vector2(-2.01f, 0.45f);
         cameraController.followPlayer = true;
         yield return StartCoroutine(waitTimer.Wait(1f));
-        yield return StartCoroutine(blackoutManager.Fade(true));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
         if (WorldState.Instance.deserter_state == (byte)WorldState.Deserter.JoinedDeserter) yield return StartCoroutine(dialoguePlayer.PlayDialogue(endingLines2, characters[2].GetComponent<Deserter>().initInteraction.CloseInteraction));
         else if (WorldState.Instance.deserter_state == (byte)WorldState.Deserter.KilledDeserter) {
             yield return StartCoroutine(dialoguePlayer.PlayDialogue(endingLines2_2, characters[2].GetComponent<Deserter>().initInteraction.CloseInteraction));

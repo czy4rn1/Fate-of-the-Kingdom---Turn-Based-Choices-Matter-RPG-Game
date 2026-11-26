@@ -129,7 +129,7 @@ public class EnterHellsMountain : MonoBehaviour
     IEnumerator LoadMountain()
     {
         WorldState.Instance.raggenfall_state = (byte)WorldState.Raggenfall.EnteredMountain;
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         SceneManager.LoadScene("HellsGarden");
     }
 

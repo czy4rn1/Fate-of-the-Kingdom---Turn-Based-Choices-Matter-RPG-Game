@@ -37,7 +37,7 @@ public class HellsGardenState : MonoBehaviour
         else if (WorldState.Instance.hellsGarden_state == (byte)WorldState.HellsGarden.SecretPath) Destroy(secretPathObject);
         else secretPathObject.SetActive(true);
         WorldState.Instance.currentLevel = "HellsGarden";
-        StartCoroutine(blackoutManager.Fade(true)); 
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true)); 
     }
 
 

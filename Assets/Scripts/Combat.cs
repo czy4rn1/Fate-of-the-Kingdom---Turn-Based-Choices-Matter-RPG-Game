@@ -187,7 +187,7 @@ public class Combat : MonoBehaviour
     IEnumerator Reload()
     {
         yield return coroutine = StartCoroutine(ShowInfo("You Died"));
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -392,7 +392,7 @@ public class Combat : MonoBehaviour
         player.StopMoving();
         player.GetComponent<CharacterAnimation>().isRunning = false;
         cameraController.followPlayer = false;
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         combatArena.SetActive(true);
         player.GetComponent<SpriteRenderer>().flipX = true;
         ogPlayerPos = player.transform.position;
@@ -424,7 +424,7 @@ public class Combat : MonoBehaviour
         yield return StartCoroutine(waitTimer.Wait(1f));
         panels[0].SetActive(true);
         panels[1].SetActive(true);
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
         menuType = (byte)Menu.Main;
         combatActive = true;
         cursors[0].SetActive(true);
@@ -547,7 +547,7 @@ public class Combat : MonoBehaviour
         cursors[0].SetActive(false);
         cursorPos = 0;
         if (gotItem) yield return StartCoroutine(ShowInfo($"Obtained x1 of {itName}"));
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         foreach (var e in enemies) if (e!=null) Destroy(e.gameObject);
         combatArena.SetActive(false);
         combatActive = false;
@@ -557,7 +557,7 @@ public class Combat : MonoBehaviour
         cameraController.followPlayer = true;
         player.isControllable = true;
         yield return StartCoroutine(waitTimer.Wait(1f));
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
         playerBusy = false;
         battleEnding = false;
         gameOver = false;

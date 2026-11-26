@@ -34,11 +34,11 @@ public class OpenHiddenPath : MonoBehaviour
     {
         if (playableDirector != null)
         {
-            yield return StartCoroutine(blackoutManager.Fade(false));
+            yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
             player.isControllable = false;
             dialogueManager.timelineDirector = playableDirector;
             playableDirector.Play();
-            StartCoroutine(blackoutManager.Fade(true));
+            blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
             while (playableDirector.state == PlayState.Playing) yield return null;
             playableDirector = null;
         }

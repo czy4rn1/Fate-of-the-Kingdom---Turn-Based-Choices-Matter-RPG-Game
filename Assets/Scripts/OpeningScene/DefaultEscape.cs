@@ -14,7 +14,7 @@ public class DefaultEscape : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 
     void Update()
@@ -33,10 +33,10 @@ public class DefaultEscape : MonoBehaviour
     IEnumerator Ponter()
     {
         cutsceneStarted = true;
-        yield return StartCoroutine(blackoutManager.Fade(false));       
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));       
         dialogueManager.timelineDirector = playableDirector;
         playableDirector.Play();
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 
     public void StartCutscene(bool x)

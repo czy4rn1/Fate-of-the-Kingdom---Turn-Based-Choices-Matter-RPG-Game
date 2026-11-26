@@ -65,10 +65,10 @@ public class GolemEncounter : MonoBehaviour
 
     IEnumerator PlayIntro()
     {
-       yield return StartCoroutine(blackoutManager.Fade(false));
+       yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
        dialoguePlayer.dialogueManager.timelineDirector = introScene;
        introScene.Play();
-       StartCoroutine(blackoutManager.Fade(true));  
+       blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));  
        while (!dialoguePlayer.dialogueManager.cutsceneEnded) yield return null;
        dialoguePlayer.dialogueManager.cutsceneEnded = false;
        dialoguePlayer.PlayCommand("Big Golem: Please, give us the gem back. It's very important.\n" + 

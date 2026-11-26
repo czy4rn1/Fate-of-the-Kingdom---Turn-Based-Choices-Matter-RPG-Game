@@ -33,7 +33,7 @@ public class BlossomGardenState : MonoBehaviour
 
         }
         WorldState.Instance.currentLevel = "BlossomGarden";
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 
     void Update()
@@ -47,9 +47,9 @@ public class BlossomGardenState : MonoBehaviour
     public IEnumerator ShowUpCutscene()
     {
         WorldState.Instance.treeGameEnded = true;
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         cutscene.Play();
-        yield return StartCoroutine(blackoutManager.Fade(true));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
         while(cutscene.state == PlayState.Playing) yield return null;
         if (!WorldState.Instance.gardenerSummoned)
         {

@@ -42,7 +42,7 @@ public class DungeonState : MonoBehaviour
             }
         }
         WorldState.Instance.currentLevel = "DungeonEscape";        
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 
 }

@@ -34,7 +34,7 @@ public class RoadToRaggenfallState : MonoBehaviour
         } 
         WorldState.Instance.currentLevel = "RoadToRaggenfall";
         textMeshPro.text += $"\nLIVES LEFT: {lives}";
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
         if (!disableGame) StartCoroutine(StartMiniGame());
     }
 
@@ -46,7 +46,7 @@ public class RoadToRaggenfallState : MonoBehaviour
 
     IEnumerator Lose()
     {
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         StopAllCoroutines();
         SceneManager.LoadScene("RoadToRaggenfall");
     }

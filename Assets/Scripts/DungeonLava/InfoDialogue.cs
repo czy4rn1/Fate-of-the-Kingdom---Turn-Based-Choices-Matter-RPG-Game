@@ -26,7 +26,7 @@ public class InfoDialogue : MonoBehaviour
         if (infoThenLoad && sceneName != null)
         {
             initInteraction.EnableInteraction(false);
-            StartCoroutine(blackoutManager.Fade(false));
+            blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
             while (blackoutManager.curAlpha < 1f) yield return null;
             SceneManager.LoadScene(sceneName); 
         }

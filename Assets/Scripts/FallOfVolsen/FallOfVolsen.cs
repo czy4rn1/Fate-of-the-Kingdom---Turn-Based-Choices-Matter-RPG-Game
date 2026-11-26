@@ -29,9 +29,9 @@ public class FallOfVolsen : MonoBehaviour
             grids[i].SetActive(true);
             dialogueManager.timelineDirector = cutscenes[i];
             cutscenes[i].Play();
-            StartCoroutine(blackoutManager.Fade(true));
+            blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
             while (cutscenes[i].gameObject.activeInHierarchy) yield return null;
-            yield return StartCoroutine(blackoutManager.Fade(false));
+            yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
             grids[i].SetActive(false);
         }
         WorldState.Instance.VolsenFell = true;

@@ -38,7 +38,7 @@ public class DungeonLavaState : MonoBehaviour
             }
         }
         WorldState.Instance.currentLevel = "DungeonLava";
-        StartCoroutine(blackoutManager.Fade(true));       
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));       
     }
 
     void Update()

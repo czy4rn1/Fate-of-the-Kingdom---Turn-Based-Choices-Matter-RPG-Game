@@ -70,7 +70,7 @@ public class Deserter : MonoBehaviour
             shadow.SetActive(false);
             yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {"!<NAME>!: Let's do this."}));
         }
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         initInteraction.player.transform.position = new Vector2(8.16f, 1.84f);
         cameraController.followPlayer = false;
         cameraController.transform.position = new Vector3(12.1f, -0.2099999f, -10f);
@@ -78,7 +78,7 @@ public class Deserter : MonoBehaviour
         ponter.flipX = true;
         transform.position = new Vector2(17.06f, -0.27f);
         GetComponent<SpriteRenderer>().flipX = true;
-        yield return StartCoroutine(blackoutManager.Fade(true));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
         minigame.SetActive(true);
     }
 

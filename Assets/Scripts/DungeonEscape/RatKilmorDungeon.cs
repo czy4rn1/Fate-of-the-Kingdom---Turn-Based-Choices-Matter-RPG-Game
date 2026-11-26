@@ -154,7 +154,6 @@ public class RatKilmorDungeon : MonoBehaviour
         if (WorldState.Instance.playerPosessed) yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {"Kilmor: You don't look too well...", "Kilmor: I'm here for you."}));
         playerDetection.allowIcon = false;
         player.isControllable = false;
-        while (LavaLoader.timer > 0) yield return null;
         yield return StartCoroutine(LavaLoader.LoadArea());
     }
 

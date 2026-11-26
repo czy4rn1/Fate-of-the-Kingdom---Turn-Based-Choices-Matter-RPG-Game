@@ -24,7 +24,7 @@ public class CastleMainPaths : MonoBehaviour
             keyStolenPath.SetActive(false);
             Destroy(keyStolenPath);
         }
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 
     void Update()

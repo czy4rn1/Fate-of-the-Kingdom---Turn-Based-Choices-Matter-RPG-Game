@@ -40,7 +40,7 @@ public class RaggenfallDemon : MonoBehaviour
         if (sr != null) backSprite = sr.sprite;
         initInteraction = GetComponent<InitInteraction>();
         WorldState.Instance.currentLevel = "RaggenfallPeak";
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
         if (WorldState.Instance.raggenfall_state == (byte)WorldState.Raggenfall.DemonMoon) gameObject.SetActive(false);
     }
 

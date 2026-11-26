@@ -167,9 +167,9 @@ public class Gardener : MonoBehaviour
                     WorldState.Instance.playerEnslaved = true;
                 }
                 else WorldState.Instance.blossomDarkness = true;
-                yield return StartCoroutine(blackoutManager.Fade(false));
+                yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
                 dialoguePlayer.dialogueManager.timelineDirector.Play();
-                StartCoroutine(blackoutManager.Fade(true));
+                blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
                 break;
             case 3:
                 WorldState.Instance.ponterCaptured = true;

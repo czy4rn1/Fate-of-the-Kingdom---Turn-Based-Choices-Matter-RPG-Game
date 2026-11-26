@@ -107,16 +107,16 @@ public class AhorgisKing : MonoBehaviour
     {
         Vector3 cameraPos = cameraController.transform.position;
         yield return StartCoroutine(dialoguePlayer.PlayDialogue(floodDialogue[..9]));
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         dialoguePlayer.dialogueManager.timelineDirector = floodCutscene;
         floodCutscene.Play();
-        yield return StartCoroutine(blackoutManager.Fade(true));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
         while (floodCutscene.gameObject.activeInHierarchy) yield return null;
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         FloodTerrain.SetActive(false);
         cameraController.transform.position = cameraPos;
         cameraController.followPlayer = true;
-        yield return StartCoroutine(blackoutManager.Fade(true));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
         yield return StartCoroutine(dialoguePlayer.PlayDialogue(floodDialogue[9..]));
         yield return StartCoroutine(EndInteraction());
     }

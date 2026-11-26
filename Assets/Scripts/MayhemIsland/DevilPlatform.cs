@@ -43,11 +43,11 @@ public class DevilPlatform : MonoBehaviour
 
     IEnumerator LoadNextArea()
     {
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         cutscene.Play();
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
         while (cutscene.state == PlayState.Playing) yield return null;
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         SceneManager.LoadScene("Ahorgis");
     }
 

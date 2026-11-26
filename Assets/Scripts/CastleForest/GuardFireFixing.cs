@@ -46,7 +46,7 @@ public class GuardFireFixing : MonoBehaviour
     {
         yield return StartCoroutine(moveToCutscene.Move());
         while (cutscene.gameObject.activeInHierarchy) yield return null;
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         SceneManager.LoadScene("FallOfVolsen");
     }
 }

@@ -18,6 +18,6 @@ public class CastleForestState : MonoBehaviour
             cameraController.transform.position = new Vector3(-6.299999f, -3.5f, -10f);
         }
         WorldState.Instance.currentLevel = "CastleForest";        
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 }

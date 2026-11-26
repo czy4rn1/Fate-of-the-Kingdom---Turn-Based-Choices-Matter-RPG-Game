@@ -29,9 +29,9 @@ public class PentagramFlower : MonoBehaviour
 
     IEnumerator commandToCutscene()
     {
-        yield return StartCoroutine(blackoutManager.Fade(false));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         moveFlower.Play();
-        yield return StartCoroutine(blackoutManager.Fade(true));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
         initInteraction.enabled = false;
     }
 }

@@ -66,7 +66,6 @@ public class Boat : MonoBehaviour
 
     IEnumerator LoadTransition()
     {
-        if (sceneLoader != null) while (sceneLoader.timer > 0) yield return null;
         if (blackoutManager.currentCoroutine != null) StopCoroutine(blackoutManager.currentCoroutine); 
         yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         while (blackoutManager.curAlpha < 1f) yield return null;
@@ -78,9 +77,8 @@ public class Boat : MonoBehaviour
         if (blackoutManager.currentCoroutine != null) StopCoroutine(blackoutManager.currentCoroutine); 
         yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false));
         if (moveCamera != null) moveCamera.Play();
-        yield return StartCoroutine(blackoutManager.Fade(true));
+        yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
         yield return StartCoroutine(dialoguePlayer.PlayDialogue(mayhemIslandLines));
-        if (sceneLoader != null) while (sceneLoader.timer > 0) yield return null;
         yield return StartCoroutine(sceneLoader.LoadArea());
     }
 }

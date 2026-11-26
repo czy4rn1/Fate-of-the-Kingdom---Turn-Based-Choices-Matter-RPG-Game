@@ -16,6 +16,6 @@ public class ForestState : MonoBehaviour
             cameraController.transform.position = new Vector3(27.44072f, 2.15f, -10f);
         }
         WorldState.Instance.currentLevel = "Forest";        
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 }
