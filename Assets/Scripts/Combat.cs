@@ -154,7 +154,7 @@ public class Combat : MonoBehaviour
         if (hp[pos+1] <= 0) {
             Enemy dead = enemies[pos];
             enemies[pos] = null;
-            if (dead.enemyName != "Garen" && dead.enemyName != "Forgan") Destroy(dead.gameObject);
+            if (dead.enemyName != "Garen" && dead.enemyName != "Forgan" && dead.enemyName != "Kilmor") Destroy(dead.gameObject);
             else
             {
                 dead.GetComponent<SpriteRenderer>().color = ogEnemyColor;
@@ -409,15 +409,15 @@ public class Combat : MonoBehaviour
             enemies[1].transform.position = new Vector2(location[0]-4f, location[1]-1.5f);
                 break;
             case 3:
-            enemies[0].transform.position = new Vector2(location[0]-4f, location[1]+0.85f);
-            enemies[1].transform.position = new Vector2(location[0]+location[0], location[1]-0.5f);
-            enemies[2].transform.position = new Vector2(location[0]-4f, location[1]-2.4f);
+            enemies[0].transform.position = new Vector2(location[0]-4f, location[1] + 2f);
+            enemies[1].transform.position = new Vector2(location[0]+location[0], location[1]+0.8f);
+            enemies[2].transform.position = new Vector2(location[0]-4f, location[1]-0.4f);
                 break;
             default: break;
         }
         foreach (var e in enemies) {
             if (e != null) {
-                e.GetComponent<SpriteRenderer>().flipX = false;
+                if (e.GetComponent<SpriteRenderer>() != null && e.enemyName != "Kilmor") e.GetComponent<SpriteRenderer>().flipX = false;
                 e.gameObject.SetActive(true);
             }
         }

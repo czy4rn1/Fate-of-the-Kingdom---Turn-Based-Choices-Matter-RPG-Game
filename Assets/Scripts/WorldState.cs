@@ -168,6 +168,10 @@ public class WorldState : MonoBehaviour
 
     public bool forganDead = false;
 
+    public bool endingReached = false;
+
+    public bool fisherSonSaved = false;
+
 
     
 
