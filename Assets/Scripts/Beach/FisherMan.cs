@@ -89,6 +89,7 @@ public class FisherMan : MonoBehaviour
         }
         else if (WorldState.Instance.fisher_state >= (byte)WorldState.Fisher.questEnded)
         {
+            if (WorldState.Instance.playerPosessed) yield return StartCoroutine(dialoguePlayer.PlayDialogue(new[] {"Fisherman: You look very sickly. You're beginning to look like my son when he chose to join Magnus..."}));
             yield return StartCoroutine(dialoguePlayer.PlayDialogue(new[] {"Fisherman: Get in the boat, whenever you're ready."},initInteraction.CloseInteraction));
         }
 

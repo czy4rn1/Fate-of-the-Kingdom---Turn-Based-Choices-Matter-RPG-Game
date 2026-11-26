@@ -20001,6 +20001,7 @@ MonoBehaviour:
   openChestSprite: {fileID: 6236188448175338801, guid: a9f90a908b4cb04428bf8b568985a252, type: 3}
   item: Stat Up
   amount: 1
+  money: 0
   equipment: 
   type: Item
   stats: 000000000000
@@ -23750,6 +23751,7 @@ MonoBehaviour:
   openChestSprite: {fileID: 6236188448175338801, guid: a9f90a908b4cb04428bf8b568985a252, type: 3}
   item: Stat Up
   amount: 1
+  money: 0
   equipment: 
   type: Item
   stats: 000000000000
@@ -32755,6 +32757,7 @@ MonoBehaviour:
   sceneName: DungeonEscape
   blackoutManager: {fileID: 2023099086}
   dontLoadOnTrigger: 0
+  timer: 3
 --- !u!61 &1276373444
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -32963,6 +32966,7 @@ MonoBehaviour:
   openChestSprite: {fileID: 6236188448175338801, guid: a9f90a908b4cb04428bf8b568985a252, type: 3}
   item: Stat Up
   amount: 1
+  money: 0
   equipment: 
   type: Item
   stats: 000000000000
@@ -34767,35 +34771,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6daad315f211c5a41acf8910e34b0314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldState
-  currentLevel: 
+  currentLevel: Volsen
   keyStolen: 0
   guardRanAway: 0
   escapedThroughCave: 0
   jewelBladeObtained: 0
   castleFire: 0
   playerPosessed: 0
+  ponterCaptured: 0
   posessedColor: {r: 0, g: 0, b: 0, a: 0}
   dungeon_state: 0
   forest_state: 0
   fisher_state: 0
-  fish_questStarted: 0
-  fish_questEnded: 0
-  fish_willHelp: 0
-  fish_killed: 0
+  venardIntro: 0
   venardRemorse: 0
-  venardKilled: 0
   venardEncounterEnded: 0
-  ponterQuestStarted: 0
-  ponterQuestEnded: 0
-  ponterInfoObtained: 0
-  ponterInfoFromForgan: 0
+  ponter_state: 0
   askSellerAboutJewelBlade: 0
   learnedAboutHellsGarden: 0
   fireFixing: 0
-  raggenfall: 0
-  castle: 0
-  mayhemIsland: 0
-  blossomGarden: 0
   roadtorag_instructions: 1
   mayhem_state: 0
   gardenEntrancePlayed: 0
@@ -34812,12 +34806,18 @@ MonoBehaviour:
   appleTaken: 0
   blossomDarkness: 0
   disableTrees: 0
-  ponterCaptured: 0
   lavaEntryCutscenePlayed: 0
   ahorgis_state: 0
+  killedGaren: 0
   raggenfall_state: 0
   VolsenFell: 0
   deserter_state: 0
+  hellsGarden_state: 0
+  sparedGaren: 0
+  destroyedWall: 0
+  tookKid: 0
+  kidIntro: 0
+  forganDead: 0
 --- !u!4 &1526247682
 Transform:
   m_ObjectHideFlags: 0
@@ -36429,6 +36429,7 @@ MonoBehaviour:
   openChestSprite: {fileID: 6236188448175338801, guid: a9f90a908b4cb04428bf8b568985a252, type: 3}
   item: Stat Up
   amount: 1
+  money: 0
   equipment: 
   type: Item
   stats: 000000000000

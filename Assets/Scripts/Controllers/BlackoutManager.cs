@@ -5,7 +5,7 @@ public class BlackoutManager : MonoBehaviour
 {
     public CanvasGroup canvasGroup;
     public float fadeSpeed = 0.01f;
-    private Coroutine currentCoroutine;
+    public Coroutine currentCoroutine;
     public float curAlpha = 0;
     public bool startBlack = true;
     WaitTimer waitTimer = new WaitTimer();

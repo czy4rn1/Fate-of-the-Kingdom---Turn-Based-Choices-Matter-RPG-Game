@@ -154,7 +154,7 @@ public class Combat : MonoBehaviour
         if (hp[pos+1] <= 0) {
             Enemy dead = enemies[pos];
             enemies[pos] = null;
-            if (dead.enemyName != "Garen") Destroy(dead.gameObject);
+            if (dead.enemyName != "Garen" && dead.enemyName != "Forgan") Destroy(dead.gameObject);
             else
             {
                 dead.GetComponent<SpriteRenderer>().color = ogEnemyColor;

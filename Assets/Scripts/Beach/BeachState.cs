@@ -17,6 +17,6 @@ public class BeachState : MonoBehaviour
         }
         else player.transform.position = new Vector2(-12.12f, -2.37f);
         WorldState.Instance.currentLevel = "Beach";        
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 }

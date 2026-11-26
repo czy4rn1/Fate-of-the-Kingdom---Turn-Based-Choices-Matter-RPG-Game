@@ -3948,7 +3948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SortOrder
   sr: {fileID: 0}
   offset: 0
-  isStatic: 1
+  isStatic: 0
 --- !u!212 &312546093
 SpriteRenderer:
   serializedVersion: 2
@@ -9178,7 +9178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
       propertyPath: m_SortingOrder
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: a5fa4a11378048842847fcb43c4af271, type: 3}
       propertyPath: m_SortingLayerID
@@ -39255,7 +39255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SortOrder
   sr: {fileID: 0}
   offset: 0
-  isStatic: 1
+  isStatic: 0
 --- !u!1 &1724754315
 GameObject:
   m_ObjectHideFlags: 0
@@ -39739,11 +39739,12 @@ MonoBehaviour:
   raggenfall_state: 0
   VolsenFell: 0
   deserter_state: 0
-  hellsGarden_state: 15
+  hellsGarden_state: 0
   sparedGaren: 0
   destroyedWall: 0
   tookKid: 0
   kidIntro: 0
+  forganDead: 0
 --- !u!4 &1768785441
 Transform:
   m_ObjectHideFlags: 0

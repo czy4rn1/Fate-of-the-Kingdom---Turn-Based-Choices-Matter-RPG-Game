@@ -48,7 +48,7 @@ public class DevilStatueQuest : MonoBehaviour
                 if (portal != null) portal.visible = true;
             }
         }
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 
     

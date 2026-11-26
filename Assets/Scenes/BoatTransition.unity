@@ -748,28 +748,18 @@ MonoBehaviour:
   jewelBladeObtained: 0
   castleFire: 0
   playerPosessed: 0
+  ponterCaptured: 0
   posessedColor: {r: 0, g: 0, b: 0, a: 0}
   dungeon_state: 0
   forest_state: 0
   fisher_state: 0
-  fish_questStarted: 0
-  fish_questEnded: 0
-  fish_willHelp: 0
-  fish_killed: 0
+  venardIntro: 0
   venardRemorse: 0
-  venardKilled: 0
   venardEncounterEnded: 0
-  ponterQuestStarted: 0
-  ponterQuestEnded: 0
-  ponterInfoObtained: 0
-  ponterInfoFromForgan: 0
+  ponter_state: 0
   askSellerAboutJewelBlade: 0
   learnedAboutHellsGarden: 0
   fireFixing: 0
-  raggenfall: 0
-  castle: 0
-  mayhemIsland: 0
-  blossomGarden: 0
   roadtorag_instructions: 1
   mayhem_state: 0
   gardenEntrancePlayed: 0
@@ -786,12 +776,18 @@ MonoBehaviour:
   appleTaken: 0
   blossomDarkness: 0
   disableTrees: 0
-  ponterCaptured: 0
   lavaEntryCutscenePlayed: 0
   ahorgis_state: 0
+  killedGaren: 0
   raggenfall_state: 0
   VolsenFell: 0
   deserter_state: 0
+  hellsGarden_state: 0
+  sparedGaren: 0
+  destroyedWall: 0
+  tookKid: 0
+  kidIntro: 0
+  forganDead: 0
 --- !u!4 &664373093
 Transform:
   m_ObjectHideFlags: 0
@@ -875,6 +871,8 @@ GameObject:
   - component: {fileID: 755300277}
   - component: {fileID: 755300276}
   - component: {fileID: 755300275}
+  - component: {fileID: 755300280}
+  - component: {fileID: 755300279}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1052,6 +1050,45 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &755300279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755300272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa5295421bfe0f4cb9212b053fc0ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimation
+  animator: {fileID: 755300277}
+  isRunning: 0
+  isJumping: 0
+  isClimbing: 0
+  climbSpeed: 0.2
+--- !u!114 &755300280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755300272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b04536978107945bd82f10f6adbdd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+  moveSpeed: 5
+  isControllable: 0
+  isRoadToRaggenfall: 0
+  movement: {x: 0, y: 0}
+  spriteRenderer: {fileID: 0}
+  characterAnimation: {fileID: 755300279}
+  dialogueManager: {fileID: 0}
+  boxCollider2D: {fileID: 0}
+  enableJump: 0
+  enableClimb: 0
 --- !u!1 &799610036
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,7 +35,7 @@ public class VolsenState : MonoBehaviour
             WorldState.Instance.fireFixing = true;
         }
         if (WorldState.Instance.ponter_state < (byte)WorldState.Ponter.Raggenfall) roadToRaggenfall.enabled = false;
-        StartCoroutine(blackoutManager.Fade(true));
+        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 
 }

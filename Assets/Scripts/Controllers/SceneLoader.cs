@@ -8,7 +8,7 @@ public class SceneLoader : MonoBehaviour
     public BlackoutManager blackoutManager;
     public bool dontLoadOnTrigger;
     Player player;
-    float timer = 3f;
+    public float timer = 3f;
     BoxCollider2D bc;
     
     public void LoadScene(string sceneName)

@@ -61,7 +61,7 @@ public class RatKilmorDungeon : MonoBehaviour
                     {
                         if (WorldState.Instance.dungeon_state == (byte)WorldState.Dungeon.Saved)
                         {
-                            if (WorldState.Instance.ponter_state == (byte)WorldState.Ponter.BlossomGarden)
+                            if (WorldState.Instance.ponter_state != (byte)WorldState.Ponter.BlossomGarden)
                             {
                                 StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {"Rat Kilmor: Thank you so much for saving my children. Come back if you need help from me."}, initInteraction.CloseInteraction));
                             }
@@ -151,8 +151,10 @@ public class RatKilmorDungeon : MonoBehaviour
     public IEnumerator PlayDialogueStartBlossom()
     {
         if (!WorldState.Instance.lavaEntryCutscenePlayed) yield return StartCoroutine(dialoguePlayer.PlayDialogue(blossomGardenLines));
+        if (WorldState.Instance.playerPosessed) yield return StartCoroutine(dialoguePlayer.PlayDialogue(new string[] {"Kilmor: You don't look too well...", "Kilmor: I'm here for you."}));
         playerDetection.allowIcon = false;
         player.isControllable = false;
+        while (LavaLoader.timer > 0) yield return null;
         yield return StartCoroutine(LavaLoader.LoadArea());
     }
 
