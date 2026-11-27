@@ -1,8 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
 public class Paths : MonoBehaviour
 {
-    public GameObject[] paths = new GameObject[5]; // rag, deserter, excalibur, ahorgis, blossom
+    public AbstractPath[] paths = new AbstractPath[5]; // rag, deserter, excalibur, ahorgis, blossom
     public BlackoutManager blackoutManager;
 
     void Start()
@@ -20,8 +21,19 @@ public class Paths : MonoBehaviour
     {
         for(int i=0; i<paths.Length; i++)
         {
-            if (i == num) continue;
-            Destroy(paths[i]);
+            if (i == num || paths[i] == null) continue;
+            Destroy(paths[i].gameObject);
+        }
+    }
+
+    public void MainPaths()
+    {
+        foreach(var p in paths)
+        {
+            if (p != null) {
+                StartCoroutine(p.StartPath());
+                return;
+            }
         }
     }
 }

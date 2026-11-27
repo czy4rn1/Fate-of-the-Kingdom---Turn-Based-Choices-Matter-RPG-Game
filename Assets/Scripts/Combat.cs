@@ -154,7 +154,8 @@ public class Combat : MonoBehaviour
         if (hp[pos+1] <= 0) {
             Enemy dead = enemies[pos];
             enemies[pos] = null;
-            if (dead.enemyName != "Garen" && dead.enemyName != "Forgan" && dead.enemyName != "Kilmor") Destroy(dead.gameObject);
+            if (dead.enemyName != "Garen" && dead.enemyName != "Forgan" && dead.enemyName != "Kilmor" &&
+            dead.enemyName != "Magnus") Destroy(dead.gameObject);
             else
             {
                 dead.GetComponent<SpriteRenderer>().color = ogEnemyColor;
@@ -403,6 +404,7 @@ public class Combat : MonoBehaviour
         {
             case 1:
             enemies[0].transform.position = new Vector2(location[0] - 4f, location[1]+0.8f);
+            if (enemies[0].enemyName == "Magnus") enemies[0].transform.position = new Vector2(location[0] - 4f, location[1]-1f);
                 break;
             case 2:
             enemies[0].transform.position = new Vector2(location[0]-4f, location[1] + 0.4f);

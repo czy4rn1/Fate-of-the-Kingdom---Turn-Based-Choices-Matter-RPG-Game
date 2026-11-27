@@ -22,6 +22,7 @@ public class Magnus : MonoBehaviour
     public GameObject magnusExplosion;
     public GameObject venardExplosion;
     bool golemsPresent = true;
+    public Paths paths;
 
     void Start()
     {
@@ -29,7 +30,6 @@ public class Magnus : MonoBehaviour
         if (!golemsPresent) foreach (var e in golems) if (e != null) Destroy(e.gameObject);
         StartCoroutine(Intro());
         cameraController.followPlayer = false;
-        blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(true));
     }
 
     IEnumerator Intro()
@@ -104,15 +104,12 @@ public class Magnus : MonoBehaviour
                 venardExplosion.SetActive(true);
                 yield return StartCoroutine(waitTimer.Wait(2.5f));
                 Destroy(venard.gameObject);
-                yield return StartCoroutine(dialoguePlayer.PlayDialogue(venardSacrifice[9..]));
+                if (!WorldState.Instance.playerPosessed) yield return StartCoroutine(dialoguePlayer.PlayDialogue(venardSacrifice[9..]));
             }
         }
+        paths.MainPaths();
     }
     
-    IEnumerator MainPaths()
-    {
-        yield return null;
-    }
 
     IEnumerator MoveCharacter(byte character, bool venardGood = false) // 0 - golem1, 1 - golem2, 2 - venard, 3 - player
     {
@@ -178,7 +175,7 @@ public class Magnus : MonoBehaviour
         }
     }
 
-    IEnumerator CameraShake()
+    public IEnumerator CameraShake()
     {
         cameraController.followPlayer = false;
         Vector3 targetUp = new Vector3(cameraController.transform.position.x, cameraController.transform.position.y + 0.2f, -10f);
