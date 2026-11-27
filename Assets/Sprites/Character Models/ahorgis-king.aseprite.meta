@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639278789938559272
+  platformSettingsDirtyTick: 639313964596885261
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,7 +127,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: ahorgis-king
+  - name: Frame_0
     originalName: 
     pivot: {x: 0.5, y: -0.03030303}
     alignment: 9
@@ -139,7 +139,7 @@ ScriptedImporter:
       y: 4
       width: 56
       height: 66
-    spriteID: 620d0f62d4cc0444f8ffd84eca4a3903
+    spriteID: 0ff617586241af64186b2ae32b609809
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -160,7 +160,7 @@ ScriptedImporter:
       y: 4
       width: 56
       height: 65
-    spriteID: f9e272619bd05f0448d6429ff3bf0039
+    spriteID: 5bf967e88feeef740beefbd82e720a84
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -192,7 +192,7 @@ ScriptedImporter:
         y: 2
         width: 56
         height: 66
-      spriteId: 620d0f62d4cc0444f8ffd84eca4a3903
+      spriteId: 0ff617586241af64186b2ae32b609809
     - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
@@ -201,7 +201,7 @@ ScriptedImporter:
         y: 2
         width: 56
         height: 65
-      spriteId: f9e272619bd05f0448d6429ff3bf0039
+      spriteId: 5bf967e88feeef740beefbd82e720a84
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
