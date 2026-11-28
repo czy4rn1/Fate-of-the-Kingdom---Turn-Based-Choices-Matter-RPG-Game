@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RaggenfallPath : AbstractPath
 {
@@ -80,6 +81,7 @@ public class RaggenfallPath : AbstractPath
         yield return StartCoroutine(waitTimer.Wait(5f));
         if (blackoutManager.currentCoroutine != null) StopCoroutine(blackoutManager.currentCoroutine);
         yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false)); 
+        SceneManager.LoadScene("EndingPart3");  
     }
 
     IEnumerator MoveCharacter(byte character) // 0 - only ponter, 1 - player and ponter

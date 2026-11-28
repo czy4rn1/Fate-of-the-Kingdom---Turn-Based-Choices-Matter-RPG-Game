@@ -149,7 +149,8 @@ public class WorldState : MonoBehaviour
         MetDeserter = 10,
         ChoiceMade = 20,
         JoinedDeserter = 21,
-        KilledDeserter = 22
+        KilledDeserter = 22,
+        Failed = 23
     }
     public byte deserter_state = (byte)Deserter.NotStarted;
 

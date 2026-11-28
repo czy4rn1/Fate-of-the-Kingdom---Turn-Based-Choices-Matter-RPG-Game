@@ -34,7 +34,7 @@ public class MoveToCutscene : MonoBehaviour
         }
     }
 
-    public IEnumerator MoveForDialogue(bool exit, bool vertical = false)
+    public IEnumerator MoveForDialogue(bool exit, bool vertical = false, bool deserter = false)
     {
         character.gameObject.SetActive(true);
         character.isRunning = true;
@@ -42,8 +42,13 @@ public class MoveToCutscene : MonoBehaviour
         Vector2 playerPos = player.transform.position;
         if (!exit) characterTransform.position = playerPos;
         Vector2 target = new Vector2(exit ? playerPos.x : vertical ? playerPos.x : playerPos.x + 2f, exit ? playerPos.y : vertical ? playerPos.y - 0.5f : playerPos.y);
+        if (deserter) target = new Vector2(exit ? playerPos.x : playerPos.x - 2f, playerPos.y);
         if (!vertical) characterSR.flipX = exit;
         else characterSR.flipX = player.spriteRenderer.flipX;
+        if (deserter)
+        {
+            characterSR.flipX = exit ? false : true;
+        }
         while (Vector2.Distance(character.gameObject.transform.position, target) > 0.05f)
         {    
             characterTransform.position = Vector2.MoveTowards(characterTransform.position, target, moveSpeed * Time.deltaTime);

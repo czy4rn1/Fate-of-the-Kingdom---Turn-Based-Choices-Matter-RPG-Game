@@ -68,6 +68,7 @@ public class kilmorEnding : MonoBehaviour
             while (!player.isControllable) yield return null;
             player.isControllable = false;
             transform.position = ogPos;
+            cameraController.followPlayer = false;
             yield return StartCoroutine(dialoguePlayer.PlayDialogue(postFightLines));
             ratAndShadow[0].visible = ratAndShadow[1].visible = false;
             yield return StartCoroutine(waitTimer.Wait(1f));

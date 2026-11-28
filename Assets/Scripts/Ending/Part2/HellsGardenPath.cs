@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HellsGardenPath : AbstractPath
 {
@@ -44,6 +45,7 @@ public class HellsGardenPath : AbstractPath
         yield return StartCoroutine(MoveCharacter());
         if (blackoutManager.currentCoroutine != null) StopCoroutine(blackoutManager.currentCoroutine);
         yield return blackoutManager.currentCoroutine = StartCoroutine(blackoutManager.Fade(false)); 
+        SceneManager.LoadScene("EndingPart3");  
     }
 
     IEnumerator MoveCharacter()

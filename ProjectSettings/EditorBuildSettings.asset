@@ -71,5 +71,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HellsGarden.unity
     guid: 0ee8aedca5f16294481f7fcbeab7551e
+  - enabled: 1
+    path: Assets/Scenes/EndingPart2.unity
+    guid: 5ddb9ab5f6cac6840a2d31b56fc728a5
+  - enabled: 1
+    path: Assets/Scenes/EndingPart1.unity
+    guid: b183eb27b2bcfc84d90c352074cc0a7b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

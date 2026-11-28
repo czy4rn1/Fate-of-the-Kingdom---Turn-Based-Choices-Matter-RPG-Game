@@ -83,6 +83,12 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/HellsGarden.unity
     m_guid: 0ee8aedca5f16294481f7fcbeab7551e
+  - m_enabled: 1
+    m_path: Assets/Scenes/EndingPart2.unity
+    m_guid: 5ddb9ab5f6cac6840a2d31b56fc728a5
+  - m_enabled: 1
+    m_path: Assets/Scenes/EndingPart1.unity
+    m_guid: b183eb27b2bcfc84d90c352074cc0a7b
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

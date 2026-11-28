@@ -13,19 +13,31 @@ public class Portal : MonoBehaviour
     private WaitTimer wait = new WaitTimer();
     private Coroutine coroutine;
     public bool tilemapType = false;
+    public bool startVisible;
+
     void Start()
     {
         if (!tilemapType && spriteRenderer == null) {
             spriteRenderer = GetComponent<SpriteRenderer>();
             Color c = spriteRenderer.color;
-            c.a = 0f;
+            if (startVisible) {
+                c.a = 1f;
+                visible = true;
+                curVisible = true;
+            }
+            else c.a = 0f;
             spriteRenderer.color = c;
         }
         else if (tilemapType && tilemap == null)
         {
             tilemap = GetComponent<Tilemap>();
             Color c = tilemap.color;
-            c.a = 0f;
+            if (startVisible) {
+                c.a = 1f;
+                visible = true;
+                curVisible = true;
+            }
+            else c.a = 0f;
             tilemap.color = c;
         }
     }
